@@ -1,0 +1,61 @@
+# Externalized Indian Financial Assumptions & Tax Slabs Configuration
+# NOTE: These values must be verified against the latest Union Budget / Finance Act / Income Tax Act before release.
+infinance:
+  disclaimer: "For educational purposes only; not investment, tax, or legal advice. Consult a SEBI-registered advisor or a Chartered Accountant."
+  current-financial-year: "2024-2025"
+  rates:
+    government-schemes:
+      ppf-rate: 7.10
+      ppf-min-annual: 500
+      ppf-max-annual: 150000
+      ppf-lock-in-years: 15
+      ssy-rate: 8.20
+      ssy-max-annual: 150000
+      ssy-max-age: 10
+      scss-rate: 8.20
+      epf-rate: 8.25
+      nps-expected-cagr: 10.50
+      sweep-in-fd-rate: 6.75
+      savings-account-rate: 3.50
+    market-benchmarks:
+      equity-nifty-cagr: 12.00
+      equity-conservative-cagr: 10.00
+      equity-aggressive-cagr: 14.00
+      debt-hybrid-cagr: 7.50
+      gold-cagr: 9.00
+      credit-card-typical-apr: 42.00
+      personal-loan-consolidation-apr: 13.50
+    inflation:
+      cpi-general-rate: 6.00
+      education-inflation-rate: 10.00
+      healthcare-inflation-rate: 12.00
+  tax:
+    fy-2024-2025:
+      financial-year: "2024-2025"
+      assessment-year: "2025-2026"
+      cess-percent: 4.00
+      new-regime:
+        standard-deduction: 75000.00
+        rebate-87a-max-income: 700000.00
+        rebate-87a-max-amount: 25000.00
+        slabs:
+          - { min: 0.00, max: 300000.00, rate: 0.00 }
+          - { min: 300000.00, max: 700000.00, rate: 5.00 }
+          - { min: 700000.00, max: 1000000.00, rate: 10.00 }
+          - { min: 1000000.00, max: 1200000.00, rate: 15.00 }
+          - { min: 1200000.00, max: 1500000.00, rate: 20.00 }
+          - { min: 1500000.00, max: null, rate: 30.00 }
+      old-regime:
+        standard-deduction: 50000.00
+        rebate-87a-max-income: 500000.00
+        rebate-87a-max-amount: 12500.00
+        section-80c-limit: 150000.00
+        section-80ccd1b-limit: 50000.00
+        section-24b-self-occupied-limit: 200000.00
+        section-80d-self-family-limit: 25000.00
+        section-80d-parents-senior-limit: 50000.00
+        slabs:
+          - { min: 0.00, max: 250000.00, rate: 0.00 }
+          - { min: 250000.00, max: 500000.00, rate: 5.00 }
+          - { min: 500000.00, max: 1000000.00, rate: 20.00 }
+          - { min: 1000000.00, max: null, rate: 30.00 }

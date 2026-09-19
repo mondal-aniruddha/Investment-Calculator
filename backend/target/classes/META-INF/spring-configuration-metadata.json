@@ -1,0 +1,168 @@
+{
+  "groups": [
+    {
+      "name": "infinance",
+      "type": "com.infinance.common.config.FinancialProperties",
+      "sourceType": "com.infinance.common.config.FinancialProperties"
+    },
+    {
+      "name": "infinance.rates",
+      "type": "com.infinance.common.config.FinancialProperties$RatesConfig",
+      "sourceType": "com.infinance.common.config.FinancialProperties",
+      "sourceMethod": "getRates()"
+    },
+    {
+      "name": "infinance.rates.government-schemes",
+      "type": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig",
+      "sourceType": "com.infinance.common.config.FinancialProperties$RatesConfig",
+      "sourceMethod": "getGovernmentSchemes()"
+    },
+    {
+      "name": "infinance.rates.inflation",
+      "type": "com.infinance.common.config.FinancialProperties$InflationConfig",
+      "sourceType": "com.infinance.common.config.FinancialProperties$RatesConfig",
+      "sourceMethod": "getInflation()"
+    },
+    {
+      "name": "infinance.rates.market-benchmarks",
+      "type": "com.infinance.common.config.FinancialProperties$MarketBenchmarksConfig",
+      "sourceType": "com.infinance.common.config.FinancialProperties$RatesConfig",
+      "sourceMethod": "getMarketBenchmarks()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "infinance.current-financial-year",
+      "type": "java.lang.String",
+      "sourceType": "com.infinance.common.config.FinancialProperties",
+      "defaultValue": "2024-2025"
+    },
+    {
+      "name": "infinance.disclaimer",
+      "type": "java.lang.String",
+      "sourceType": "com.infinance.common.config.FinancialProperties",
+      "defaultValue": "For educational purposes only; not investment, tax, or legal advice. Consult a SEBI-registered advisor or a Chartered Accountant."
+    },
+    {
+      "name": "infinance.rates.government-schemes.epf-rate",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
+    },
+    {
+      "name": "infinance.rates.government-schemes.nps-expected-cagr",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
+    },
+    {
+      "name": "infinance.rates.government-schemes.ppf-lock-in-years",
+      "type": "java.lang.Integer",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig",
+      "defaultValue": 15
+    },
+    {
+      "name": "infinance.rates.government-schemes.ppf-max-annual",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
+    },
+    {
+      "name": "infinance.rates.government-schemes.ppf-min-annual",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
+    },
+    {
+      "name": "infinance.rates.government-schemes.ppf-rate",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
+    },
+    {
+      "name": "infinance.rates.government-schemes.savings-account-rate",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
+    },
+    {
+      "name": "infinance.rates.government-schemes.scss-rate",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
+    },
+    {
+      "name": "infinance.rates.government-schemes.ssy-max-age",
+      "type": "java.lang.Integer",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig",
+      "defaultValue": 10
+    },
+    {
+      "name": "infinance.rates.government-schemes.ssy-max-annual",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
+    },
+    {
+      "name": "infinance.rates.government-schemes.ssy-rate",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
+    },
+    {
+      "name": "infinance.rates.government-schemes.sweep-in-fd-rate",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
+    },
+    {
+      "name": "infinance.rates.inflation.cpi-general-rate",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$InflationConfig"
+    },
+    {
+      "name": "infinance.rates.inflation.education-inflation-rate",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$InflationConfig"
+    },
+    {
+      "name": "infinance.rates.inflation.healthcare-inflation-rate",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$InflationConfig"
+    },
+    {
+      "name": "infinance.rates.market-benchmarks.credit-card-typical-apr",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$MarketBenchmarksConfig"
+    },
+    {
+      "name": "infinance.rates.market-benchmarks.debt-hybrid-cagr",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$MarketBenchmarksConfig"
+    },
+    {
+      "name": "infinance.rates.market-benchmarks.equity-aggressive-cagr",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$MarketBenchmarksConfig"
+    },
+    {
+      "name": "infinance.rates.market-benchmarks.equity-conservative-cagr",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$MarketBenchmarksConfig"
+    },
+    {
+      "name": "infinance.rates.market-benchmarks.equity-nifty-cagr",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$MarketBenchmarksConfig"
+    },
+    {
+      "name": "infinance.rates.market-benchmarks.gold-cagr",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$MarketBenchmarksConfig"
+    },
+    {
+      "name": "infinance.rates.market-benchmarks.personal-loan-consolidation-apr",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$MarketBenchmarksConfig"
+    },
+    {
+      "name": "infinance.tax",
+      "type": "java.util.Map<java.lang.String,com.infinance.common.config.FinancialProperties$TaxYearConfig>",
+      "sourceType": "com.infinance.common.config.FinancialProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}
