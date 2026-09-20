@@ -1,0 +1,9 @@
+{
+  "name": "InFinance Calculator",
+  "short_name": "InFinance",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f4ef",
+  "theme_color": "#234b3c",
+  "description": "Indian personal finance planning tools"
+}

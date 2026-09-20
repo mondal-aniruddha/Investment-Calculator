@@ -9,6 +9,11 @@ spring:
 
 server:
   port: 8080
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/plain,text/css,application/javascript
+    min-response-size: 1024
+  max-http-request-header-size: 16KB
 
 springdoc:
   api-docs:
@@ -25,3 +30,18 @@ management:
   endpoint:
     health:
       show-details: always
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+infinance:
+  jwt:
+    secret: ${INFINANCE_JWT_SECRET:change-this-development-secret-key-at-least-32-bytes}
+    expiration: ${INFINANCE_JWT_EXPIRATION:86400}

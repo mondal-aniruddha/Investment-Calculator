@@ -1,4 +1,6 @@
 spring:
+  cache:
+    type: caffeine
   datasource:
     url: jdbc:h2:mem:infinance_dev;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver

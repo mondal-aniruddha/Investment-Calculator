@@ -1,0 +1,8 @@
+.git
+.github
+node_modules
+dist
+backend/target
+api-collections.zip
+*.log
+.env
