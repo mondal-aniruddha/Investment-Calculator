@@ -44,8 +44,11 @@ backend/
 
 - JDK 21 or later
 - Maven 3.9 or later
+- Node.js 20 or later
 
 ## Run locally
+
+Start the backend first:
 
 From the repository root:
 
@@ -56,10 +59,25 @@ mvn spring-boot:run
 
 The development profile uses an in-memory H2 database and starts the API at `http://localhost:8080`.
 
+In a second terminal, start the React UI:
+
+```bash
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173`. The Vite development server proxies `/api` and `/actuator` requests to the backend at port `8080`.
+
 To run the test suite:
 
 ```bash
 mvn clean test
+```
+
+To create a production UI bundle:
+
+```bash
+npm run build
 ```
 
 ## API documentation
@@ -95,4 +113,3 @@ For a deployed environment, provide a MySQL datasource through standard Spring d
 ## Disclaimer
 
 This project provides estimates for education and planning. Tax rules, rates, deductions, and investment returns can change. Verify calculations against current official guidance and consult a qualified financial or tax professional before making decisions.
-
