@@ -88,6 +88,22 @@ With the application running:
 - OpenAPI JSON: http://localhost:8080/v3/api-docs
 - Actuator health: http://localhost:8080/actuator/health
 
+## API client collections
+
+Ready-to-import local API collections are included for both Postman and Bruno:
+
+- Postman collection: `postman/Investment-Calculator.postman_collection.json`
+- Postman environment: `postman/Investment-Calculator-Local.postman_environment.json`
+- Bruno collection: `bruno/Investment-Calculator`
+
+Start the backend with the `dev` profile before sending requests:
+
+```bash
+mvn -f backend/pom.xml spring-boot:run -Dspring-boot.run.profiles=dev
+```
+
+In Postman, import both JSON files and select the `Investment Calculator - Local` environment. In Bruno, open the `bruno/Investment-Calculator` directory as a collection and select the `Local` environment. Both clients use `http://localhost:8080` by default.
+
 ## API endpoints
 
 | Method | Endpoint | Description |

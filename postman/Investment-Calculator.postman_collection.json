@@ -1,0 +1,161 @@
+{
+  "info": {
+    "_postman_id": "1f4a5c1e-1dd0-4d31-9f7c-9d1f3c5f1a01",
+    "name": "Investment Calculator - Local API",
+    "description": "Local API requests for the Investment Calculator Spring Boot application.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Actuator health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/actuator/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["actuator", "health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Investing",
+      "item": [
+        {
+          "name": "Calculate SIP",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"monthlyInvestment\": 5000,\n  \"investmentHorizonYears\": 10,\n  \"expectedAnnualReturn\": 12,\n  \"annualStepUpPercent\": 10,\n  \"riskProfile\": \"MODERATE\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/investing/sip",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "investing", "sip"]
+            }
+          }
+        },
+        {
+          "name": "Calculate lumpsum",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"totalInvestment\": 100000,\n  \"investmentHorizonYears\": 10,\n  \"expectedAnnualReturn\": 12\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/investing/lumpsum",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "investing", "lumpsum"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Retirement",
+      "item": [
+        {
+          "name": "Calculate retirement plan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentAge\": 30,\n  \"targetRetirementAge\": 60,\n  \"lifeExpectancy\": 85,\n  \"currentMonthlyExpenses\": 50000,\n  \"existingRetirementCorpus\": 1000000,\n  \"currentMonthlyContribution\": 15000,\n  \"expectedReturnPreRetirement\": 12,\n  \"expectedReturnPostRetirement\": 7,\n  \"expectedInflationRate\": 6,\n  \"annualStepUpPercent\": 5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/retirement/plan",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "retirement", "plan"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tax",
+      "item": [
+        {
+          "name": "Calculate income tax",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"financialYear\": \"2024-2025\",\n  \"ageCategory\": \"NORMAL_BELOW_60\",\n  \"grossSalary\": 1500000,\n  \"incomeFromOtherSources\": 50000,\n  \"incomeFromHouseProperty\": 0,\n  \"section80C\": 150000,\n  \"section80DMedicalInsurance\": 25000,\n  \"section80CCD1BNps\": 50000,\n  \"hraExemption\": 0,\n  \"homeLoanInterestSection24b\": 0,\n  \"otherDeductionsChapterVIA\": 0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tax/calculate",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tax", "calculate"]
+            }
+          }
+        },
+        {
+          "name": "List tax slabs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/tax/slabs",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "tax", "slabs"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Configuration",
+      "item": [
+        {
+          "name": "Get financial assumptions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/config/assumptions",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "config", "assumptions"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
