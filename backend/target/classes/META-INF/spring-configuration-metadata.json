@@ -6,6 +6,21 @@
       "sourceType": "com.infinance.common.config.FinancialProperties"
     },
     {
+      "name": "infinance.admin",
+      "type": "com.infinance.common.config.SecurityConfig",
+      "sourceType": "com.infinance.common.config.SecurityConfig"
+    },
+    {
+      "name": "infinance.ai",
+      "type": "com.infinance.common.config.AiProperties",
+      "sourceType": "com.infinance.common.config.AiProperties"
+    },
+    {
+      "name": "infinance.jwt",
+      "type": "com.infinance.auth.config.JwtProperties",
+      "sourceType": "com.infinance.auth.config.JwtProperties"
+    },
+    {
       "name": "infinance.rates",
       "type": "com.infinance.common.config.FinancialProperties$RatesConfig",
       "sourceType": "com.infinance.common.config.FinancialProperties",
@@ -28,9 +43,54 @@
       "type": "com.infinance.common.config.FinancialProperties$MarketBenchmarksConfig",
       "sourceType": "com.infinance.common.config.FinancialProperties$RatesConfig",
       "sourceMethod": "public com.infinance.common.config.FinancialProperties.MarketBenchmarksConfig getMarketBenchmarks() "
+    },
+    {
+      "name": "infinance.refresh",
+      "type": "com.infinance.common.config.RefreshProperties",
+      "sourceType": "com.infinance.common.config.RefreshProperties"
+    },
+    {
+      "name": "infinance.security.encryption",
+      "type": "com.infinance.common.security.EncryptionProperties",
+      "sourceType": "com.infinance.common.security.EncryptionProperties"
     }
   ],
   "properties": [
+    {
+      "name": "infinance.admin.password",
+      "type": "java.lang.String",
+      "sourceType": "com.infinance.common.config.SecurityConfig"
+    },
+    {
+      "name": "infinance.admin.username",
+      "type": "java.lang.String",
+      "sourceType": "com.infinance.common.config.SecurityConfig"
+    },
+    {
+      "name": "infinance.ai.api-key",
+      "type": "java.lang.String",
+      "sourceType": "com.infinance.common.config.AiProperties"
+    },
+    {
+      "name": "infinance.ai.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.infinance.common.config.AiProperties"
+    },
+    {
+      "name": "infinance.ai.endpoint",
+      "type": "java.lang.String",
+      "sourceType": "com.infinance.common.config.AiProperties"
+    },
+    {
+      "name": "infinance.ai.model",
+      "type": "java.lang.String",
+      "sourceType": "com.infinance.common.config.AiProperties"
+    },
+    {
+      "name": "infinance.ai.prompt-template",
+      "type": "java.lang.String",
+      "sourceType": "com.infinance.common.config.AiProperties"
+    },
     {
       "name": "infinance.current-financial-year",
       "type": "java.lang.String",
@@ -42,12 +102,37 @@
       "sourceType": "com.infinance.common.config.FinancialProperties"
     },
     {
+      "name": "infinance.jwt.expiration",
+      "type": "java.lang.Long",
+      "sourceType": "com.infinance.auth.config.JwtProperties"
+    },
+    {
+      "name": "infinance.jwt.secret",
+      "type": "java.lang.String",
+      "sourceType": "com.infinance.auth.config.JwtProperties"
+    },
+    {
       "name": "infinance.rates.government-schemes.epf-rate",
       "type": "java.math.BigDecimal",
       "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
     },
     {
+      "name": "infinance.rates.government-schemes.fd-rate",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
+    },
+    {
       "name": "infinance.rates.government-schemes.nps-expected-cagr",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
+    },
+    {
+      "name": "infinance.rates.government-schemes.post-office-monthly-income-rate",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
+    },
+    {
+      "name": "infinance.rates.government-schemes.post-office-time-deposit-rate",
       "type": "java.math.BigDecimal",
       "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
     },
@@ -68,6 +153,11 @@
     },
     {
       "name": "infinance.rates.government-schemes.ppf-rate",
+      "type": "java.math.BigDecimal",
+      "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
+    },
+    {
+      "name": "infinance.rates.government-schemes.rd-rate",
       "type": "java.math.BigDecimal",
       "sourceType": "com.infinance.common.config.FinancialProperties$GovernmentSchemesConfig"
     },
@@ -150,6 +240,36 @@
       "name": "infinance.rates.market-benchmarks.personal-loan-consolidation-apr",
       "type": "java.math.BigDecimal",
       "sourceType": "com.infinance.common.config.FinancialProperties$MarketBenchmarksConfig"
+    },
+    {
+      "name": "infinance.refresh.amfi-url",
+      "type": "java.lang.String",
+      "sourceType": "com.infinance.common.config.RefreshProperties"
+    },
+    {
+      "name": "infinance.refresh.cpi-url",
+      "type": "java.lang.String",
+      "sourceType": "com.infinance.common.config.RefreshProperties"
+    },
+    {
+      "name": "infinance.refresh.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.infinance.common.config.RefreshProperties"
+    },
+    {
+      "name": "infinance.refresh.fixed-delay-ms",
+      "type": "java.lang.Long",
+      "sourceType": "com.infinance.common.config.RefreshProperties"
+    },
+    {
+      "name": "infinance.refresh.repo-rate-url",
+      "type": "java.lang.String",
+      "sourceType": "com.infinance.common.config.RefreshProperties"
+    },
+    {
+      "name": "infinance.security.encryption.secret",
+      "type": "java.lang.String",
+      "sourceType": "com.infinance.common.security.EncryptionProperties"
     },
     {
       "name": "infinance.tax",
