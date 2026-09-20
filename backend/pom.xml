@@ -201,7 +201,8 @@
                 <artifactId>dependency-check-maven</artifactId>
                 <version>12.1.0</version>
                 <configuration>
-                    <failBuildOnCVSS>11</failBuildOnCVSS>
+                    <ossIndexAnalyzerEnabled>false</ossIndexAnalyzerEnabled>
+                    <failBuildOnCVSS>7</failBuildOnCVSS>
                     <format>HTML</format>
                     <failOnError>true</failOnError>
                 </configuration>
