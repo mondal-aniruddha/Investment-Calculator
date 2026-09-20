@@ -91,6 +91,10 @@ public class FinancialProperties {
         private BigDecimal npsExpectedCagr = new BigDecimal("10.50");
         private BigDecimal sweepInFdRate = new BigDecimal("6.75");
         private BigDecimal savingsAccountRate = new BigDecimal("3.50");
+        private BigDecimal fdRate = new BigDecimal("7.00");
+        private BigDecimal rdRate = new BigDecimal("6.75");
+        private BigDecimal postOfficeTimeDepositRate = new BigDecimal("7.50");
+        private BigDecimal postOfficeMonthlyIncomeRate = new BigDecimal("7.40");
 
         public BigDecimal getPpfRate() { return ppfRate; }
         public void setPpfRate(BigDecimal ppfRate) { this.ppfRate = ppfRate; }
@@ -116,6 +120,14 @@ public class FinancialProperties {
         public void setSweepInFdRate(BigDecimal sweepInFdRate) { this.sweepInFdRate = sweepInFdRate; }
         public BigDecimal getSavingsAccountRate() { return savingsAccountRate; }
         public void setSavingsAccountRate(BigDecimal savingsAccountRate) { this.savingsAccountRate = savingsAccountRate; }
+        public BigDecimal getFdRate() { return fdRate; }
+        public void setFdRate(BigDecimal fdRate) { this.fdRate = fdRate; }
+        public BigDecimal getRdRate() { return rdRate; }
+        public void setRdRate(BigDecimal rdRate) { this.rdRate = rdRate; }
+        public BigDecimal getPostOfficeTimeDepositRate() { return postOfficeTimeDepositRate; }
+        public void setPostOfficeTimeDepositRate(BigDecimal postOfficeTimeDepositRate) { this.postOfficeTimeDepositRate = postOfficeTimeDepositRate; }
+        public BigDecimal getPostOfficeMonthlyIncomeRate() { return postOfficeMonthlyIncomeRate; }
+        public void setPostOfficeMonthlyIncomeRate(BigDecimal postOfficeMonthlyIncomeRate) { this.postOfficeMonthlyIncomeRate = postOfficeMonthlyIncomeRate; }
     }
 
     public static class MarketBenchmarksConfig {
