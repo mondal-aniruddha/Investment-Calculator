@@ -17,6 +17,7 @@ import java.util.List;
 public class GlobalExceptionHandler {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final int UNPROCESSABLE_ENTITY_STATUS = 422;
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException ex) {
@@ -42,11 +43,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleFinancialInputException(InvalidFinancialInputException ex) {
         log.warn("Business financial input error: {}", ex.getMessage());
         ErrorResponse response = ErrorResponse.of(
-                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                UNPROCESSABLE_ENTITY_STATUS,
                 ex.getErrorCode(),
                 ex.getMessage()
         );
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(response);
+        return ResponseEntity.status(UNPROCESSABLE_ENTITY_STATUS).body(response);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)

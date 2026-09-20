@@ -66,7 +66,7 @@ class RetirementControllerTest {
         mockMvc.perform(post("/api/v1/retirement/plan")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().is(422))
                 .andExpect(jsonPath("$.code", is("RETIREMENT_AGE_INVALID")));
     }
 }
