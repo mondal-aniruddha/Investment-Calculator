@@ -46,14 +46,37 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       })
-      const payload = await response.json()
-      if (!response.ok) {
-        throw new Error(payload.message || 'Please check your inputs and try again.')
+      const responseText = await response.text()
+      let payload = {}
+
+      if (responseText.trim()) {
+        try {
+          payload = JSON.parse(responseText)
+        } catch {
+          throw new Error(`The backend returned an invalid response (${response.status}).`)
+        }
       }
+
+      if (!response.ok) {
+        throw new Error(
+          payload.message ||
+          payload.error ||
+          `The backend could not complete the calculation (${response.status}).`,
+        )
+      }
+
+      if (!responseText.trim()) {
+        throw new Error('The backend returned an empty response. Make sure the Spring Boot API is running on port 8080.')
+      }
+
       setResult(payload)
       setApiOnline(true)
     } catch (requestError) {
-      setError(requestError.message || 'The calculator could not reach the backend.')
+      setApiOnline(false)
+      const message = requestError instanceof TypeError
+        ? 'Cannot reach the backend. Start Spring Boot on http://localhost:8080 and try again.'
+        : requestError.message
+      setError(message || 'The calculator could not reach the backend.')
     } finally {
       setLoading(false)
     }
