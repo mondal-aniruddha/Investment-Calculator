@@ -1,0 +1,31 @@
+meta {
+  name: Calculate income tax
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/v1/tax/calculate
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "financialYear": "2024-2025",
+    "ageCategory": "NORMAL_BELOW_60",
+    "grossSalary": 1500000,
+    "incomeFromOtherSources": 50000,
+    "incomeFromHouseProperty": 0,
+    "section80C": 150000,
+    "section80DMedicalInsurance": 25000,
+    "section80CCD1BNps": 50000,
+    "hraExemption": 0,
+    "homeLoanInterestSection24b": 0,
+    "otherDeductionsChapterVIA": 0
+  }
+}
