@@ -3,6 +3,7 @@ import com.infinance.networth.dto.*;
 import java.math.*;
 import java.util.*;
 /** Pure net-worth aggregation: net worth = assets - liabilities; allocation is asset/category share. */
+@SuppressWarnings("null")
 public final class NetWorthEngine {
     private NetWorthEngine() {}
     public static NetWorthResponse calculate(NetWorthRequest r) {

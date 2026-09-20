@@ -2,6 +2,7 @@ package com.infinance.healthscore.engine;
 import com.infinance.healthscore.dto.*;
 import java.util.*;
 /** Weighted 0-100 score; higher savings, coverage and readiness help, while DTI/utilisation reduce it. */
+@SuppressWarnings("null")
 public final class FinancialHealthEngine {
     private FinancialHealthEngine() {}
     public static HealthScoreResponse calculate(HealthScoreRequest r) {

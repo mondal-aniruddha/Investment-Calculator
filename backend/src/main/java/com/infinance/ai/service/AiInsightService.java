@@ -42,7 +42,6 @@ public class AiInsightService {
             if (value != null) return (AiInsightResponse) value.get();
         }
         String prompt = properties.getPromptTemplate().replace("{{results}}", serialized);
-        RuntimeException last = null;
         for (int attempt = 0; attempt < 3; attempt++) {
             try {
                 JsonNode response = client.post().uri(properties.getEndpoint()).contentType(MediaType.APPLICATION_JSON)
@@ -56,7 +55,6 @@ public class AiInsightService {
                 if (cache != null) cache.put(key, result);
                 return result;
             } catch (RuntimeException ex) {
-                last = ex;
                 try { Thread.sleep(150L * (attempt + 1)); } catch (InterruptedException interrupted) {
                     Thread.currentThread().interrupt();
                     break;

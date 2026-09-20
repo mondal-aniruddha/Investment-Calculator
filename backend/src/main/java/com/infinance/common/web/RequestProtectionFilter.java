@@ -2,7 +2,6 @@ package com.infinance.common.web;
 
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
-import io.github.bucket4j.Refill;
 import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -49,7 +48,8 @@ public class RequestProtectionFilter extends OncePerRequestFilter {
             }
             String key = request.getRemoteAddr() == null ? "unknown" : request.getRemoteAddr();
             Bucket bucket = buckets.computeIfAbsent(key, ignored -> Bucket.builder()
-                    .addLimit(Bandwidth.classic(120, Refill.intervally(120, Duration.ofMinutes(1)))).build());
+                    .addLimit(Bandwidth.builder().capacity(120)
+                            .refillIntervally(120, Duration.ofMinutes(1)).build()).build());
             if (!bucket.tryConsume(1)) {
                 response.setStatus(429);
                 response.setHeader("Retry-After", "60");

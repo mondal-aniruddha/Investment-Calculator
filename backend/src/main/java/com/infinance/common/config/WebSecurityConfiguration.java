@@ -14,7 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import java.time.Duration;
@@ -29,7 +28,7 @@ public class WebSecurityConfiguration {
                 .headers(headers -> headers
                         .contentTypeOptions(options -> {})
                         .contentSecurityPolicy(csp -> csp.policyDirectives("default-src 'self'; frame-ancestors 'none'"))
-                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::deny)
+                        .frameOptions(options -> options.deny())
                         .httpStrictTransportSecurity(hsts -> hsts.includeSubDomains(true).maxAgeInSeconds(31536000)))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/actuator/health").permitAll()
