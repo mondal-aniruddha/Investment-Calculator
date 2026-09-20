@@ -10,7 +10,6 @@ public final class SensitivityEngine {
         BigDecimal base = SipEngine.calculateSingleCorpus(r.monthlyInvestment(), r.years(), r.expectedReturn(), BigDecimal.ZERO).maturityCorpus();
         BigDecimal contributionDelta = r.contributionDelta() == null ? r.monthlyInvestment().multiply(new BigDecimal(".10")) : r.contributionDelta();
         BigDecimal returnDelta = r.returnDelta() == null ? new BigDecimal("2") : r.returnDelta();
-        BigDecimal inflationDelta = r.inflationDelta() == null ? new BigDecimal("2") : r.inflationDelta();
         List<SensitivityResponse.Scenario> scenarios = new ArrayList<>();
         add(scenarios, "Contribution", "Higher", SipEngine.calculateSingleCorpus(r.monthlyInvestment().add(contributionDelta), r.years(), r.expectedReturn(), BigDecimal.ZERO).maturityCorpus(), base);
         add(scenarios, "Contribution", "Lower", SipEngine.calculateSingleCorpus(r.monthlyInvestment().subtract(contributionDelta).max(BigDecimal.ZERO), r.years(), r.expectedReturn(), BigDecimal.ZERO).maturityCorpus(), base);
