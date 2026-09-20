@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "InFinanceCalculatorApplication",
+            "request": "launch",
+            "mainClass": "com.infinance.InFinanceCalculatorApplication",
+            "projectName": "infinance-calculator-backend"
+        },
+        {
             "name": "Attach by Process ID",
             "processId": "${command:PickProcess}",
             "request": "attach",
