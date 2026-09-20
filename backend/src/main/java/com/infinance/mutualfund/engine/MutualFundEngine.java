@@ -5,7 +5,6 @@ import com.infinance.mutualfund.dto.MutualFundResponse;
 import com.infinance.mutualfund.dto.XirrRequest;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -18,6 +17,7 @@ import java.util.List;
  * (final / initial)^(1/years)-1. XIRR solves NPV(rate)=0 using Newton-Raphson
  * over actual/365 day fractions.
  */
+@SuppressWarnings("null")
 public final class MutualFundEngine {
     private MutualFundEngine() {}
 
