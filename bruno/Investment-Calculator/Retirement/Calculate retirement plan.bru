@@ -1,0 +1,30 @@
+meta {
+  name: Calculate retirement plan
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/v1/retirement/plan
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "currentAge": 30,
+    "targetRetirementAge": 60,
+    "lifeExpectancy": 85,
+    "currentMonthlyExpenses": 50000,
+    "existingRetirementCorpus": 1000000,
+    "currentMonthlyContribution": 15000,
+    "expectedReturnPreRetirement": 12,
+    "expectedReturnPostRetirement": 7,
+    "expectedInflationRate": 6,
+    "annualStepUpPercent": 5
+  }
+}

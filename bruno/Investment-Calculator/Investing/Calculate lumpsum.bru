@@ -1,0 +1,23 @@
+meta {
+  name: Calculate lumpsum
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/v1/investing/lumpsum
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "totalInvestment": 100000,
+    "investmentHorizonYears": 10,
+    "expectedAnnualReturn": 12
+  }
+}
