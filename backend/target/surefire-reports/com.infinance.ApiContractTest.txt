@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.infinance.ApiContractTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.86 s -- in com.infinance.ApiContractTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 26.24 s -- in com.infinance.ApiContractTest

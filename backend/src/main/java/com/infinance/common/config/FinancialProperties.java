@@ -92,7 +92,7 @@ public class FinancialProperties {
         private BigDecimal sweepInFdRate = new BigDecimal("6.75");
         private BigDecimal savingsAccountRate = new BigDecimal("3.50");
         private BigDecimal fdRate = new BigDecimal("7.00");
-        private BigDecimal rdRate = new BigDecimal("6.75");
+        private BigDecimal rdRate = new BigDecimal("6.70");
         private BigDecimal postOfficeTimeDepositRate = new BigDecimal("7.50");
         private BigDecimal postOfficeMonthlyIncomeRate = new BigDecimal("7.40");
 

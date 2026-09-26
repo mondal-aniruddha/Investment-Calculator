@@ -63,6 +63,11 @@ normally available on `http://localhost:5173`.
 - Phase E added engineering hardening, testing, observability, and deployment.
 - IDE cleanup removed dead imports/variables, replaced deprecated Bucket4j APIs,
   and passed backend tests, frontend build, and whitespace checks.
+- 2026-09-26: Task 28 rate verification completed. Verified all tax slabs (Finance (No. 2) Act 2024),
+  standard deductions, 87A rebate, and small savings rates against MoF, EPFO, and CBDT circulars.
+  Aligned Post Office 5-year RD default to 6.70% in `application-assumptions.yml`, `FinancialProperties`,
+  and Flyway `V4__align_verified_financial_rates.sql`. Added `RateVerificationAssertionTest` (59 tests pass)
+  and generated `rate-verification-2026-09-26.md`.
 
 ## Maintenance protocol
 

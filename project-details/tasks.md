@@ -58,7 +58,7 @@ before starting the next.
 
 ## Maintenance workflow
 
-- [ ] Task 28: Verify all configured rates and tax rules against current
+- [x] Task 28: Verify all configured rates and tax rules against current
   official sources before production use.
 - [ ] Task 29: Add regression tests for every production incident or changed
   response contract.
