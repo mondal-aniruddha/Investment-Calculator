@@ -1,6 +1,24 @@
 # Externalized Indian Financial Assumptions & Tax Slabs Configuration
 # NOTE: These values must be verified against the latest Union Budget / Finance Act / Income Tax Act before release.
 infinance:
+  security:
+    encryption:
+      secret: ${INFINANCE_ENCRYPTION_SECRET:development-only-change-me}
+  admin:
+    username: ${INFINANCE_ADMIN_USERNAME:admin}
+    password: ${INFINANCE_ADMIN_PASSWORD:change-me}
+  refresh:
+    enabled: ${INFINANCE_REFRESH_ENABLED:false}
+    fixed-delay-ms: ${INFINANCE_REFRESH_DELAY_MS:86400000}
+    amfi-url: ${INFINANCE_AMFI_URL:}
+    repo-rate-url: ${INFINANCE_REPO_RATE_URL:}
+    cpi-url: ${INFINANCE_CPI_URL:}
+  ai:
+    enabled: ${INFINANCE_AI_ENABLED:false}
+    api-key: ${ANTHROPIC_API_KEY:}
+    model: ${INFINANCE_AI_MODEL:claude-3-5-haiku-latest}
+    endpoint: ${INFINANCE_AI_ENDPOINT:https://api.anthropic.com/v1/messages}
+    prompt-template: "Explain these financial calculator results in plain language. Do not provide personalized investment, tax, or legal advice. Mention uncertainty and the educational disclaimer.\nResults: {{results}}"
   disclaimer: "For educational purposes only; not investment, tax, or legal advice. Consult a SEBI-registered advisor or a Chartered Accountant."
   current-financial-year: "2024-2025"
   rates:
@@ -17,6 +35,10 @@ infinance:
       nps-expected-cagr: 10.50
       sweep-in-fd-rate: 6.75
       savings-account-rate: 3.50
+      fd-rate: 7.00
+      rd-rate: 6.75
+      post-office-time-deposit-rate: 7.50
+      post-office-monthly-income-rate: 7.40
     market-benchmarks:
       equity-nifty-cagr: 12.00
       equity-conservative-cagr: 10.00
