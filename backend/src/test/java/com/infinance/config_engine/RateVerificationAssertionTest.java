@@ -1,7 +1,6 @@
 package com.infinance.config_engine;
 
 import com.infinance.common.config.FinancialProperties;
-import com.infinance.config_engine.service.AssumptionService;
 import com.infinance.tax.dto.TaxSlabDto;
 import com.infinance.tax.engine.IncomeTaxEngine;
 import org.junit.jupiter.api.DisplayName;
@@ -46,13 +45,16 @@ class RateVerificationAssertionTest {
         assertBigDecimalEquals(new BigDecimal("4.00"), taxConfig.getCessPercent(), "Cess percent");
 
         FinancialProperties.RegimeConfig newRegime = taxConfig.getNewRegime();
-        assertBigDecimalEquals(new BigDecimal("75000.00"), newRegime.getStandardDeduction(), "New regime standard deduction");
+        assertBigDecimalEquals(new BigDecimal("75000.00"), newRegime.getStandardDeduction(),
+                "New regime standard deduction");
         assertBigDecimalEquals(new BigDecimal("700000.00"), newRegime.getRebate87aMaxIncome(), "87A max income");
         assertBigDecimalEquals(new BigDecimal("25000.00"), newRegime.getRebate87aMaxAmount(), "87A max rebate");
 
         // Verify Engine constants match
-        assertBigDecimalEquals(new BigDecimal("75000.00"), IncomeTaxEngine.STD_DEDUCTION_NEW_REGIME, "Engine standard deduction new");
-        assertBigDecimalEquals(new BigDecimal("700000.00"), IncomeTaxEngine.REBATE_87A_LIMIT_NEW, "Engine rebate limit new");
+        assertBigDecimalEquals(new BigDecimal("75000.00"), IncomeTaxEngine.STD_DEDUCTION_NEW_REGIME,
+                "Engine standard deduction new");
+        assertBigDecimalEquals(new BigDecimal("700000.00"), IncomeTaxEngine.REBATE_87A_LIMIT_NEW,
+                "Engine rebate limit new");
         assertBigDecimalEquals(new BigDecimal("25000.00"), IncomeTaxEngine.REBATE_87A_MAX_NEW, "Engine rebate max new");
 
         // Verify 6 slabs under New Regime (Section 115BAC)
@@ -79,15 +81,19 @@ class RateVerificationAssertionTest {
         assertNotNull(taxConfig);
 
         FinancialProperties.RegimeConfig oldRegime = taxConfig.getOldRegime();
-        assertBigDecimalEquals(new BigDecimal("50000.00"), oldRegime.getStandardDeduction(), "Old regime standard deduction");
-        assertBigDecimalEquals(new BigDecimal("500000.00"), oldRegime.getRebate87aMaxIncome(), "Old regime rebate 87A income");
-        assertBigDecimalEquals(new BigDecimal("12500.00"), oldRegime.getRebate87aMaxAmount(), "Old regime rebate 87A amount");
+        assertBigDecimalEquals(new BigDecimal("50000.00"), oldRegime.getStandardDeduction(),
+                "Old regime standard deduction");
+        assertBigDecimalEquals(new BigDecimal("500000.00"), oldRegime.getRebate87aMaxIncome(),
+                "Old regime rebate 87A income");
+        assertBigDecimalEquals(new BigDecimal("12500.00"), oldRegime.getRebate87aMaxAmount(),
+                "Old regime rebate 87A amount");
 
         assertBigDecimalEquals(new BigDecimal("150000.00"), oldRegime.getSection80cLimit(), "80C limit");
         assertBigDecimalEquals(new BigDecimal("50000.00"), oldRegime.getSection80ccd1bLimit(), "80CCD(1B) limit");
         assertBigDecimalEquals(new BigDecimal("200000.00"), oldRegime.getSection24bSelfOccupiedLimit(), "24(b) limit");
         assertBigDecimalEquals(new BigDecimal("25000.00"), oldRegime.getSection80dSelfFamilyLimit(), "80D self limit");
-        assertBigDecimalEquals(new BigDecimal("50000.00"), oldRegime.getSection80dParentsSeniorLimit(), "80D parents limit");
+        assertBigDecimalEquals(new BigDecimal("50000.00"), oldRegime.getSection80dParentsSeniorLimit(),
+                "80D parents limit");
 
         // Verify Engine constants match
         assertBigDecimalEquals(new BigDecimal("50000.00"), IncomeTaxEngine.STD_DEDUCTION_OLD_REGIME);
@@ -112,26 +118,35 @@ class RateVerificationAssertionTest {
     void testGovernmentSchemesMatchVerificationReport() {
         FinancialProperties.GovernmentSchemesConfig schemes = properties.getRates().getGovernmentSchemes();
 
-        assertBigDecimalEquals(new BigDecimal("7.10"), schemes.getPpfRate(), "PPF rate must be 7.10% per MoF DEA notification");
+        assertBigDecimalEquals(new BigDecimal("7.10"), schemes.getPpfRate(),
+                "PPF rate must be 7.10% per MoF DEA notification");
         assertBigDecimalEquals(new BigDecimal("500"), schemes.getPpfMinAnnual());
         assertBigDecimalEquals(new BigDecimal("150000"), schemes.getPpfMaxAnnual());
         assertEquals(15, schemes.getPpfLockInYears());
 
-        assertBigDecimalEquals(new BigDecimal("8.20"), schemes.getSsyRate(), "SSY rate must be 8.20% per MoF Dec 2023 notification");
+        assertBigDecimalEquals(new BigDecimal("8.20"), schemes.getSsyRate(),
+                "SSY rate must be 8.20% per MoF Dec 2023 notification");
         assertBigDecimalEquals(new BigDecimal("150000"), schemes.getSsyMaxAnnual());
         assertEquals(10, schemes.getSsyMaxAge());
 
-        assertBigDecimalEquals(new BigDecimal("8.20"), schemes.getScssRate(), "SCSS rate must be 8.20% per MoF notification");
-        assertBigDecimalEquals(new BigDecimal("8.25"), schemes.getEpfRate(), "EPF rate must be 8.25% per CBT EPFO notification");
-        assertBigDecimalEquals(new BigDecimal("10.50"), schemes.getNpsExpectedCagr(), "NPS expected CAGR benchmark is 10.50%");
+        assertBigDecimalEquals(new BigDecimal("8.20"), schemes.getScssRate(),
+                "SCSS rate must be 8.20% per MoF notification");
+        assertBigDecimalEquals(new BigDecimal("8.25"), schemes.getEpfRate(),
+                "EPF rate must be 8.25% per CBT EPFO notification");
+        assertBigDecimalEquals(new BigDecimal("10.50"), schemes.getNpsExpectedCagr(),
+                "NPS expected CAGR benchmark is 10.50%");
 
-        assertBigDecimalEquals(new BigDecimal("7.50"), schemes.getPostOfficeTimeDepositRate(), "5-yr POTD must be 7.50% p.a.");
-        assertBigDecimalEquals(new BigDecimal("7.40"), schemes.getPostOfficeMonthlyIncomeRate(), "POMIS must be 7.40% p.a.");
+        assertBigDecimalEquals(new BigDecimal("7.50"), schemes.getPostOfficeTimeDepositRate(),
+                "5-yr POTD must be 7.50% p.a.");
+        assertBigDecimalEquals(new BigDecimal("7.40"), schemes.getPostOfficeMonthlyIncomeRate(),
+                "POMIS must be 7.40% p.a.");
         assertBigDecimalEquals(new BigDecimal("6.70"), schemes.getRdRate(), "Post Office 5-yr RD must be 6.70% p.a.");
 
         assertBigDecimalEquals(new BigDecimal("7.00"), schemes.getFdRate(), "FD benchmark is 7.00% p.a.");
-        assertBigDecimalEquals(new BigDecimal("6.75"), schemes.getSweepInFdRate(), "Sweep-in FD benchmark is 6.75% p.a.");
-        assertBigDecimalEquals(new BigDecimal("3.50"), schemes.getSavingsAccountRate(), "Savings account benchmark is 3.50% p.a.");
+        assertBigDecimalEquals(new BigDecimal("6.75"), schemes.getSweepInFdRate(),
+                "Sweep-in FD benchmark is 6.75% p.a.");
+        assertBigDecimalEquals(new BigDecimal("3.50"), schemes.getSavingsAccountRate(),
+                "Savings account benchmark is 3.50% p.a.");
     }
 
     @Test
@@ -139,12 +154,14 @@ class RateVerificationAssertionTest {
     void testMarketBenchmarksMatchVerificationReport() {
         FinancialProperties.MarketBenchmarksConfig benchmarks = properties.getRates().getMarketBenchmarks();
 
-        assertBigDecimalEquals(new BigDecimal("12.00"), benchmarks.getEquityNiftyCagr(), "Nifty 50 CAGR benchmark is 12.00%");
+        assertBigDecimalEquals(new BigDecimal("12.00"), benchmarks.getEquityNiftyCagr(),
+                "Nifty 50 CAGR benchmark is 12.00%");
         assertBigDecimalEquals(new BigDecimal("10.00"), benchmarks.getEquityConservativeCagr());
         assertBigDecimalEquals(new BigDecimal("14.00"), benchmarks.getEquityAggressiveCagr());
         assertBigDecimalEquals(new BigDecimal("7.50"), benchmarks.getDebtHybridCagr());
         assertBigDecimalEquals(new BigDecimal("9.00"), benchmarks.getGoldCagr());
-        assertBigDecimalEquals(new BigDecimal("42.00"), benchmarks.getCreditCardTypicalApr(), "Card APR benchmark is 42.00% (3.5%/month)");
+        assertBigDecimalEquals(new BigDecimal("42.00"), benchmarks.getCreditCardTypicalApr(),
+                "Card APR benchmark is 42.00% (3.5%/month)");
         assertBigDecimalEquals(new BigDecimal("13.50"), benchmarks.getPersonalLoanConsolidationApr());
     }
 
@@ -153,8 +170,11 @@ class RateVerificationAssertionTest {
     void testInflationRatesMatchVerificationReport() {
         FinancialProperties.InflationConfig inflation = properties.getRates().getInflation();
 
-        assertBigDecimalEquals(new BigDecimal("6.00"), inflation.getCpiGeneralRate(), "General CPI baseline is 6.00% (RBI tolerance upper bound)");
-        assertBigDecimalEquals(new BigDecimal("10.00"), inflation.getEducationInflationRate(), "Education inflation benchmark is 10.00%");
-        assertBigDecimalEquals(new BigDecimal("12.00"), inflation.getHealthcareInflationRate(), "Healthcare inflation benchmark is 12.00%");
+        assertBigDecimalEquals(new BigDecimal("6.00"), inflation.getCpiGeneralRate(),
+                "General CPI baseline is 6.00% (RBI tolerance upper bound)");
+        assertBigDecimalEquals(new BigDecimal("10.00"), inflation.getEducationInflationRate(),
+                "Education inflation benchmark is 10.00%");
+        assertBigDecimalEquals(new BigDecimal("12.00"), inflation.getHealthcareInflationRate(),
+                "Healthcare inflation benchmark is 12.00%");
     }
 }

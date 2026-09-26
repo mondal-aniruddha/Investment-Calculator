@@ -53,6 +53,12 @@
       "name": "infinance.security.encryption",
       "type": "com.infinance.common.security.EncryptionProperties",
       "sourceType": "com.infinance.common.security.EncryptionProperties"
+    },
+    {
+      "name": "infinance.tax",
+      "type": "java.util.Map",
+      "sourceType": "com.infinance.common.config.FinancialProperties",
+      "sourceMethod": "public Map<java.lang.String,com.infinance.common.config.FinancialProperties.TaxYearConfig> getTax() "
     }
   ],
   "properties": [
@@ -270,11 +276,6 @@
       "name": "infinance.security.encryption.secret",
       "type": "java.lang.String",
       "sourceType": "com.infinance.common.security.EncryptionProperties"
-    },
-    {
-      "name": "infinance.tax",
-      "type": "java.util.Map<java.lang.String,com.infinance.common.config.FinancialProperties$TaxYearConfig>",
-      "sourceType": "com.infinance.common.config.FinancialProperties"
     }
   ],
   "hints": [],
