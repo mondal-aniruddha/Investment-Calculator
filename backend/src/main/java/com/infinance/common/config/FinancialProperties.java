@@ -1,6 +1,7 @@
 package com.infinance.common.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -13,7 +14,9 @@ public class FinancialProperties {
 
     private String disclaimer = "For educational purposes only; not investment, tax, or legal advice. Consult a SEBI-registered advisor or a Chartered Accountant.";
     private String currentFinancialYear = "2024-2025";
+    @NestedConfigurationProperty
     private RatesConfig rates = new RatesConfig();
+    @NestedConfigurationProperty
     private Map<String, TaxYearConfig> tax = new HashMap<>();
 
     public String getDisclaimer() {
@@ -49,8 +52,11 @@ public class FinancialProperties {
     }
 
     public static class RatesConfig {
+        @NestedConfigurationProperty
         private GovernmentSchemesConfig governmentSchemes = new GovernmentSchemesConfig();
+        @NestedConfigurationProperty
         private MarketBenchmarksConfig marketBenchmarks = new MarketBenchmarksConfig();
+        @NestedConfigurationProperty
         private InflationConfig inflation = new InflationConfig();
 
         public GovernmentSchemesConfig getGovernmentSchemes() {
@@ -172,7 +178,9 @@ public class FinancialProperties {
         private String financialYear;
         private String assessmentYear;
         private BigDecimal cessPercent = new BigDecimal("4.00");
+        @NestedConfigurationProperty
         private RegimeConfig newRegime = new RegimeConfig();
+        @NestedConfigurationProperty
         private RegimeConfig oldRegime = new RegimeConfig();
 
         public String getFinancialYear() { return financialYear; }
