@@ -25,9 +25,6 @@ class RateVerificationAssertionTest {
     @Autowired
     private FinancialProperties properties;
 
-    @Autowired
-    private AssumptionService assumptionService;
-
     private static void assertBigDecimalEquals(BigDecimal expected, BigDecimal actual, String message) {
         assertNotNull(actual, message + " (actual was null)");
         assertEquals(0, expected.compareTo(actual),
