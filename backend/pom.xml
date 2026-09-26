@@ -211,6 +211,9 @@
                     <failBuildOnCVSS>7</failBuildOnCVSS>
                     <format>HTML</format>
                     <failOnError>true</failOnError>
+                    <!-- NVD API key dramatically speeds up DB updates (free key from https://nvd.nist.gov/developers/request-an-api-key) -->
+                    <nvdApiKey>1230b944-xxxx-xxxx-xxxx-c51993ff5a17</nvdApiKey>
+                    <nvdApiDelay>3000</nvdApiDelay>
                 </configuration>
                 <executions>
                     <execution>
