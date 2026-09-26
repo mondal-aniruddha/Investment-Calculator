@@ -199,11 +199,12 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>12.1.0</version>
+                <version>13.0.0</version>
                 <configuration>
                     <failBuildOnCVSS>11</failBuildOnCVSS>
                     <format>HTML</format>
                     <failOnError>true</failOnError>
+                    <nvdApiDelay>3500</nvdApiDelay>
                 </configuration>
                 <executions>
                     <execution>
