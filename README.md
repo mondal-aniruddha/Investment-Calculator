@@ -87,7 +87,12 @@ headers, correlation IDs (`X-Correlation-ID`), Micrometer request counters, and
 liveness/readiness health probes. Saved scenario payloads are encrypted with
 AES-GCM; set `INFINANCE_ENCRYPTION_SECRET` to a strong environment-specific
 secret in every non-development deployment. OWASP Dependency-Check runs during
-`mvn verify`.
+`mvn verify` and requires an NVD API key to access the current vulnerability
+feed. Add an `NVD_API_KEY` repository Actions secret (request a key from the
+NVD website) to enable the dependency scan in CI. If the secret is absent, CI
+warns and skips only Dependency-Check while continuing backend tests and
+coverage checks. For local scans, export `NVD_API_KEY` and run
+`mvn clean verify -DnvdApiKey="$NVD_API_KEY"`.
 
 To run the browser-level critical-flow tests locally:
 

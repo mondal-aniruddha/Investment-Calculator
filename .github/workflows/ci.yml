@@ -17,7 +17,16 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
-      - run: mvn --batch-mode clean verify
+      - name: Verify backend and scan dependencies
+        run: |
+          if [ -n "$NVD_API_KEY" ]; then
+            mvn --batch-mode clean verify -DnvdApiKey="$NVD_API_KEY"
+          else
+            echo "::warning::NVD_API_KEY is not configured; running backend verification without the OWASP dependency scan."
+            mvn --batch-mode clean verify -Ddependency-check.skip=true
+          fi
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
 
   frontend-and-e2e:
     runs-on: ubuntu-latest
