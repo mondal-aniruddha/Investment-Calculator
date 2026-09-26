@@ -19,6 +19,9 @@ import java.util.Map;
         var current = taxService.calculateTax(old);
         String fy = r.financialYear() == null ? assumptions.getProperties().getCurrentFinancialYear() : r.financialYear();
         FinancialProperties.TaxYearConfig taxYear = assumptions.getProperties().getTax().get(fy);
+        if (taxYear == null) {
+            taxYear = assumptions.getProperties().getTax().get("fy-" + fy);
+        }
         FinancialProperties.RegimeConfig oldConfig = taxYear == null ? new FinancialProperties.RegimeConfig() : taxYear.getOldRegime();
         BigDecimal limit80c = oldConfig.getSection80cLimit();
         BigDecimal limit80d = oldConfig.getSection80dSelfFamilyLimit();

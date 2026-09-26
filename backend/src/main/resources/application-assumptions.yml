@@ -1,5 +1,6 @@
 # Externalized Indian Financial Assumptions & Tax Slabs Configuration
-# NOTE: These values must be verified against the latest Union Budget / Finance Act / Income Tax Act before release.
+# Official Verification Report: project-details/rate-verification-2026-09-26.md
+# Last Verified: 2026-09-26
 infinance:
   security:
     encryption:
@@ -22,36 +23,69 @@ infinance:
   disclaimer: "For educational purposes only; not investment, tax, or legal advice. Consult a SEBI-registered advisor or a Chartered Accountant."
   current-financial-year: "2024-2025"
   rates:
+    # Authoritative sources: Ministry of Finance (DEA Small Savings Scheme Notifications), EPFO, PFRDA
     government-schemes:
-      ppf-rate: 7.10
+      ppf-rate: 7.10 # MoF DEA: 7.10% p.a. compounded annually
       ppf-min-annual: 500
       ppf-max-annual: 150000
       ppf-lock-in-years: 15
-      ssy-rate: 8.20
+      ssy-rate: 8.20 # MoF notification F.No.1/4/2019-NS: 8.20% p.a.
       ssy-max-annual: 150000
       ssy-max-age: 10
-      scss-rate: 8.20
-      epf-rate: 8.25
-      nps-expected-cagr: 10.50
-      sweep-in-fd-rate: 6.75
-      savings-account-rate: 3.50
-      fd-rate: 7.00
-      rd-rate: 6.75
-      post-office-time-deposit-rate: 7.50
-      post-office-monthly-income-rate: 7.40
+      scss-rate: 8.20 # MoF notification: 8.20% p.a. payable quarterly
+      epf-rate: 8.25 # Central Board of Trustees (CBT), EPFO: 8.25% p.a.
+      nps-expected-cagr: 10.50 # PFRDA historical blended return benchmark
+      sweep-in-fd-rate: 6.75 # Scheduled commercial banks auto-sweep benchmark
+      savings-account-rate: 3.50 # Major commercial bank savings card rate benchmark
+      fd-rate: 7.00 # 1-3 year fixed deposit card rate benchmark
+      rd-rate: 6.70 # MoF Small Savings Scheme: 5-year Post Office RD at 6.70% p.a.
+      post-office-time-deposit-rate: 7.50 # MoF DEA 5-year POTD: 7.50% p.a.
+      post-office-monthly-income-rate: 7.40 # MoF DEA POMIS: 7.40% p.a.
+    # Authoritative sources: NSE India, AMFI, World Gold Council, Card Schedules of Charges
     market-benchmarks:
-      equity-nifty-cagr: 12.00
-      equity-conservative-cagr: 10.00
-      equity-aggressive-cagr: 14.00
-      debt-hybrid-cagr: 7.50
-      gold-cagr: 9.00
-      credit-card-typical-apr: 42.00
-      personal-loan-consolidation-apr: 13.50
+      equity-nifty-cagr: 12.00 # Nifty 50 TRI 15-20 yr rolling CAGR benchmark
+      equity-conservative-cagr: 10.00 # Large-cap defensive benchmark
+      equity-aggressive-cagr: 14.00 # Mid/Small-cap historical benchmark
+      debt-hybrid-cagr: 7.50 # CRISIL Composite Bond / Hybrid debt fund benchmark
+      gold-cagr: 9.00 # Sovereign Gold Bond / Gold historical CAGR
+      credit-card-typical-apr: 42.00 # Standard card schedule of charges (3.5%/month)
+      personal-loan-consolidation-apr: 13.50 # Unsecured personal loan market median
+    # Authoritative sources: RBI Monetary Policy Framework (target 4% +/- 2%), NSSO/Industry Studies
     inflation:
-      cpi-general-rate: 6.00
-      education-inflation-rate: 10.00
-      healthcare-inflation-rate: 12.00
+      cpi-general-rate: 6.00 # RBI monetary policy upper tolerance band
+      education-inflation-rate: 10.00 # Industry & ASSOCHAM studies
+      healthcare-inflation-rate: 12.00 # Mercer Marsh / WTW Medical Trends India
+  # Authoritative source: Income Tax Department / Finance (No. 2) Act, 2024 for FY 2024-25 / AY 2025-26
   tax:
+    "2024-2025":
+      financial-year: "2024-2025"
+      assessment-year: "2025-2026"
+      cess-percent: 4.00
+      new-regime:
+        standard-deduction: 75000.00
+        rebate-87a-max-income: 700000.00
+        rebate-87a-max-amount: 25000.00
+        slabs:
+          - { min: 0.00, max: 300000.00, rate: 0.00 }
+          - { min: 300000.00, max: 700000.00, rate: 5.00 }
+          - { min: 700000.00, max: 1000000.00, rate: 10.00 }
+          - { min: 1000000.00, max: 1200000.00, rate: 15.00 }
+          - { min: 1200000.00, max: 1500000.00, rate: 20.00 }
+          - { min: 1500000.00, max: null, rate: 30.00 }
+      old-regime:
+        standard-deduction: 50000.00
+        rebate-87a-max-income: 500000.00
+        rebate-87a-max-amount: 12500.00
+        section-80c-limit: 150000.00
+        section-80ccd1b-limit: 50000.00
+        section-24b-self-occupied-limit: 200000.00
+        section-80d-self-family-limit: 25000.00
+        section-80d-parents-senior-limit: 50000.00
+        slabs:
+          - { min: 0.00, max: 250000.00, rate: 0.00 }
+          - { min: 250000.00, max: 500000.00, rate: 5.00 }
+          - { min: 500000.00, max: 1000000.00, rate: 20.00 }
+          - { min: 1000000.00, max: null, rate: 30.00 }
     fy-2024-2025:
       financial-year: "2024-2025"
       assessment-year: "2025-2026"
