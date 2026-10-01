@@ -1,7 +1,6 @@
 package com.infinance.config_engine;
 
 import com.infinance.common.config.FinancialProperties;
-import com.infinance.config_engine.service.AssumptionService;
 import com.infinance.tax.dto.TaxSlabDto;
 import com.infinance.tax.engine.IncomeTaxEngine;
 import org.junit.jupiter.api.DisplayName;
@@ -24,9 +23,6 @@ class RateVerificationAssertionTest {
 
     @Autowired
     private FinancialProperties properties;
-
-    @Autowired
-    private AssumptionService assumptionService;
 
     private static void assertBigDecimalEquals(BigDecimal expected, BigDecimal actual, String message) {
         assertNotNull(actual, message + " (actual was null)");
