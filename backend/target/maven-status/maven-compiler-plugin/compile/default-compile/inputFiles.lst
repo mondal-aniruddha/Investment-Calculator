@@ -79,6 +79,16 @@ C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backen
 C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\loan\dto\SurplusComparisonRequest.java
 C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\loan\engine\LoanEngine.java
 C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\loan\service\LoanService.java
+C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\metals\config\MetalsProperties.java
+C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\metals\controller\MetalsMarketController.java
+C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\metals\dto\CacheStatus.java
+C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\metals\dto\MetalPriceDto.java
+C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\metals\dto\MetalsMarketResponseDto.java
+C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\metals\exception\MetalsProviderException.java
+C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\metals\exception\MetalsServiceUnavailableException.java
+C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\metals\provider\MetalsApiDataProvider.java
+C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\metals\provider\MetalsDataProvider.java
+C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\metals\service\MetalsMarketService.java
 C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\mutualfund\controller\MutualFundController.java
 C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\mutualfund\dto\CagrRequest.java
 C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\main\java\com\infinance\mutualfund\dto\MutualFundResponse.java

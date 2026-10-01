@@ -61,6 +61,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
+    @ExceptionHandler(com.infinance.metals.exception.MetalsServiceUnavailableException.class)
+    public ResponseEntity<ErrorResponse> handleMetalsServiceUnavailable(com.infinance.metals.exception.MetalsServiceUnavailableException ex) {
+        log.warn("Metals market data unavailable: {}", ex.getMessage());
+        ErrorResponse response = ErrorResponse.of(
+                HttpStatus.SERVICE_UNAVAILABLE.value(),
+                "METALS_SERVICE_UNAVAILABLE",
+                ex.getMessage()
+        );
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(response);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
         log.error("Unhandled internal server error occurred", ex);

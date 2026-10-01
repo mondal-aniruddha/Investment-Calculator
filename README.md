@@ -147,7 +147,8 @@ kubectl -n infinance create secret generic infinance-secrets \
   --from-literal=MYSQL_ROOT_PASSWORD="$MYSQL_ROOT_PASSWORD" \
   --from-literal=INFINANCE_JWT_SECRET="$INFINANCE_JWT_SECRET" \
   --from-literal=INFINANCE_ADMIN_USERNAME="$INFINANCE_ADMIN_USERNAME" \
-  --from-literal=INFINANCE_ADMIN_PASSWORD="$INFINANCE_ADMIN_PASSWORD"
+  --from-literal=INFINANCE_ADMIN_PASSWORD="$INFINANCE_ADMIN_PASSWORD" \
+  --from-literal=INFINANCE_METALS_API_KEY="$INFINANCE_METALS_API_KEY"
 kubectl apply -k k8s/
 ```
 
@@ -184,6 +185,7 @@ In Postman, import both JSON files and select the `Investment Calculator - Local
 
 | Method | Endpoint | Description |
 | --- | --- | --- |
+| `GET` | `/api/v1/market/metals` | Public live precious metal reference prices (Gold 24K/22K, Silver, Platinum, Palladium) |
 | `POST` | `/api/v1/investing/sip` | Calculate SIP growth and scenarios |
 | `POST` | `/api/v1/investing/lumpsum` | Calculate one-time investment growth |
 | `POST` | `/api/v1/retirement/plan` | Calculate retirement corpus and savings requirements |
@@ -198,6 +200,43 @@ In Postman, import both JSON files and select the `Investment Calculator - Local
 | `POST` | `/api/v1/fixed-income/calculate` | Project FD, RD, PPF, EPF, NPS, SSY, and post-office schemes |
 | `POST` | `/api/v1/mutual-funds/sip` | Calculate SIP and step-up SIP |
 | `POST` | `/api/v1/mutual-funds/lumpsum` | Calculate mutual-fund lumpsum growth |
+
+## Live Precious Metal Reference Prices
+
+InFinance provides indicative, production-quality precious metal reference quotes for Gold (24K and indicative 22K), Silver, Platinum, and Palladium quoted in INR per gram (`₹/g`) and INR per 10 grams (`₹/10 g`).
+
+### Architecture & Security
+
+- **Server-side only integration**: React and Vite never communicate directly with any external market-data provider. Provider API keys and credentials are never exposed in browser bundles, network requests, logs, or error responses.
+- **Provider adapter pattern**: Implemented under `com.infinance.metals` with `MetalsDataProvider` interface and `MetalsApiDataProvider` adapter, allowing seamless replacement or aggregation with other providers in the future.
+- **Resilient caching**:
+  - A separate bounded Caffeine cache maintains fresh rates for 5 minutes (`infinance.metals.cache-ttl-minutes=5`), keyed by configured symbol, currency, and unit options.
+  - Rate responses include `Cache-Control: public, max-age=60, stale-while-revalidate=240` to enable client and proxy caching.
+  - On upstream provider timeout or network failure, cached data is served with a `STALE` status for up to 24 hours (`infinance.metals.stale-ttl-hours=24`).
+  - If upstream fails and no cached data exists, a structured 503 response (`METALS_SERVICE_UNAVAILABLE`) is returned without leaking provider error strings or authentication details.
+  - Browser visits do not hammer upstream providers: the frontend fetches once on mount, updates every 5 minutes only while the browser tab is visible, pauses when hidden, and features an accessible manual refresh button.
+- **Security & Rate Limiting**: The public `/api/v1/market/metals` endpoint is permitted without authentication, protected by the global `RequestProtectionFilter` (payload size limits and Bucket4j per-IP rate limiting).
+
+### Provider & Commercial Licensing
+
+- **Selected Provider**: [Metals-API](https://metals-api.com).
+- **Selected Tier**: **Business Tier** is specified for production use. Free and entry tiers do not allow commercial redistribution to website visitors or 60-second update frequency with INR base currency. The Business tier includes:
+  - Real-time updates (60-second quote cadence).
+  - Native INR base quotes and gram units.
+  - Full commercial redistribution rights for end-user display in web applications.
+- **Configuration**:
+  - `INFINANCE_METALS_API_KEY`: Upstream provider API key (configure in `.env`, Kubernetes secrets, or container environment).
+  - `INFINANCE_METALS_BASE_URL`: Base API URL (default: `https://metals-api.com/api`).
+  - `INFINANCE_METALS_BASE_CURRENCY`: Base currency (default: `INR`).
+  - `INFINANCE_METALS_SYMBOLS`: Metal codes (default: `XAU,XAG,XPT,XPD`).
+  - `INFINANCE_METALS_UNIT`: Unit requested (`g` for grams, or `toz` for troy ounces with automated `31.1034768` factor conversion).
+  - `INFINANCE_METALS_RATE_DIRECTION`: `INVERSE` (1 INR in metal) or `DIRECT` (metal in INR).
+
+### Indicative Disclaimer & MCX Guidance
+
+- **Indicative Reference Prices**: The rates provided are indicative international/aggregated spot reference prices intended for financial planning, portfolio tracking, and educational comparisons.
+- **22K Gold**: Quoted as a pure indicative purity calculation (`22/24` of the 24K spot reference price). It is explicitly not a local jeweller's retail price (which incorporates import customs duty, local GST of 3%, making charges, and jeweller margins).
+- **Live MCX Trading**: For live tradable commodity futures or spot delivery on the Multi Commodity Exchange of India (MCX), applications must subscribe to a direct authorized vendor data feed with an official MCX market data redistribution license. Scraping or unofficial mirrors are not permitted or suitable for transactional trading.
 | `POST` | `/api/v1/mutual-funds/swp` | Calculate systematic withdrawals |
 | `POST` | `/api/v1/mutual-funds/cagr` | Calculate CAGR |
 | `POST` | `/api/v1/mutual-funds/xirr` | Calculate XIRR for dated cash flows |

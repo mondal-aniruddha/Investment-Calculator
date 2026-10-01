@@ -10,6 +10,9 @@ C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backen
 C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\test\java\com\infinance\investing\engine\SipEnginePropertiesTest.java
 C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\test\java\com\infinance\investing\engine\SipEngineTest.java
 C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\test\java\com\infinance\loan\engine\LoanEngineTest.java
+C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\test\java\com\infinance\metals\controller\MetalsMarketControllerTest.java
+C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\test\java\com\infinance\metals\provider\MetalsApiDataProviderTest.java
+C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\test\java\com\infinance\metals\service\MetalsMarketServiceTest.java
 C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\test\java\com\infinance\mutualfund\engine\MutualFundEngineTest.java
 C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\test\java\com\infinance\networth\engine\NetWorthEngineTest.java
 C:\Users\aniru\OneDrive\Desktop\Project - Aniruddha\Investment-Calculator\backend\src\test\java\com\infinance\reports\service\ReportExportServiceTest.java

@@ -20,6 +20,21 @@ infinance:
     model: ${INFINANCE_AI_MODEL:claude-3-5-haiku-latest}
     endpoint: ${INFINANCE_AI_ENDPOINT:https://api.anthropic.com/v1/messages}
     prompt-template: "Explain these financial calculator results in plain language. Do not provide personalized investment, tax, or legal advice. Mention uncertainty and the educational disclaimer.\nResults: {{results}}"
+  metals:
+    enabled: ${INFINANCE_METALS_ENABLED:true}
+    api-key: ${INFINANCE_METALS_API_KEY:}
+    base-url: ${INFINANCE_METALS_BASE_URL:https://metals-api.com/api}
+    base-currency: ${INFINANCE_METALS_BASE_CURRENCY:INR}
+    symbols: ${INFINANCE_METALS_SYMBOLS:XAU,XAG,XPT,XPD}
+    unit: ${INFINANCE_METALS_UNIT:g}
+    rate-direction: ${INFINANCE_METALS_RATE_DIRECTION:INVERSE}
+    connect-timeout-ms: ${INFINANCE_METALS_CONNECT_TIMEOUT_MS:3000}
+    read-timeout-ms: ${INFINANCE_METALS_READ_TIMEOUT_MS:5000}
+    cache-ttl-minutes: ${INFINANCE_METALS_CACHE_TTL_MINUTES:5}
+    stale-ttl-hours: ${INFINANCE_METALS_STALE_TTL_HOURS:24}
+    provider-label: "Metals-API"
+    plan-tier: "Business (Real-time updates, INR conversion, and redistribution rights)"
+    disclaimer: "Indicative international reference prices for educational purposes only; not MCX tradable quotes or local jewellery retail prices. 22K gold rate is an indicative purity calculation (22/24 of 24K spot)."
   disclaimer: "For educational purposes only; not investment, tax, or legal advice. Consult a SEBI-registered advisor or a Chartered Accountant."
   current-financial-year: "2024-2025"
   rates:

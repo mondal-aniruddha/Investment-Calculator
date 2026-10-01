@@ -21,6 +21,11 @@
       "sourceType": "com.infinance.auth.config.JwtProperties"
     },
     {
+      "name": "infinance.metals",
+      "type": "com.infinance.metals.config.MetalsProperties",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
       "name": "infinance.rates",
       "type": "com.infinance.common.config.FinancialProperties$RatesConfig",
       "sourceType": "com.infinance.common.config.FinancialProperties",
@@ -116,6 +121,95 @@
       "name": "infinance.jwt.secret",
       "type": "java.lang.String",
       "sourceType": "com.infinance.auth.config.JwtProperties"
+    },
+    {
+      "name": "infinance.metals.api-key",
+      "type": "java.lang.String",
+      "description": "Provider API key. Must only be populated via environment variable INFINANCE_METALS_API_KEY. Never exposed in client code, bundles, logs, or error responses.",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
+      "name": "infinance.metals.base-currency",
+      "type": "java.lang.String",
+      "description": "Base currency for quotes. Defaults to INR for Indian domestic reference pricing.",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
+      "name": "infinance.metals.base-url",
+      "type": "java.lang.String",
+      "description": "Base URL for the upstream provider API (e.g. Metals-API).",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
+      "name": "infinance.metals.cache-ttl-minutes",
+      "type": "java.lang.Integer",
+      "description": "Fresh cache TTL in minutes. Bounded cache serves fresh data within this window.",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
+      "name": "infinance.metals.connect-timeout-ms",
+      "type": "java.lang.Integer",
+      "description": "Connect timeout in milliseconds for HTTP client.",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
+      "name": "infinance.metals.disclaimer",
+      "type": "java.lang.String",
+      "description": "Educational disclaimer attached to responses.",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
+      "name": "infinance.metals.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether the metals live reference price feature is enabled.",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
+      "name": "infinance.metals.plan-tier",
+      "type": "java.lang.String",
+      "description": "Selected provider plan tier documentation (Business tier selected for 60s cadence, INR conversion, and redistribution rights).",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
+      "name": "infinance.metals.provider-label",
+      "type": "java.lang.String",
+      "description": "Human-readable label of the upstream data provider.",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
+      "name": "infinance.metals.rate-direction",
+      "type": "com.infinance.metals.config.MetalsProperties$RateDirection",
+      "description": "Direction of the rate returned by the provider: - INVERSE: 1 unit of base currency buys X units of metal (standard Forex\/Metals-API format: price = 1 \/ rate) - DIRECT: 1 unit of metal costs X units of base currency (price = rate)",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
+      "name": "infinance.metals.read-timeout-ms",
+      "type": "java.lang.Integer",
+      "description": "Read timeout in milliseconds for HTTP client.",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
+      "name": "infinance.metals.stale-ttl-hours",
+      "type": "java.lang.Integer",
+      "description": "Stale fallback TTL in hours. If upstream fails, the last successful result is served up to this age.",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
+      "name": "infinance.metals.symbol-list",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
+      "name": "infinance.metals.symbols",
+      "type": "java.lang.String",
+      "description": "Comma-separated list of symbols to request (XAU=Gold, XAG=Silver, XPT=Platinum, XPD=Palladium).",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
+    },
+    {
+      "name": "infinance.metals.unit",
+      "type": "java.lang.String",
+      "description": "Unit returned or requested: 'g' (gram) or 'toz' (troy ounce).",
+      "sourceType": "com.infinance.metals.config.MetalsProperties"
     },
     {
       "name": "infinance.rates.government-schemes.epf-rate",
