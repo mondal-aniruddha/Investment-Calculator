@@ -1,10 +1,12 @@
 com\infinance\config_engine\controller\AdminAssumptionController.class
 com\infinance\networth\engine\NetWorthEngine.class
+com\infinance\metals\service\MetalsMarketService$CachedEntry.class
 com\infinance\sensitivity\controller\SensitivityController.class
 com\infinance\tax\dto\TaxCalculationResponseDto$Builder.class
 com\infinance\investing\engine\SipEngine$SipCalculationResult.class
 com\infinance\networth\controller\NetWorthController.class
 com\infinance\auth\dto\AuthDtos$RegisterRequest.class
+com\infinance\metals\config\MetalsProperties$RateDirection.class
 com\infinance\goals\dto\GoalPlanResponse.class
 com\infinance\ai\service\AiInsightService.class
 com\infinance\investing\dto\YearlyGrowthDto.class
@@ -13,6 +15,7 @@ com\infinance\common\money\IndianCurrencyFormatter.class
 com\infinance\tax\entity\TaxSlabEntity.class
 com\infinance\healthscore\service\FinancialHealthService.class
 com\infinance\auth\entity\SavedScenarioEntity.class
+com\infinance\metals\dto\MetalPriceDto.class
 com\infinance\config_engine\repository\AssumptionAuditRepository.class
 com\infinance\auth\dto\AuthDtos.class
 com\infinance\config_engine\controller\AssumptionController.class
@@ -30,7 +33,10 @@ com\infinance\investing\dto\SipRequestDto$Builder.class
 com\infinance\investing\dto\LumpsumRequestDto$Request$Builder.class
 com\infinance\retirement\dto\RetirementWhatIfDto.class
 com\infinance\tax\dto\RegimeTaxSummaryDto.class
+com\infinance\metals\provider\MetalsApiDataProvider$MetalsApiError.class
 com\infinance\auth\dto\AuthDtos$ScenarioResponse.class
+com\infinance\metals\exception\MetalsProviderException.class
+com\infinance\metals\service\MetalsMarketService.class
 com\infinance\mutualfund\engine\MutualFundEngine.class
 com\infinance\sensitivity\engine\SensitivityEngine.class
 com\infinance\goals\engine\GoalPlannerEngine.class
@@ -42,14 +48,17 @@ com\infinance\auth\dto\AuthDtos$AuthResponse.class
 com\infinance\networth\dto\NetWorthRequest.class
 com\infinance\auth\controller\ScenarioController.class
 com\infinance\sensitivity\dto\SensitivityResponse$Scenario.class
+com\infinance\metals\provider\MetalsDataProvider.class
 com\infinance\investing\dto\LumpsumRequestDto$Response$Builder.class
 com\infinance\investing\engine\LumpsumEngine.class
 com\infinance\fixedincome\dto\FixedIncomeResponse.class
 com\infinance\fixedincome\service\FixedIncomeService.class
 com\infinance\auth\dto\AuthDtos$CompareResponse.class
 com\infinance\config_engine\service\AssumptionService.class
+com\infinance\metals\controller\MetalsMarketController.class
 com\infinance\common\dto\BaseAssumptionsDto.class
 com\infinance\retirement\dto\RetirementRequestDto.class
+com\infinance\metals\config\MetalsProperties.class
 com\infinance\ai\dto\AiInsightRequest.class
 com\infinance\tax\engine\IncomeTaxEngine$TaxComputationInput.class
 com\infinance\goals\controller\GoalPlannerController.class
@@ -74,6 +83,7 @@ com\infinance\tax\dto\RegimeTaxSummaryDto$Builder.class
 com\infinance\common\config\FinancialProperties$InflationConfig.class
 com\infinance\investing\dto\LumpsumRequestDto$Request.class
 com\infinance\investing\service\InvestingService.class
+com\infinance\metals\dto\MetalsMarketResponseDto.class
 com\infinance\loan\dto\LoanPrepaymentRequest.class
 com\infinance\auth\config\JwtProperties.class
 com\infinance\simulation\controller\MonteCarloController.class
@@ -89,6 +99,7 @@ com\infinance\config_engine\dto\TaxSlabUpsertRequest.class
 com\infinance\auth\entity\UserEntity.class
 com\infinance\sensitivity\dto\SensitivityRequest.class
 com\infinance\networth\dto\NetWorthResponse$Allocation.class
+com\infinance\metals\dto\CacheStatus.class
 com\infinance\config_engine\entity\AssumptionAuditEntity.class
 com\infinance\reports\dto\PersonalizedReportRequest.class
 com\infinance\simulation\dto\MonteCarloResponse$BandPoint.class
@@ -110,6 +121,7 @@ com\infinance\common\exception\GlobalExceptionHandler.class
 com\infinance\common\security\EncryptionService.class
 com\infinance\config_engine\service\AdminAssumptionService.class
 com\infinance\retirement\engine\RetirementEngine.class
+com\infinance\metals\provider\MetalsApiDataProvider$MetalsApiResponse.class
 com\infinance\networth\dto\NetWorthRequest$Snapshot.class
 com\infinance\retirement\dto\AgeTrajectoryDto.class
 com\infinance\tax\service\TaxService.class
@@ -122,6 +134,7 @@ com\infinance\investing\dto\SipRequestDto.class
 com\infinance\auth\repository\UserRepository.class
 com\infinance\retirement\dto\RetirementResponseDto.class
 com\infinance\healthscore\controller\FinancialHealthController.class
+com\infinance\metals\exception\MetalsServiceUnavailableException.class
 com\infinance\common\dto\MoneyAmount.class
 com\infinance\loan\dto\BalanceTransferRequest.class
 com\infinance\mutualfund\dto\XirrRequest$CashFlow.class
@@ -156,6 +169,7 @@ com\infinance\networth\dto\NetWorthRequest$Item.class
 com\infinance\healthscore\dto\HealthScoreResponse.class
 com\infinance\auth\controller\AuthController.class
 com\infinance\networth\dto\NetWorthResponse.class
+com\infinance\metals\provider\MetalsApiDataProvider.class
 com\infinance\mutualfund\dto\SwpRequest.class
 com\infinance\simulation\service\MonteCarloService.class
 com\infinance\investing\engine\LumpsumEngine$LumpsumResult.class

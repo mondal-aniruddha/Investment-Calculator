@@ -78,8 +78,8 @@ infinance:
       cess-percent: 4.00
       new-regime:
         standard-deduction: 75000.00
-        rebate-87a-max-income: 700000.00
-        rebate-87a-max-amount: 25000.00
+        rebate87a-max-income: 700000.00
+        rebate87a-max-amount: 25000.00
         slabs:
           - { min: 0.00, max: 300000.00, rate: 0.00 }
           - { min: 300000.00, max: 700000.00, rate: 5.00 }
@@ -89,13 +89,13 @@ infinance:
           - { min: 1500000.00, max: null, rate: 30.00 }
       old-regime:
         standard-deduction: 50000.00
-        rebate-87a-max-income: 500000.00
-        rebate-87a-max-amount: 12500.00
-        section-80c-limit: 150000.00
-        section-80ccd1b-limit: 50000.00
-        section-24b-self-occupied-limit: 200000.00
-        section-80d-self-family-limit: 25000.00
-        section-80d-parents-senior-limit: 50000.00
+        rebate87a-max-income: 500000.00
+        rebate87a-max-amount: 12500.00
+        section80c-limit: 150000.00
+        section80ccd1b-limit: 50000.00
+        section24b-self-occupied-limit: 200000.00
+        section80d-self-family-limit: 25000.00
+        section80d-parents-senior-limit: 50000.00
         slabs:
           - { min: 0.00, max: 250000.00, rate: 0.00 }
           - { min: 250000.00, max: 500000.00, rate: 5.00 }
@@ -107,8 +107,8 @@ infinance:
       cess-percent: 4.00
       new-regime:
         standard-deduction: 75000.00
-        rebate-87a-max-income: 700000.00
-        rebate-87a-max-amount: 25000.00
+        rebate87a-max-income: 700000.00
+        rebate87a-max-amount: 25000.00
         slabs:
           - { min: 0.00, max: 300000.00, rate: 0.00 }
           - { min: 300000.00, max: 700000.00, rate: 5.00 }
@@ -118,13 +118,13 @@ infinance:
           - { min: 1500000.00, max: null, rate: 30.00 }
       old-regime:
         standard-deduction: 50000.00
-        rebate-87a-max-income: 500000.00
-        rebate-87a-max-amount: 12500.00
-        section-80c-limit: 150000.00
-        section-80ccd1b-limit: 50000.00
-        section-24b-self-occupied-limit: 200000.00
-        section-80d-self-family-limit: 25000.00
-        section-80d-parents-senior-limit: 50000.00
+        rebate87a-max-income: 500000.00
+        rebate87a-max-amount: 12500.00
+        section80c-limit: 150000.00
+        section80ccd1b-limit: 50000.00
+        section24b-self-occupied-limit: 200000.00
+        section80d-self-family-limit: 25000.00
+        section80d-parents-senior-limit: 50000.00
         slabs:
           - { min: 0.00, max: 250000.00, rate: 0.00 }
           - { min: 250000.00, max: 500000.00, rate: 5.00 }
