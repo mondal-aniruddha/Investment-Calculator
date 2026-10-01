@@ -63,6 +63,7 @@ function LiveMetalPrices() {
     try {
       const res = await fetch('/api/v1/market/metals', {
         headers: { Accept: 'application/json' },
+        cache: 'no-store',
         signal,
       })
       if (!res.ok) {
