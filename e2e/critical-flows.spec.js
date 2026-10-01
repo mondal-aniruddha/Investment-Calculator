@@ -18,6 +18,13 @@ test.beforeEach(async ({ page }) => {
       }),
     })
   })
+  await page.route('**/api/v1/market/metals', async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ metals: [], cacheStatus: 'LIVE' }),
+    })
+  })
 })
 
 test('investor can calculate a SIP and see the projection', async ({ page }) => {

@@ -28,6 +28,265 @@ const initialLoan = { principal: 2500000, tenureYears: 20, annualInterestRate: 8
 const initialFixed = { scheme: 'FD', contribution: 100000, tenureYears: 5, annualRate: '', taxRate: 20, inflationRate: 6 }
 const initialSwp = { initialCorpus: 1000000, annualReturn: 10, monthlyWithdrawal: 10000, tenureYears: 10, annualWithdrawalIncrease: 5 }
 
+const formatMetalINR = (value, fractionDigits = 2) => {
+  if (value === null || value === undefined || isNaN(value)) return '—'
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits,
+  }).format(Number(value))
+}
+
+const formatKolkataTime = (isoString) => {
+  if (!isoString) return ''
+  try {
+    return new Intl.DateTimeFormat('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      dateStyle: 'medium',
+      timeStyle: 'medium',
+    }).format(new Date(isoString))
+  } catch {
+    return isoString
+  }
+}
+
+function LiveMetalPrices() {
+  const { t } = useTranslation()
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
+  const [unavailable, setUnavailable] = useState(false)
+
+  const fetchPrices = async (isManual = false, signal) => {
+    if (isManual) setRefreshing(true)
+    try {
+      const res = await fetch('/api/v1/market/metals', {
+        headers: { Accept: 'application/json' },
+        signal,
+      })
+      if (!res.ok) {
+        throw new Error(`Service returned ${res.status}`)
+      }
+      const json = await res.json()
+      setData(json)
+      setUnavailable(false)
+    } catch (err) {
+      if (err.name === 'AbortError') return
+      // If we already have prior data, retain it and display as STALE
+      setData((prev) => (prev ? { ...prev, cacheStatus: 'STALE' } : null))
+      if (!data) {
+        setUnavailable(true)
+      }
+    } finally {
+      setLoading(false)
+      setRefreshing(false)
+    }
+  }
+
+  useEffect(() => {
+    let controller = new AbortController()
+    let lastFetchTime = Date.now()
+
+    fetchPrices(false, controller.signal)
+
+    const INTERVAL_MS = 5 * 60 * 1000
+    const intervalId = setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        controller.abort()
+        controller = new AbortController()
+        lastFetchTime = Date.now()
+        fetchPrices(false, controller.signal)
+      }
+    }, INTERVAL_MS)
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        const elapsed = Date.now() - lastFetchTime
+        if (elapsed >= INTERVAL_MS) {
+          controller.abort()
+          controller = new AbortController()
+          lastFetchTime = Date.now()
+          fetchPrices(false, controller.signal)
+        }
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      controller.abort()
+      clearInterval(intervalId)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [])
+
+  const handleManualRefresh = () => {
+    const controller = new AbortController()
+    fetchPrices(true, controller.signal)
+  }
+
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case 'LIVE':
+        return <span className="metal-status-badge status-live">● {t('metals.statusLive')}</span>
+      case 'CACHED':
+        return <span className="metal-status-badge status-cached">● {t('metals.statusCached')}</span>
+      case 'STALE':
+      default:
+        return <span className="metal-status-badge status-stale">▲ {t('metals.statusStale')}</span>
+    }
+  }
+
+  const metalsList = data?.metals || []
+  const gold = metalsList.find((m) => m.metalCode === 'XAU') || metalsList[0]
+  const silver = metalsList.find((m) => m.metalCode === 'XAG') || metalsList[1]
+  const platinum = metalsList.find((m) => m.metalCode === 'XPT') || metalsList[2]
+  const palladium = metalsList.find((m) => m.metalCode === 'XPD') || metalsList[3]
+
+  return (
+    <section className="metals-section card" aria-label={t('metals.title')}>
+      <div className="metals-header">
+        <div className="metals-title-group">
+          <div className="section-label">{t('metals.eyebrow')}</div>
+          <h2>{t('metals.title')}</h2>
+        </div>
+        <div className="metals-controls">
+          {data && getStatusBadge(data.cacheStatus)}
+          {data?.fetchedAt && (
+            <span className="metals-timestamp" title="Indian Standard Time (Asia/Kolkata)">
+              {t('metals.lastUpdated')}: {formatKolkataTime(data.fetchedAt)}
+            </span>
+          )}
+          <button
+            className="refresh-button"
+            onClick={handleManualRefresh}
+            disabled={loading || refreshing}
+            aria-label={t('metals.refresh')}
+          >
+            {refreshing ? (
+              <>
+                <span className="refresh-spinner">↻</span> {t('metals.refreshing')}
+              </>
+            ) : (
+              <>↻ {t('metals.refresh')}</>
+            )}
+          </button>
+        </div>
+      </div>
+
+      {loading && !data && (
+        <div className="metals-grid" aria-busy="true" aria-label="Loading metal prices">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="metal-skeleton-card">
+              <div className="skeleton-bone" style={{ height: '16px', width: '45%' }} />
+              <div className="skeleton-bone" style={{ height: '28px', width: '80%' }} />
+              <div className="skeleton-bone" style={{ height: '14px', width: '60%' }} />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {unavailable && !data && (
+        <div className="metals-unavailable-card">
+          <p>{t('metals.unavailable')}</p>
+          <button className="secondary-button" onClick={handleManualRefresh}>
+            {t('metals.retry')}
+          </button>
+        </div>
+      )}
+
+      {data && (
+        <>
+          <div className="metals-grid">
+            {gold && (
+              <article className="metal-card gold-card" aria-label={gold.displayName || t('metals.gold')}>
+                <div>
+                  <div className="metal-card-header">
+                    <span className="metal-code">{gold.metalCode || 'XAU'}</span>
+                    <span className="metal-purity">{gold.purity || '24K Spot'}</span>
+                  </div>
+                  <h3 className="metal-name">{t('metals.gold')}</h3>
+                  <div className="metal-price-primary">
+                    {formatMetalINR(gold.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
+                  </div>
+                  {gold.pricePer10GramsInr && (
+                    <div className="metal-price-secondary">
+                      {formatMetalINR(gold.pricePer10GramsInr)} {t('metals.per10Grams')}
+                    </div>
+                  )}
+                </div>
+                {gold.indicative22kPerGramInr && (
+                  <div className="metal-indicative-box">
+                    <span className="metal-indicative-rate">
+                      {t('metals.indicative22k')}: {formatMetalINR(gold.indicative22kPerGramInr)} {t('metals.perGram')}
+                    </span>
+                    <small className="metal-indicative-note">{t('metals.indicative22kNote')}</small>
+                  </div>
+                )}
+              </article>
+            )}
+
+            {silver && (
+              <article className="metal-card" aria-label={silver.displayName || t('metals.silver')}>
+                <div>
+                  <div className="metal-card-header">
+                    <span className="metal-code">{silver.metalCode || 'XAG'}</span>
+                    <span className="metal-purity">{silver.purity || '99.9% Spot'}</span>
+                  </div>
+                  <h3 className="metal-name">{t('metals.silver')}</h3>
+                  <div className="metal-price-primary">
+                    {formatMetalINR(silver.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
+                  </div>
+                </div>
+              </article>
+            )}
+
+            {platinum && (
+              <article className="metal-card" aria-label={platinum.displayName || t('metals.platinum')}>
+                <div>
+                  <div className="metal-card-header">
+                    <span className="metal-code">{platinum.metalCode || 'XPT'}</span>
+                    <span className="metal-purity">{platinum.purity || '99.95% Spot'}</span>
+                  </div>
+                  <h3 className="metal-name">{t('metals.platinum')}</h3>
+                  <div className="metal-price-primary">
+                    {formatMetalINR(platinum.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
+                  </div>
+                </div>
+              </article>
+            )}
+
+            {palladium && (
+              <article className="metal-card" aria-label={palladium.displayName || t('metals.palladium')}>
+                <div>
+                  <div className="metal-card-header">
+                    <span className="metal-code">{palladium.metalCode || 'XPD'}</span>
+                    <span className="metal-purity">{palladium.purity || '99.95% Spot'}</span>
+                  </div>
+                  <h3 className="metal-name">{t('metals.palladium')}</h3>
+                  <div className="metal-price-primary">
+                    {formatMetalINR(palladium.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
+                  </div>
+                </div>
+              </article>
+            )}
+          </div>
+
+          <div className="metals-footer">
+            <span className="metals-source">
+              {t('metals.source')}: {data.source || 'Metals-API'}
+            </span>
+            <span className="metals-disclaimer">
+              {data.disclaimer || t('metals.disclaimer')}
+            </span>
+          </div>
+        </>
+      )}
+    </section>
+  )
+}
+
 function App() {
   const [page, setPage] = useState('sip')
   const [apiOnline, setApiOnline] = useState(false)
@@ -46,7 +305,12 @@ function App() {
     </header>
     <main>
       <section className="hero compact-hero"><div className="eyebrow"><span>✦</span> {t('hero.eyebrow')}</div><h1>{t('hero.title')}<br /><em>{t('hero.title2')}</em></h1><p>{t('hero.subtitle')}</p></section>
-      {page === 'sip' && <SipPage setApiOnline={setApiOnline} />}
+      {page === 'sip' && (
+        <>
+          <LiveMetalPrices />
+          <SipPage setApiOnline={setApiOnline} />
+        </>
+      )}
       {page === 'loan' && <LoanPage setApiOnline={setApiOnline} />}
       {page === 'fixed' && <FixedIncomePage setApiOnline={setApiOnline} />}
       {page === 'mutual' && <MutualFundPage setApiOnline={setApiOnline} />}

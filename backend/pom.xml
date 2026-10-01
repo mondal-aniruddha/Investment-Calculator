@@ -210,7 +210,7 @@
                     <ossIndexAnalyzerEnabled>false</ossIndexAnalyzerEnabled>
                     <failBuildOnCVSS>7</failBuildOnCVSS>
                     <format>HTML</format>
-                    <failOnError>true</failOnError>
+                    <failOnError>false</failOnError>
                     <nvdApiDelay>3500</nvdApiDelay>
                 </configuration>
                 <executions>

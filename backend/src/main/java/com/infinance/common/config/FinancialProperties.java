@@ -16,7 +16,6 @@ public class FinancialProperties {
     private String currentFinancialYear = "2024-2025";
     @NestedConfigurationProperty
     private RatesConfig rates = new RatesConfig();
-    @NestedConfigurationProperty
     private Map<String, TaxYearConfig> tax = new HashMap<>();
 
     public String getDisclaimer() {

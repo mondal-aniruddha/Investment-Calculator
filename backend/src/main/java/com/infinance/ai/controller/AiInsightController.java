@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "AI insights", description = "Optional plain-language explanations without personal identifiers")
 public class AiInsightController {
     private final AiInsightService service;
-    public AiInsightController(AiInsightService service) { this.service = service; }
+
+    public AiInsightController(AiInsightService service) {
+        this.service = service;
+    }
 
     @PostMapping("/explain")
     @Operation(summary = "Explain calculator results")
