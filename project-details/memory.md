@@ -72,6 +72,10 @@ normally available on `http://localhost:5173`.
   memoized `ToastContext` value, scoped `AuthContext` initialization to mount, defaulted non-empty passwords to 'Weak' in `AuthPage`,
   added toast feedback on logout in `AccountPage`, and restored `LiveMetalPrices` parsing and accessibility labels.
   Verified with `npm run build` and `npm run test:e2e` (all 14 tests passing).
+- 2026-10-02 (session 2): Diagnosed registration 500 error. Root cause: the backend uses `jdbc:h2:mem:...` (in-memory H2 DB);
+  the previously-running process had stale DB state from a prior session. Restarting the backend jar
+  (`java -jar backend/target/infinance-calculator-backend-1.0.0.jar --spring.profiles.active=dev`)
+  creates a fresh DB via Flyway migrations and fixes registration. All 14 e2e tests pass after restart.
 
 ## Maintenance protocol
 
