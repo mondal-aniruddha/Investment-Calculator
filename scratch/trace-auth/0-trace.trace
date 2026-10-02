@@ -1,0 +1,1 @@
+{"version":9,"type":"context-options","origin":"library","browserName":"","playwrightVersion":"1.63.0","options":{},"platform":"win32","wallTime":1790923477324,"monotonicTime":25204.498,"sdkLanguage":"javascript","title":"auth.spec.js:73 › successful login stores token in sessionStorage and updates header"}

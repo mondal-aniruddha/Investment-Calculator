@@ -44,8 +44,8 @@ export function AuthProvider({ children }) {
           sessionStorage.setItem('infinance-user', JSON.stringify(profile))
         }
       } catch (err) {
-        // If profile fetch fails (e.g. invalid/expired token), clear session
-        if (isMounted) {
+        // If profile fetch fails with 401 (invalid/expired token), clear session
+        if (isMounted && err?.status === 401) {
           sessionStorage.removeItem('infinance-token')
           sessionStorage.removeItem('infinance-user')
           setToken(null)
@@ -69,7 +69,7 @@ export function AuthProvider({ children }) {
       isMounted = false
       window.removeEventListener('infinance-session-expired', handleExpired)
     }
-  }, [t, toast])
+  }, [])
 
   const login = useCallback(async ({ email, password }) => {
     const res = await request('/api/v1/auth/login', {

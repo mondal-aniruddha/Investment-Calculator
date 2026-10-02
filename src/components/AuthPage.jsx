@@ -69,7 +69,9 @@ export function AuthPage({ initialMode = 'login' }) {
   }, [regPassword, passwordCriteria])
 
   const strengthLabel = useMemo(() => {
+    if (!regPassword) return { text: '', color: 'transparent', width: '0%' }
     switch (strengthScore) {
+      case 0:
       case 1:
         return { text: t('auth.strengthWeak'), color: '#e05353', width: '25%' }
       case 2:
@@ -79,9 +81,9 @@ export function AuthPage({ initialMode = 'login' }) {
       case 4:
         return { text: t('auth.strengthStrong'), color: '#2e8b57', width: '100%' }
       default:
-        return { text: '', color: 'transparent', width: '0%' }
+        return { text: t('auth.strengthWeak'), color: '#e05353', width: '25%' }
     }
-  }, [strengthScore, t])
+  }, [regPassword, strengthScore, t])
 
   const passwordsMatch = regConfirmPassword === '' || regPassword === regConfirmPassword
 

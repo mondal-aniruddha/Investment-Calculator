@@ -76,6 +76,11 @@ export function AccountPage() {
     }
   }
 
+  const handleLogout = () => {
+    logout()
+    toast.info('Signed out successfully.')
+  }
+
   const formattedDate = user?.createdAt
     ? new Date(user.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
     : 'Recently'
@@ -104,7 +109,7 @@ export function AccountPage() {
           <button className="secondary-button" onClick={() => setEditing(!editing)}>
             {editing ? 'Cancel' : 'Edit profile'}
           </button>
-          <button className="primary-button logout-button" onClick={logout}>
+          <button className="primary-button logout-button" onClick={handleLogout}>
             {t('auth.logout')}
           </button>
         </div>

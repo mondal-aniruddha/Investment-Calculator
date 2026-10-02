@@ -67,10 +67,14 @@ function LiveMetalPrices() {
       setUnavailable(false)
     } catch (err) {
       if (err.name === 'AbortError') return
-      setData((prev) => (prev ? { ...prev, cacheStatus: 'STALE' } : null))
-      if (!data) {
+      // If we already have prior data, retain it and display as STALE
+      setData((prev) => {
+        if (prev) {
+          return { ...prev, cacheStatus: 'STALE' }
+        }
         setUnavailable(true)
-      }
+        return null
+      })
     } finally {
       setLoading(false)
       setRefreshing(false)
@@ -79,6 +83,8 @@ function LiveMetalPrices() {
 
   useEffect(() => {
     let controller = new AbortController()
+    let lastFetchTime = Date.now()
+
     fetchPrices(false, controller.signal)
 
     const INTERVAL_MS = 5 * 60 * 1000
@@ -86,19 +92,25 @@ function LiveMetalPrices() {
       if (document.visibilityState === 'visible') {
         controller.abort()
         controller = new AbortController()
+        lastFetchTime = Date.now()
         fetchPrices(false, controller.signal)
       }
     }, INTERVAL_MS)
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        controller.abort()
-        controller = new AbortController()
-        fetchPrices(false, controller.signal)
+        const elapsed = Date.now() - lastFetchTime
+        if (elapsed >= INTERVAL_MS) {
+          controller.abort()
+          controller = new AbortController()
+          lastFetchTime = Date.now()
+          fetchPrices(false, controller.signal)
+        }
       }
     }
 
     document.addEventListener('visibilitychange', handleVisibilityChange)
+
     return () => {
       controller.abort()
       clearInterval(intervalId)
@@ -106,152 +118,168 @@ function LiveMetalPrices() {
     }
   }, [])
 
-  if (loading) {
-    return (
-      <section className="metals-section" aria-busy="true">
-        <div className="metals-header">
-          <div className="metals-title-group">
-            <span className="metals-eyebrow">{t('metals.eyebrow')}</span>
-            <h2 className="metals-title">{t('metals.title')}</h2>
-          </div>
+  const handleManualRefresh = () => {
+    const controller = new AbortController()
+    fetchPrices(true, controller.signal)
+  }
+
+  const getStatusBadge = (status) => {
+    switch (status) {
+      case 'LIVE':
+        return <span className="metal-status-badge status-live">● {t('metals.statusLive')}</span>
+      case 'CACHED':
+        return <span className="metal-status-badge status-cached">● {t('metals.statusCached')}</span>
+      case 'STALE':
+      default:
+        return <span className="metal-status-badge status-stale">▲ {t('metals.statusStale')}</span>
+    }
+  }
+
+  const metalsList = data?.metals || []
+  const gold = metalsList.find((m) => m.metalCode === 'XAU') || metalsList[0]
+  const silver = metalsList.find((m) => m.metalCode === 'XAG') || metalsList[1]
+  const platinum = metalsList.find((m) => m.metalCode === 'XPT') || metalsList[2]
+  const palladium = metalsList.find((m) => m.metalCode === 'XPD') || metalsList[3]
+
+  return (
+    <section className="metals-section card" aria-label={t('metals.title')}>
+      <div className="metals-header">
+        <div className="metals-title-group">
+          <div className="section-label">{t('metals.eyebrow')}</div>
+          <h2>{t('metals.title')}</h2>
         </div>
-        <div className="metals-grid">
+        <div className="metals-controls">
+          {data && getStatusBadge(data.cacheStatus)}
+          {data?.fetchedAt && (
+            <span className="metals-timestamp" title="Indian Standard Time (Asia/Kolkata)">
+              {t('metals.lastUpdated')}: {formatKolkataTime(data.fetchedAt)}
+            </span>
+          )}
+          <button
+            className="refresh-button"
+            onClick={handleManualRefresh}
+            disabled={loading || refreshing}
+            aria-label={t('metals.refresh')}
+          >
+            {refreshing ? (
+              <>
+                <span className="refresh-spinner">↻</span> {t('metals.refreshing')}
+              </>
+            ) : (
+              <>↻ {t('metals.refresh')}</>
+            )}
+          </button>
+        </div>
+      </div>
+
+      {loading && !data && (
+        <div className="metals-grid" aria-busy="true" aria-label="Loading metal prices">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="metal-skeleton-card">
-              <div className="skeleton-bone" style={{ width: '60%', height: '1rem' }} />
-              <div className="skeleton-bone" style={{ width: '80%', height: '2rem' }} />
-              <div className="skeleton-bone" style={{ width: '40%', height: '0.8rem' }} />
+              <div className="skeleton-bone" style={{ height: '16px', width: '45%' }} />
+              <div className="skeleton-bone" style={{ height: '28px', width: '80%' }} />
+              <div className="skeleton-bone" style={{ height: '14px', width: '60%' }} />
             </div>
           ))}
         </div>
-      </section>
-    )
-  }
+      )}
 
-  if (unavailable || !data || !data.rates) {
-    return (
-      <section className="metals-section">
+      {unavailable && !data && (
         <div className="metals-unavailable-card">
-          <span>{t('metals.unavailable')}</span>
-          <button className="metals-refresh-btn" onClick={() => fetchPrices(true)}>
+          <p>{t('metals.unavailable')}</p>
+          <button className="secondary-button" onClick={handleManualRefresh}>
             {t('metals.retry')}
           </button>
         </div>
-      </section>
-    )
-  }
+      )}
 
-  const rates = data.rates || {}
-  const gold = rates.gold
-  const silver = rates.silver
-  const platinum = rates.platinum
-  const palladium = rates.palladium
+      {data && (
+        <>
+          <div className="metals-grid">
+            {gold && (
+              <article className="metal-card gold-card" aria-label={gold.displayName || t('metals.gold')}>
+                <div>
+                  <div className="metal-card-header">
+                    <span className="metal-code">{gold.metalCode || 'XAU'}</span>
+                    <span className="metal-purity">{gold.purity || '24K Spot'}</span>
+                  </div>
+                  <h3 className="metal-name">{t('metals.gold')}</h3>
+                  <div className="metal-price-primary">
+                    {formatMetalINR(gold.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
+                  </div>
+                  {gold.pricePer10GramsInr && (
+                    <div className="metal-price-secondary">
+                      {formatMetalINR(gold.pricePer10GramsInr)} {t('metals.per10Grams')}
+                    </div>
+                  )}
+                </div>
+                {gold.indicative22kPerGramInr && (
+                  <div className="metal-indicative-box">
+                    <span className="metal-indicative-rate">
+                      {t('metals.indicative22k')}: {formatMetalINR(gold.indicative22kPerGramInr)}
+                    </span>
+                    <small className="metal-indicative-note">{t('metals.indicative22kNote')}</small>
+                  </div>
+                )}
+              </article>
+            )}
 
-  return (
-    <section className="metals-section">
-      <div className="metals-header">
-        <div className="metals-title-group">
-          <span className="metals-eyebrow">{t('metals.eyebrow')}</span>
-          <h2 className="metals-title">{t('metals.title')}</h2>
-        </div>
-        <div className="metals-controls">
-          <span className={`metals-badge status-${(data.cacheStatus || 'LIVE').toLowerCase()}`}>
-            {data.cacheStatus === 'LIVE' && t('metals.statusLive')}
-            {data.cacheStatus === 'CACHED' && t('metals.statusCached')}
-            {data.cacheStatus === 'STALE' && t('metals.statusStale')}
-          </span>
-          <span className="metals-timestamp">
-            {t('metals.lastUpdated')}: {formatKolkataTime(data.timestamp)}
-          </span>
-          <button
-            className="metals-refresh-btn"
-            onClick={() => fetchPrices(true)}
-            disabled={refreshing}
-            aria-label={t('metals.refresh')}
-          >
-            <span className={`refresh-icon ${refreshing ? 'spinning' : ''}`}>↻</span>
-            <span className="refresh-text">{refreshing ? t('metals.refreshing') : t('metals.refresh')}</span>
-          </button>
-        </div>
-      </div>
+            {silver && (
+              <article className="metal-card" aria-label={silver.displayName || t('metals.silver')}>
+                <div>
+                  <div className="metal-card-header">
+                    <span className="metal-code">{silver.metalCode || 'XAG'}</span>
+                    <span className="metal-purity">{silver.purity || '99.9% Spot'}</span>
+                  </div>
+                  <h3 className="metal-name">{t('metals.silver')}</h3>
+                  <div className="metal-price-primary">
+                    {formatMetalINR(silver.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
+                  </div>
+                </div>
+              </article>
+            )}
 
-      <div className="metals-grid">
-        {gold && (
-          <article className="metal-card gold-card">
-            <div className="metal-card-header">
-              <span className="metal-name">{t('metals.gold')}</span>
-              <span className="metal-symbol">Au</span>
-            </div>
-            <div className="metal-card-body">
-              <div className="primary-rate">
-                {formatMetalINR(gold.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
-              </div>
-              <div className="secondary-rate">
-                {formatMetalINR(gold.pricePer10GramsInr)} <span className="unit">{t('metals.per10Grams')}</span>
-              </div>
-              <div className="indicative-rate">
-                <span className="indicative-label">{t('metals.indicative22k')}:</span>{' '}
-                <span className="indicative-val">{formatMetalINR(gold.indicative22kPerGramInr)}/g</span>
-                <span className="info-icon" title={t('metals.indicative22kNote')}>ℹ</span>
-              </div>
-            </div>
-          </article>
-        )}
+            {platinum && (
+              <article className="metal-card" aria-label={platinum.displayName || t('metals.platinum')}>
+                <div>
+                  <div className="metal-card-header">
+                    <span className="metal-code">{platinum.metalCode || 'XPT'}</span>
+                    <span className="metal-purity">{platinum.purity || '99.95% Spot'}</span>
+                  </div>
+                  <h3 className="metal-name">{t('metals.platinum')}</h3>
+                  <div className="metal-price-primary">
+                    {formatMetalINR(platinum.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
+                  </div>
+                </div>
+              </article>
+            )}
 
-        {silver && (
-          <article className="metal-card silver-card">
-            <div className="metal-card-header">
-              <span className="metal-name">{t('metals.silver')}</span>
-              <span className="metal-symbol">Ag</span>
-            </div>
-            <div className="metal-card-body">
-              <div className="primary-rate">
-                {formatMetalINR(silver.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
-              </div>
-              <div className="secondary-rate">
-                {formatMetalINR(silver.pricePerKgInr)} <span className="unit">/ kg</span>
-              </div>
-            </div>
-          </article>
-        )}
+            {palladium && (
+              <article className="metal-card" aria-label={palladium.displayName || t('metals.palladium')}>
+                <div>
+                  <div className="metal-card-header">
+                    <span className="metal-code">{palladium.metalCode || 'XPD'}</span>
+                    <span className="metal-purity">{palladium.purity || '99.95% Spot'}</span>
+                  </div>
+                  <h3 className="metal-name">{t('metals.palladium')}</h3>
+                  <div className="metal-price-primary">
+                    {formatMetalINR(palladium.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
+                  </div>
+                </div>
+              </article>
+            )}
+          </div>
 
-        {platinum && (
-          <article className="metal-card platinum-card">
-            <div className="metal-card-header">
-              <span className="metal-name">{t('metals.platinum')}</span>
-              <span className="metal-symbol">Pt</span>
-            </div>
-            <div className="metal-card-body">
-              <div className="primary-rate">
-                {formatMetalINR(platinum.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
-              </div>
-            </div>
-          </article>
-        )}
-
-        {palladium && (
-          <article className="metal-card palladium-card">
-            <div className="metal-card-header">
-              <span className="metal-name">{t('metals.palladium')}</span>
-              <span className="metal-symbol">Pd</span>
-            </div>
-            <div className="metal-card-body">
-              <div className="primary-rate">
-                {formatMetalINR(palladium.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
-              </div>
-            </div>
-          </article>
-        )}
-      </div>
-
-      <div className="metals-footer">
-        <span className="metals-source">
-          {t('metals.source')}: {data.source || 'Metals-API'}
-        </span>
-        <span className="metals-disclaimer">
-          {data.disclaimer || t('metals.disclaimer')}
-        </span>
-      </div>
+          <div className="metals-footer">
+            <span className="metals-source">
+              {t('metals.source')}: {data.source || 'Metals-API'}
+            </span>
+            <span className="metals-disclaimer">
+              {data.disclaimer || t('metals.disclaimer')}
+            </span>
+          </div>
+        </>
+      )}
     </section>
   )
 }

@@ -68,6 +68,10 @@ normally available on `http://localhost:5173`.
   Aligned Post Office 5-year RD default to 6.70% in `application-assumptions.yml`, `FinancialProperties`,
   and Flyway `V4__align_verified_financial_rates.sql`. Added `RateVerificationAssertionTest` (59 tests pass)
   and generated `rate-verification-2026-09-26.md`.
+- 2026-10-02: Fixed e2e test regressions in authentication and live metal prices components:
+  memoized `ToastContext` value, scoped `AuthContext` initialization to mount, defaulted non-empty passwords to 'Weak' in `AuthPage`,
+  added toast feedback on logout in `AccountPage`, and restored `LiveMetalPrices` parsing and accessibility labels.
+  Verified with `npm run build` and `npm run test:e2e` (all 14 tests passing).
 
 ## Maintenance protocol
 
