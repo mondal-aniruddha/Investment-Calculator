@@ -1,0 +1,54 @@
+{"version":9,"type":"context-options","origin":"testRunner","browserName":"","playwrightVersion":"1.63.0","options":{},"platform":"win32","wallTime":1790923477290,"monotonicTime":25170.687,"sdkLanguage":"javascript","testTimeout":30000,"annotations":[]}
+{"type":"before","callId":"hook@1","stepId":"hook@1","startTime":25181.898,"class":"Test","method":"hook","title":"Before Hooks","params":{},"stack":[]}
+{"type":"before","callId":"hook@2","stepId":"hook@2","parentId":"hook@1","startTime":25182.055,"class":"Test","method":"hook","title":"beforeEach hook","params":{},"stack":[{"file":"C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js","line":3,"column":6}]}
+{"type":"before","callId":"fixture@31","stepId":"fixture@31","parentId":"hook@2","startTime":25195.3,"class":"Test","method":"fixture","title":"Fixture \"context\"","params":{},"stack":[]}
+{"type":"before","callId":"pw:api@32","stepId":"pw:api@32","parentId":"fixture@31","startTime":25196.101,"class":"Test","method":"pw:api","title":"Create context","params":{},"stack":[]}
+{"type":"after","callId":"pw:api@32","endTime":25201.026,"annotations":[]}
+{"type":"after","callId":"fixture@31","endTime":25205.651,"annotations":[]}
+{"type":"before","callId":"fixture@33","stepId":"fixture@33","parentId":"hook@2","startTime":25206.149,"class":"Test","method":"fixture","title":"Fixture \"page\"","params":{},"stack":[]}
+{"type":"before","callId":"pw:api@34","stepId":"pw:api@34","parentId":"fixture@33","startTime":25207.138,"class":"Test","method":"pw:api","title":"Create page","params":{},"stack":[]}
+{"type":"after","callId":"pw:api@34","endTime":25282.95,"annotations":[]}
+{"type":"after","callId":"fixture@33","endTime":25283.049,"annotations":[]}
+{"type":"before","callId":"pw:api@35","stepId":"pw:api@35","parentId":"hook@2","startTime":25283.698,"class":"Test","method":"pw:api","title":"Route requests","params":{},"stack":[{"file":"C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js","line":4,"column":14}],"group":"route"}
+{"type":"after","callId":"pw:api@35","endTime":25286.179,"annotations":[]}
+{"type":"before","callId":"pw:api@36","stepId":"pw:api@36","parentId":"hook@2","startTime":25286.845,"class":"Test","method":"pw:api","title":"Route requests","params":{},"stack":[{"file":"C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js","line":9,"column":14}],"group":"route"}
+{"type":"after","callId":"pw:api@36","endTime":25287.342,"annotations":[]}
+{"type":"after","callId":"hook@2","endTime":25287.427,"annotations":[]}
+{"type":"after","callId":"hook@1","endTime":25287.663,"annotations":[]}
+{"type":"before","callId":"pw:api@37","stepId":"pw:api@37","startTime":25288.975,"class":"Test","method":"pw:api","title":"Route requests","params":{},"stack":[{"file":"C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js","line":74,"column":14}],"group":"route"}
+{"type":"after","callId":"pw:api@37","endTime":25290.486,"annotations":[]}
+{"type":"before","callId":"pw:api@38","stepId":"pw:api@38","startTime":25291.431,"class":"Test","method":"pw:api","title":"Navigate","subtitle":"/login","params":{"url":"/login"},"stack":[{"file":"C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js","line":92,"column":14}]}
+{"type":"after","callId":"pw:api@38","endTime":25790.834,"annotations":[]}
+{"type":"before","callId":"pw:api@39","stepId":"pw:api@39","startTime":25793.246,"class":"Test","method":"pw:api","title":"Fill \"alexm\"","subtitle":"locator('#login-identifier')","params":{"locator":"locator('#login-identifier')","value":"alexm"},"stack":[{"file":"C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js","line":93,"column":43}]}
+{"type":"before","callId":"pw:api@40","stepId":"pw:api@40","startTime":25813.674,"class":"Test","method":"pw:api","title":"Fulfill request","params":{},"stack":[{"file":"C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js","line":4,"column":59}],"group":"route"}
+{"type":"after","callId":"pw:api@40","endTime":25835.155,"annotations":[]}
+{"type":"after","callId":"pw:api@39","endTime":25937.881,"annotations":[]}
+{"type":"before","callId":"pw:api@41","stepId":"pw:api@41","startTime":25939.478,"class":"Test","method":"pw:api","title":"Fill \"Password123!\"","subtitle":"locator('#login-password')","params":{"locator":"locator('#login-password')","value":"Password123!"},"stack":[{"file":"C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js","line":94,"column":41}]}
+{"type":"after","callId":"pw:api@41","endTime":25977.054,"annotations":[]}
+{"type":"before","callId":"pw:api@42","stepId":"pw:api@42","startTime":25978.459,"class":"Test","method":"pw:api","title":"Click","subtitle":"getByRole('button', { name: /^sign in/i })","params":{"locator":"getByRole('button', { name: /^sign in/i })"},"stack":[{"file":"C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js","line":95,"column":57}]}
+{"type":"before","callId":"pw:api@43","stepId":"pw:api@43","startTime":26133.018,"class":"Test","method":"pw:api","title":"Fulfill request","params":{},"stack":[{"file":"C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js","line":75,"column":17}],"group":"route"}
+{"type":"after","callId":"pw:api@43","endTime":26137.084,"annotations":[]}
+{"type":"after","callId":"pw:api@42","endTime":26157.244,"annotations":[]}
+{"type":"before","callId":"expect@44","stepId":"expect@44","startTime":26158.399,"class":"Test","method":"expect","title":"Expect \"toBeVisible\"","subtitle":"getByText(/signed in successfully/i)","params":{"locator":"getByText(/signed in successfully/i)"},"stack":[{"file":"C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js","line":98,"column":59}]}
+{"type":"after","callId":"expect@44","endTime":26257.927,"annotations":[]}
+{"type":"before","callId":"expect@45","stepId":"expect@45","startTime":26258.93,"class":"Test","method":"expect","title":"Expect \"toBeVisible\"","subtitle":"getByText('Alex Morgan')","params":{"locator":"getByText('Alex Morgan')"},"stack":[{"file":"C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js","line":99,"column":47}]}
+{"type":"before","callId":"pw:api@46","stepId":"pw:api@46","startTime":26281.81,"class":"Test","method":"pw:api","title":"Fulfill request","params":{},"stack":[{"file":"C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js","line":10,"column":17}],"group":"route"}
+{"type":"after","callId":"pw:api@46","endTime":26289.616,"annotations":[]}
+{"type":"after","callId":"expect@45","endTime":31321.49,"annotations":[],"error":{"name":"","message":"Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Alex Morgan')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Alex Morgan') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Alex Morgan')\u001b[22m\n","stack":"Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Alex Morgan')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Alex Morgan') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Alex Morgan')\u001b[22m\n\n    at C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js:99:47"}}
+{"type":"error","message":"Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('Alex Morgan')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" getByText('Alex Morgan') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByText('Alex Morgan')\u001b[22m\n","stack":[{"file":"C:\\Users\\aniru\\OneDrive\\Desktop\\Project - Aniruddha\\Investment-Calculator\\e2e\\auth.spec.js","line":99,"column":47}]}
+{"type":"before","callId":"hook@47","stepId":"hook@47","startTime":31322.589,"class":"Test","method":"hook","title":"After Hooks","params":{},"stack":[]}
+{"type":"before","callId":"fixture@48","stepId":"fixture@48","parentId":"hook@47","startTime":31323.357,"class":"Test","method":"fixture","title":"Fixture \"page\"","params":{},"stack":[]}
+{"type":"after","callId":"fixture@48","endTime":31323.475,"annotations":[]}
+{"type":"before","callId":"fixture@49","stepId":"fixture@49","parentId":"hook@47","startTime":31325.465,"class":"Test","method":"fixture","title":"Fixture \"context\"","params":{},"stack":[]}
+{"type":"before","callId":"pw:api@50","stepId":"pw:api@50","parentId":"fixture@49","startTime":32794.996,"class":"Test","method":"pw:api","title":"Close context","params":{},"stack":[]}
+{"type":"after","callId":"pw:api@50","endTime":32802.605,"annotations":[]}
+{"type":"after","callId":"fixture@49","endTime":32802.697,"annotations":[]}
+{"type":"before","callId":"attach@5b366a9c9cd0c80eea7ab0949f7dd1fd","stepId":"attach@5b366a9c9cd0c80eea7ab0949f7dd1fd","startTime":32812.686,"class":"Test","method":"test.attach","title":"Attach \"error-context\"","params":{},"stack":[]}
+{"type":"after","callId":"attach@5b366a9c9cd0c80eea7ab0949f7dd1fd","endTime":32812.708,"attachments":[{"name":"error-context","contentType":"text/markdown","file":"attachments/8cc06106f1bf693007a5d394b56a6b7be79c902c"}]}
+{"type":"before","callId":"fixture@59","stepId":"fixture@59","parentId":"hook@47","startTime":32814.256,"class":"Test","method":"fixture","title":"Fixture \"baseURL\"","params":{},"stack":[{"file":"project#","line":1,"column":1}],"group":"configuration"}
+{"type":"after","callId":"fixture@59","endTime":32814.284,"annotations":[]}
+{"type":"after","callId":"hook@47","endTime":32824.068,"annotations":[]}
+{"type":"before","callId":"hook@84","stepId":"hook@84","startTime":32824.476,"class":"Test","method":"hook","title":"Worker Cleanup","params":{},"stack":[]}
+{"type":"before","callId":"fixture@89","stepId":"fixture@89","parentId":"hook@84","startTime":32826.778,"class":"Test","method":"fixture","title":"Fixture \"browser\"","params":{},"stack":[]}
+{"type":"after","callId":"fixture@89","endTime":32924.702,"annotations":[]}
+{"type":"after","callId":"hook@84","endTime":32928.617,"annotations":[]}

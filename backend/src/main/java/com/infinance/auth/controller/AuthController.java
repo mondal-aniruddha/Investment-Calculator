@@ -16,6 +16,7 @@ public class AuthController {
     @PostMapping("/register") @Operation(summary="Create an account") public AuthResponse register(@Valid @RequestBody RegisterRequest r) { return service.register(r); }
     @PostMapping("/login") @Operation(summary="Issue a JWT") public AuthResponse login(@Valid @RequestBody LoginRequest r) { return service.login(r); }
     @GetMapping("/profile") @Operation(summary="Get current profile") public ProfileResponse profile(Authentication a) { return service.profile(a.getName()); }
+    @GetMapping("/me") @Operation(summary="Get current profile (alias)") public ProfileResponse me(Authentication a) { return service.profile(a.getName()); }
     @PutMapping("/profile") public ProfileResponse update(Authentication a,@Valid @RequestBody ProfileUpdateRequest r) { return service.update(a.getName(),r); }
     @DeleteMapping("/account") @ResponseStatus(HttpStatus.NO_CONTENT) @Operation(summary="Delete account and all saved data") public void delete(Authentication a) { service.delete(a.getName()); }
 }

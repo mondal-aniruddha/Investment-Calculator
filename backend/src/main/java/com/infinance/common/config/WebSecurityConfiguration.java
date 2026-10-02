@@ -29,6 +29,7 @@ public class WebSecurityConfiguration {
                         .contentSecurityPolicy(csp -> csp.policyDirectives("default-src 'self'; frame-ancestors 'none'"))
                         .frameOptions(options -> options.deny())
                         .httpStrictTransportSecurity(hsts -> hsts.includeSubDomains(true).maxAgeInSeconds(31536000)))
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login", "/api/v1/market/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/actuator/health").permitAll()
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
@@ -38,6 +39,21 @@ public class WebSecurityConfiguration {
                 .httpBasic(basic -> {})
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+
+    @Bean
+    public org.springframework.security.web.AuthenticationEntryPoint authenticationEntryPoint() {
+        com.fasterxml.jackson.databind.ObjectMapper mapper = com.fasterxml.jackson.databind.json.JsonMapper.builder().findAndAddModules().build();
+        return (request, response, authException) -> {
+            response.setStatus(jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType(org.springframework.http.MediaType.APPLICATION_JSON_VALUE);
+            com.infinance.common.exception.ErrorResponse error = com.infinance.common.exception.ErrorResponse.of(
+                    jakarta.servlet.http.HttpServletResponse.SC_UNAUTHORIZED,
+                    "UNAUTHORIZED",
+                    "Full authentication is required to access this resource"
+            );
+            mapper.writeValue(response.getOutputStream(), error);
+        };
     }
 
     @Bean

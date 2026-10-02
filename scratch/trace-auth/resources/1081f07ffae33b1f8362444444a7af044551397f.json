@@ -1,0 +1,1 @@
+{"token":"mock-jwt-token-12345","expiresAt":"2026-10-03T12:00:00Z","profile":{"id":"user-uuid-1","email":"alex@example.com","displayName":"Alex Morgan","username":"alexm","createdAt":"2026-10-01T10:00:00Z"}}
