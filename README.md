@@ -1,4 +1,5 @@
 # InFinance Calculator
+ infinance-home.netlify.app
 
 InFinance Calculator is a Spring Boot REST API for Indian personal-finance planning. It provides calculation engines and explainable responses for SIP and lumpsum investing, retirement planning, and income-tax comparisons.
 
