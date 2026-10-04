@@ -1,5 +1,16 @@
 // InFinance API client with sessionStorage and 401 interception
 
+export const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '')
+
+export function getApiUrl(path) {
+  if (!path) return ''
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path
+  }
+  const cleanPath = path.startsWith('/') ? path : `/${path}`
+  return API_BASE_URL ? `${API_BASE_URL}${cleanPath}` : cleanPath
+}
+
 export async function request(path, options = {}) {
   // Backward compatibility: migrate token from localStorage to sessionStorage if found
   let token = sessionStorage.getItem('infinance-token')
@@ -18,7 +29,8 @@ export async function request(path, options = {}) {
     ...(options.headers || {}),
   }
 
-  const response = await fetch(path, {
+  const url = getApiUrl(path)
+  const response = await fetch(url, {
     ...options,
     headers,
   })

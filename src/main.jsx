@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route, Link, useNavigate, useLocation } from 're
 import { useTranslation } from 'react-i18next'
 import i18n from './i18n'
 import './styles.css'
-import { request } from './api'
+import { request, getApiUrl } from './api'
 import { ToastProvider, useToast } from './context/ToastContext'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import { AuthPage } from './components/AuthPage'
@@ -54,7 +54,7 @@ function LiveMetalPrices() {
   const fetchPrices = async (isManual = false, signal) => {
     if (isManual) setRefreshing(true)
     try {
-      const res = await fetch('/api/v1/market/metals', {
+      const res = await fetch(getApiUrl('/api/v1/market/metals'), {
         headers: { Accept: 'application/json' },
         cache: 'no-store',
         signal,
@@ -136,10 +136,11 @@ function LiveMetalPrices() {
   }
 
   const metalsList = data?.metals || []
-  const gold = metalsList.find((m) => m.metalCode === 'XAU') || metalsList[0]
-  const silver = metalsList.find((m) => m.metalCode === 'XAG') || metalsList[1]
-  const platinum = metalsList.find((m) => m.metalCode === 'XPT') || metalsList[2]
-  const palladium = metalsList.find((m) => m.metalCode === 'XPD') || metalsList[3]
+  const gold = metalsList.find((m) => m.metalCode === 'XAU')
+  const silver = metalsList.find((m) => m.metalCode === 'XAG')
+  const platinum = metalsList.find((m) => m.metalCode === 'XPT')
+  const palladium = metalsList.find((m) => m.metalCode === 'XPD')
+  const asOfTimestamp = gold?.sourceTimestamp || data?.fetchedAt
 
   return (
     <section className="metals-section card" aria-label={t('metals.title')}>
@@ -150,9 +151,9 @@ function LiveMetalPrices() {
         </div>
         <div className="metals-controls">
           {data && getStatusBadge(data.cacheStatus)}
-          {data?.fetchedAt && (
+          {asOfTimestamp && (
             <span className="metals-timestamp" title="Indian Standard Time (Asia/Kolkata)">
-              {t('metals.lastUpdated')}: {formatKolkataTime(data.fetchedAt)}
+              {t('metals.lastUpdated')}: {formatKolkataTime(asOfTimestamp)}
             </span>
           )}
           <button
@@ -201,9 +202,9 @@ function LiveMetalPrices() {
                 <div>
                   <div className="metal-card-header">
                     <span className="metal-code">{gold.metalCode || 'XAU'}</span>
-                    <span className="metal-purity">{gold.purity || '24K Spot'}</span>
+                    <span className="metal-purity">{gold.purity || 'MCX Reference (99.5%)'}</span>
                   </div>
-                  <h3 className="metal-name">{t('metals.gold')}</h3>
+                  <h3 className="metal-name">{gold.displayName || t('metals.gold')}</h3>
                   <div className="metal-price-primary">
                     {formatMetalINR(gold.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
                   </div>
@@ -229,12 +230,17 @@ function LiveMetalPrices() {
                 <div>
                   <div className="metal-card-header">
                     <span className="metal-code">{silver.metalCode || 'XAG'}</span>
-                    <span className="metal-purity">{silver.purity || '99.9% Spot'}</span>
+                    <span className="metal-purity">{silver.purity || 'MCX Reference'}</span>
                   </div>
-                  <h3 className="metal-name">{t('metals.silver')}</h3>
+                  <h3 className="metal-name">{silver.displayName || t('metals.silver')}</h3>
                   <div className="metal-price-primary">
                     {formatMetalINR(silver.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
                   </div>
+                  {silver.pricePer10GramsInr && (
+                    <div className="metal-price-secondary">
+                      {formatMetalINR(silver.pricePer10GramsInr)} {t('metals.per10Grams')}
+                    </div>
+                  )}
                 </div>
               </article>
             )}
@@ -246,10 +252,15 @@ function LiveMetalPrices() {
                     <span className="metal-code">{platinum.metalCode || 'XPT'}</span>
                     <span className="metal-purity">{platinum.purity || '99.95% Spot'}</span>
                   </div>
-                  <h3 className="metal-name">{t('metals.platinum')}</h3>
+                  <h3 className="metal-name">{platinum.displayName || t('metals.platinum')}</h3>
                   <div className="metal-price-primary">
                     {formatMetalINR(platinum.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
                   </div>
+                  {platinum.pricePer10GramsInr && (
+                    <div className="metal-price-secondary">
+                      {formatMetalINR(platinum.pricePer10GramsInr)} {t('metals.per10Grams')}
+                    </div>
+                  )}
                 </div>
               </article>
             )}
@@ -261,10 +272,15 @@ function LiveMetalPrices() {
                     <span className="metal-code">{palladium.metalCode || 'XPD'}</span>
                     <span className="metal-purity">{palladium.purity || '99.95% Spot'}</span>
                   </div>
-                  <h3 className="metal-name">{t('metals.palladium')}</h3>
+                  <h3 className="metal-name">{palladium.displayName || t('metals.palladium')}</h3>
                   <div className="metal-price-primary">
                     {formatMetalINR(palladium.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
                   </div>
+                  {palladium.pricePer10GramsInr && (
+                    <div className="metal-price-secondary">
+                      {formatMetalINR(palladium.pricePer10GramsInr)} {t('metals.per10Grams')}
+                    </div>
+                  )}
                 </div>
               </article>
             )}
@@ -272,7 +288,7 @@ function LiveMetalPrices() {
 
           <div className="metals-footer">
             <span className="metals-source">
-              {t('metals.source')}: {data.source || 'Metals-API'}
+              {t('metals.source')}: {data.source || 'metals.dev'}
             </span>
             <span className="metals-disclaimer">
               {data.disclaimer || t('metals.disclaimer')}
@@ -908,7 +924,7 @@ function ResultCard({ result, primary, invested, returns, title, loading }) {
   }
 
   const download = async (format) => {
-    const response = await fetch(`/api/v1/reports/${format}`, {
+    const response = await fetch(getApiUrl(`/api/v1/reports/${format}`), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ reportTitle: title, calculatorResults: { result }, assumptions: result?.assumptions || {} }),
@@ -1023,7 +1039,7 @@ function App() {
   const [apiOnline, setApiOnline] = useState(false)
 
   useEffect(() => {
-    fetch('/actuator/health')
+    fetch(getApiUrl('/actuator/health'))
       .then((r) => setApiOnline(r.ok))
       .catch(() => setApiOnline(false))
   }, [])

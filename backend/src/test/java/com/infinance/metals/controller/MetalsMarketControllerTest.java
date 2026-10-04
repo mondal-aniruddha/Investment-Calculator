@@ -39,26 +39,20 @@ class MetalsMarketControllerTest {
     @Test
     @DisplayName("GET /api/v1/market/metals returns 200 with cache-control header and normalized metal prices")
     void shouldReturnMetalsPricesWithCacheHeaders() throws Exception {
-        Instant now = Instant.parse("2026-10-01T12:00:00Z");
+        Instant now = Instant.parse("2026-10-04T12:00:00Z");
         List<MetalPriceDto> metals = List.of(
-                new MetalPriceDto("XAU", "XAU", "Gold", "24K (99.9% Spot Reference)",
-                        new BigDecimal("7450.50"), new BigDecimal("74505.00"),
-                        new BigDecimal("6829.63"), new BigDecimal("68296.25"),
-                        now, now, CacheStatus.LIVE, "Metals-API", "Indicative reference price"),
-                new MetalPriceDto("XAG", "XAG", "Silver", "99.9% Spot Reference",
-                        new BigDecimal("91.20"), null, null, null,
-                        now, now, CacheStatus.LIVE, "Metals-API", "Indicative reference price"),
-                new MetalPriceDto("XPT", "XPT", "Platinum", "99.95% Spot Reference",
-                        new BigDecimal("2680.00"), null, null, null,
-                        now, now, CacheStatus.LIVE, "Metals-API", "Indicative reference price"),
-                new MetalPriceDto("XPD", "XPD", "Palladium", "99.95% Spot Reference",
-                        new BigDecimal("2850.00"), null, null, null,
-                        now, now, CacheStatus.LIVE, "Metals-API", "Indicative reference price")
+                new MetalPriceDto("XAU", "XAU", "Gold (MCX)", "MCX Reference (99.5%)",
+                        new BigDecimal("15039.00"), new BigDecimal("150390.00"),
+                        new BigDecimal("13785.75"), new BigDecimal("137857.50"),
+                        now, now, CacheStatus.LIVE, "metals.dev", "Indicative MCX reference price"),
+                new MetalPriceDto("XAG", "XAG", "Silver", "MCX Reference",
+                        new BigDecimal("225.88"), new BigDecimal("2258.80"), null, null,
+                        now, now, CacheStatus.LIVE, "metals.dev", "Indicative MCX reference price")
         );
 
         MetalsMarketResponseDto responseDto = new MetalsMarketResponseDto(
-                metals, now, CacheStatus.LIVE, "Metals-API",
-                "Indicative international reference prices for educational purposes only; not MCX tradable quotes or local jewellery retail prices."
+                metals, now, CacheStatus.LIVE, "metals.dev",
+                "Indicative MCX reference prices for financial planning and educational purposes only; not local jewellery retail prices (excludes GST, making charges, margins) and not for trading."
         );
 
         when(metalsMarketService.getMetalsPrices()).thenReturn(responseDto);
@@ -69,19 +63,18 @@ class MetalsMarketControllerTest {
                 .andExpect(header().string(HttpHeaders.CACHE_CONTROL, containsString("max-age=60")))
                 .andExpect(header().string(HttpHeaders.CACHE_CONTROL, containsString("stale-while-revalidate=240")))
                 .andExpect(jsonPath("$.cacheStatus", is("LIVE")))
-                .andExpect(jsonPath("$.source", is("Metals-API")))
-                .andExpect(jsonPath("$.disclaimer", containsString("Indicative international reference prices")))
-                .andExpect(jsonPath("$.metals", hasSize(4)))
+                .andExpect(jsonPath("$.source", is("metals.dev")))
+                .andExpect(jsonPath("$.disclaimer", containsString("Indicative MCX reference prices")))
+                .andExpect(jsonPath("$.metals", hasSize(2)))
                 .andExpect(jsonPath("$.metals[0].metalCode", is("XAU")))
-                .andExpect(jsonPath("$.metals[0].displayName", is("Gold")))
-                .andExpect(jsonPath("$.metals[0].pricePerGramInr", is(7450.50)))
-                .andExpect(jsonPath("$.metals[0].pricePer10GramsInr", is(74505.00)))
-                .andExpect(jsonPath("$.metals[0].indicative22kPerGramInr", is(6829.63)))
-                .andExpect(jsonPath("$.metals[0].indicative22kPer10GramsInr", is(68296.25)))
+                .andExpect(jsonPath("$.metals[0].displayName", is("Gold (MCX)")))
+                .andExpect(jsonPath("$.metals[0].pricePerGramInr", is(15039.00)))
+                .andExpect(jsonPath("$.metals[0].pricePer10GramsInr", is(150390.00)))
+                .andExpect(jsonPath("$.metals[0].indicative22kPerGramInr", is(13785.75)))
+                .andExpect(jsonPath("$.metals[0].indicative22kPer10GramsInr", is(137857.50)))
                 .andExpect(jsonPath("$.metals[1].metalCode", is("XAG")))
-                .andExpect(jsonPath("$.metals[1].pricePerGramInr", is(91.20)))
-                .andExpect(jsonPath("$.metals[2].metalCode", is("XPT")))
-                .andExpect(jsonPath("$.metals[3].metalCode", is("XPD")));
+                .andExpect(jsonPath("$.metals[1].pricePerGramInr", is(225.88)))
+                .andExpect(jsonPath("$.metals[1].pricePer10GramsInr", is(2258.80)));
     }
 
     @Test

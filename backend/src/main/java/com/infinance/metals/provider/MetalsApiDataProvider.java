@@ -17,9 +17,11 @@ import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import java.util.Map;
 
 @Component
+@ConditionalOnProperty(name = "infinance.metals.provider", havingValue = "metals-api")
 public class MetalsApiDataProvider implements MetalsDataProvider {
 
     private static final Logger log = LoggerFactory.getLogger(MetalsApiDataProvider.class);
