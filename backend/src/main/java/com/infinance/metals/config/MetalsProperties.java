@@ -22,9 +22,19 @@ public class MetalsProperties {
     private String apiKey = "";
 
     /**
-     * Base URL for the upstream provider API (e.g. Metals-API).
+     * Provider selection: 'metals-dev' or 'metals-api'.
      */
-    private String baseUrl = "https://metals-api.com/api";
+    private String provider = "metals-dev";
+
+    /**
+     * Authority for metals.dev provider (e.g. 'mcx').
+     */
+    private String authority = "mcx";
+
+    /**
+     * Base URL for the upstream provider API.
+     */
+    private String baseUrl = "https://api.metals.dev";
 
     /**
      * Base currency for quotes. Defaults to INR for Indian domestic reference
@@ -76,18 +86,17 @@ public class MetalsProperties {
     /**
      * Human-readable label of the upstream data provider.
      */
-    private String providerLabel = "Metals-API";
+    private String providerLabel = "metals.dev";
 
     /**
-     * Selected provider plan tier documentation (Business tier selected for 60s
-     * cadence, INR conversion, and redistribution rights).
+     * Selected provider plan tier documentation.
      */
-    private String planTier = "Business (Real-time updates, INR conversion, and redistribution rights)";
+    private String planTier = "Free / Starter (MCX reference pricing)";
 
     /**
      * Educational disclaimer attached to responses.
      */
-    private String disclaimer = "Indicative international reference prices for educational purposes only; not MCX tradable quotes or local jewellery retail prices. 22K gold rate is an indicative purity calculation (22/24 of 24K spot).";
+    private String disclaimer = "Indicative MCX reference prices for financial planning and educational purposes only; not local jewellery retail prices (excludes GST, making charges, margins) and not for trading.";
 
     public enum RateDirection {
         INVERSE,
@@ -211,6 +220,22 @@ public class MetalsProperties {
 
     public void setPlanTier(String planTier) {
         this.planTier = planTier;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 
     public String getDisclaimer() {

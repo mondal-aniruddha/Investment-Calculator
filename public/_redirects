@@ -1,0 +1,8 @@
+# Netlify Redirects File for InFinance Calculator
+#
+# If reverse-proxying API requests to a deployed Spring Boot backend via Netlify,
+# place the /api/* proxy rule BEFORE the SPA fallback rule, e.g.:
+# /api/*  https://YOUR-BACKEND-URL/api/:splat  200!
+
+# SPA Routing Fallback
+/*  /index.html  200

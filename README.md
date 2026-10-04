@@ -149,6 +149,7 @@ kubectl -n infinance create secret generic infinance-secrets \
   --from-literal=INFINANCE_JWT_SECRET="$INFINANCE_JWT_SECRET" \
   --from-literal=INFINANCE_ADMIN_USERNAME="$INFINANCE_ADMIN_USERNAME" \
   --from-literal=INFINANCE_ADMIN_PASSWORD="$INFINANCE_ADMIN_PASSWORD" \
+  --from-literal=INFINANCE_METALS_PROVIDER="metals-dev" \
   --from-literal=INFINANCE_METALS_API_KEY="$INFINANCE_METALS_API_KEY"
 kubectl apply -k k8s/
 ```
@@ -157,6 +158,42 @@ kubectl apply -k k8s/
 locally, but should not be applied with placeholder values. The production
 Spring profile (`application-prod.yml`) expects a MySQL datasource and keeps
 Hibernate schema validation enabled; Flyway owns schema changes.
+
+## Netlify deployment
+
+Netlify serves only the static Vite bundle; it cannot reach the Spring Boot
+backend directly. `netlify.toml` includes two reverse-proxy redirect rules that
+forward browser `/api/*` and `/actuator/*` calls to the deployed backend:
+
+```toml
+[[redirects]]
+  from   = "/api/*"
+  to     = ":BACKEND_URL/api/:splat"
+  status = 200
+  force  = true
+```
+
+The `:BACKEND_URL` token is a Netlify **environment variable substitution**
+placeholder. Before you can use live metal prices (or any other backend feature)
+on the Netlify site you must:
+
+1. Deploy the Spring Boot backend somewhere publicly reachable
+   (Render, Railway, Fly.io, your own VPS, …).
+2. In the Netlify dashboard go to **Site configuration → Environment variables**
+   and add:
+   ```
+   BACKEND_URL = https://your-backend-host.example.com
+   ```
+   (no trailing slash)
+3. Set the metals API key on the backend host:
+   ```
+   INFINANCE_METALS_API_KEY = <your metals.dev api key>
+   ```
+4. Trigger a new Netlify deploy so the proxy rule picks up the variable.
+
+For Netlify environment-variable substitution to work the variable must be set
+before the site deploy (not during build). A missing or empty `BACKEND_URL`
+means the proxy target is invalid and `/api/*` calls will return 404.
 
 ## API documentation
 
@@ -204,12 +241,12 @@ In Postman, import both JSON files and select the `Investment Calculator - Local
 
 ## Live Precious Metal Reference Prices
 
-InFinance provides indicative, production-quality precious metal reference quotes for Gold (24K and indicative 22K), Silver, Platinum, and Palladium quoted in INR per gram (`₹/g`) and INR per 10 grams (`₹/10 g`).
+InFinance provides indicative, production-quality precious metal reference quotes for Gold (MCX 99.5% and indicative 22K) and Silver quoted in INR per gram (`₹/g`) and INR per 10 grams (`₹/10 g`).
 
 ### Architecture & Security
 
 - **Server-side only integration**: React and Vite never communicate directly with any external market-data provider. Provider API keys and credentials are never exposed in browser bundles, network requests, logs, or error responses.
-- **Provider adapter pattern**: Implemented under `com.infinance.metals` with `MetalsDataProvider` interface and `MetalsApiDataProvider` adapter, allowing seamless replacement or aggregation with other providers in the future.
+- **Provider adapter pattern**: Implemented under `com.infinance.metals` with `MetalsDataProvider` interface and adapter implementations (`MetalsDevDataProvider` for `metals.dev` and `MetalsApiDataProvider` for `metals-api`), selectable via configuration (`infinance.metals.provider=metals-dev | metals-api`).
 - **Resilient caching**:
   - A separate bounded Caffeine cache maintains fresh rates for 5 minutes (`infinance.metals.cache-ttl-minutes=5`), keyed by configured symbol, currency, and unit options.
   - Rate responses include `Cache-Control: public, max-age=60, stale-while-revalidate=240` to enable client and proxy caching.
@@ -218,26 +255,24 @@ InFinance provides indicative, production-quality precious metal reference quote
   - Browser visits do not hammer upstream providers: the frontend fetches once on mount, updates every 5 minutes only while the browser tab is visible, pauses when hidden, and features an accessible manual refresh button.
 - **Security & Rate Limiting**: The public `/api/v1/market/metals` endpoint is permitted without authentication, protected by the global `RequestProtectionFilter` (payload size limits and Bucket4j per-IP rate limiting).
 
-### Provider & Commercial Licensing
+### Provider & Configuration
 
-- **Selected Provider**: [Metals-API](https://metals-api.com).
-- **Selected Tier**: **Business Tier** is specified for production use. Free and entry tiers do not allow commercial redistribution to website visitors or 60-second update frequency with INR base currency. The Business tier includes:
-  - Real-time updates (60-second quote cadence).
-  - Native INR base quotes and gram units.
-  - Full commercial redistribution rights for end-user display in web applications.
+- **Selected Provider**: [metals.dev](https://metals.dev) using the MCX authority (`authority=mcx`).
+- **Coverage**: The `mcx` authority endpoint provides domestic Indian reference rates for Gold (99.5% MCX rate, mapped as `Gold (MCX)` with indicative 22K calculation) and Silver. This endpoint does not provide Platinum or Palladium rates; the frontend dynamically renders available metal cards without empty or NaN rows.
 - **Configuration**:
-  - `INFINANCE_METALS_API_KEY`: Upstream provider API key (configure in `.env`, Kubernetes secrets, or container environment).
-  - `INFINANCE_METALS_BASE_URL`: Base API URL (default: `https://metals-api.com/api`).
+  - `INFINANCE_METALS_PROVIDER`: Selected provider (`metals-dev` or `metals-api`, default: `metals-dev`).
+  - `INFINANCE_METALS_API_KEY`: Upstream provider API key (configure in `.env`, Kubernetes secrets, or container environment). Never hardcoded or committed.
+  - `INFINANCE_METALS_BASE_URL`: Base API URL (default: `https://api.metals.dev`).
+  - `INFINANCE_METALS_AUTHORITY`: Data authority for metals.dev (default: `mcx`).
   - `INFINANCE_METALS_BASE_CURRENCY`: Base currency (default: `INR`).
-  - `INFINANCE_METALS_SYMBOLS`: Metal codes (default: `XAU,XAG,XPT,XPD`).
-  - `INFINANCE_METALS_UNIT`: Unit requested (`g` for grams, or `toz` for troy ounces with automated `31.1034768` factor conversion).
-  - `INFINANCE_METALS_RATE_DIRECTION`: `INVERSE` (1 INR in metal) or `DIRECT` (metal in INR).
+  - `INFINANCE_METALS_UNIT`: Unit requested (`g` for grams).
 
-### Indicative Disclaimer & MCX Guidance
+### Indicative Disclaimer, Terms & MCX Guidance
 
-- **Indicative Reference Prices**: The rates provided are indicative international/aggregated spot reference prices intended for financial planning, portfolio tracking, and educational comparisons.
-- **22K Gold**: Quoted as a pure indicative purity calculation (`22/24` of the 24K spot reference price). It is explicitly not a local jeweller's retail price (which incorporates import customs duty, local GST of 3%, making charges, and jeweller margins).
-- **Live MCX Trading**: For live tradable commodity futures or spot delivery on the Multi Commodity Exchange of India (MCX), applications must subscribe to a direct authorized vendor data feed with an official MCX market data redistribution license. Scraping or unofficial mirrors are not permitted or suitable for transactional trading.
+- **Indicative Reference Prices**: The rates provided are indicative MCX reference prices intended for financial planning, portfolio tracking, and educational comparisons.
+- **Retail vs MCX Rates**: Rates exclude local GST, import duties, making charges, and jeweller margins, and are not local jeweller retail prices.
+- **Terms & Redistribution Compliance**: Deployers must confirm that their `metals.dev` account plan and terms of service permit public redistribution and web display of MCX reference data.
+- **Live MCX Trading**: For live tradable commodity futures or spot delivery on the Multi Commodity Exchange of India (MCX), applications must subscribe to a direct authorized vendor data feed with an official MCX market data redistribution license. Unofficial mirrors are not permitted or suitable for transactional trading.
 | `POST` | `/api/v1/mutual-funds/swp` | Calculate systematic withdrawals |
 | `POST` | `/api/v1/mutual-funds/cagr` | Calculate CAGR |
 | `POST` | `/api/v1/mutual-funds/xirr` | Calculate XIRR for dated cash flows |

@@ -10,7 +10,7 @@ import java.util.List;
 @Configuration
 public class WebCorsConfig implements WebMvcConfigurer {
 
-    @Value("${app.cors.allowed-origins:http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173}")
+    @Value("${app.cors.allowed-origins:http://localhost:5173,http://localhost:3000,http://127.0.0.1:5173,https://infinance-home.netlify.app}")
     private List<String> allowedOrigins;
 
     @Override

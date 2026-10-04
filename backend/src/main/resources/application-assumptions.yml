@@ -22,8 +22,10 @@ infinance:
     prompt-template: "Explain these financial calculator results in plain language. Do not provide personalized investment, tax, or legal advice. Mention uncertainty and the educational disclaimer.\nResults: {{results}}"
   metals:
     enabled: ${INFINANCE_METALS_ENABLED:true}
+    provider: ${INFINANCE_METALS_PROVIDER:metals-dev}
     api-key: ${INFINANCE_METALS_API_KEY:}
-    base-url: ${INFINANCE_METALS_BASE_URL:https://metals-api.com/api}
+    base-url: ${INFINANCE_METALS_BASE_URL:https://api.metals.dev}
+    authority: ${INFINANCE_METALS_AUTHORITY:mcx}
     base-currency: ${INFINANCE_METALS_BASE_CURRENCY:INR}
     symbols: ${INFINANCE_METALS_SYMBOLS:XAU,XAG,XPT,XPD}
     unit: ${INFINANCE_METALS_UNIT:g}
@@ -32,9 +34,9 @@ infinance:
     read-timeout-ms: ${INFINANCE_METALS_READ_TIMEOUT_MS:5000}
     cache-ttl-minutes: ${INFINANCE_METALS_CACHE_TTL_MINUTES:5}
     stale-ttl-hours: ${INFINANCE_METALS_STALE_TTL_HOURS:24}
-    provider-label: "Metals-API"
-    plan-tier: "Business (Real-time updates, INR conversion, and redistribution rights)"
-    disclaimer: "Indicative international reference prices for educational purposes only; not MCX tradable quotes or local jewellery retail prices. 22K gold rate is an indicative purity calculation (22/24 of 24K spot)."
+    provider-label: "metals.dev"
+    plan-tier: "Free / Starter (MCX reference pricing)"
+    disclaimer: "Indicative MCX reference prices for financial planning and educational purposes only; not local jewellery retail prices (excludes GST, making charges, margins) and not for trading."
   disclaimer: "For educational purposes only; not investment, tax, or legal advice. Consult a SEBI-registered advisor or a Chartered Accountant."
   current-financial-year: "2024-2025"
   rates:
