@@ -5,7 +5,38 @@ All notable changes to the InFinance Calculator project will be documented in th
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] — 2025-10-04
+
+### Added (Frontend — major restructure)
+- **Monorepo**: New `frontend/` directory containing all React/Vite source. Root `src/` is preserved unchanged for reference; the new `frontend/` is the canonical build target.
+- **Design system**: Three-file modular CSS system (`index.css`, `animations.css`, `components.css`) replacing the 1084-line monolithic `styles.css`. Soft gradient mesh background, CSS custom properties (dark + light), full typography scale using DM Sans + DM Mono + Playfair Display.
+- **Floating orbs**: Three slow, blurred radial-gradient orbs with `floatA/B/C` keyframe animations. All animations gated on `prefers-reduced-motion`. Dark-mode palette variants included.
+- **Scroll reveal**: `useScrollReveal` hook using IntersectionObserver. `.reveal` / `.reveal-stagger` CSS classes. Instantly revealed on `prefers-reduced-motion: reduce`.
+- **Sticky navbar**: Glassy backdrop-filter navbar with brand logo, desktop nav, hamburger mobile drawer, language picker, theme toggle, auth dropdown, and live API status dot.
+- **Footer**: Branded footer with disclaimer, legal note, and sitemap links.
+- **HomePage** (`/`): New landing page — hero section with animated CTA, statistics bar, live metal prices widget, feature grid (6 cards with hover-lift), how-it-works, and onboarding CTA.
+- **AboutPage** (`/about`): New page with full legal disclaimer, official data source citations, technology stack, and known limitations.
+- **CalcPageHeader**: Consistent header for each calculator with eyebrow label, h1, and subtitle.
+- **TipsCard** and **HowItWorks**: Educational sidebar components below each calculator.
+- **useTheme** hook: dark/light mode with `localStorage` persistence and `:root.dark` class toggling.
+- **Shared components**: `MoneyField`, `NumberField`, `SelectField`, `SubmitButton`, `ActionButton`, `ErrorBox`, `EmptyState`, `SkeletonResult`, `MetalSkeletonCard`, `ProjectionChart`, `CalculatorLayout`.
+- **ResultCard**: Extracted into its own file with loading/empty states and accessible aria labels.
+- **Docker infrastructure**: `docker/frontend.Dockerfile` (Node 20 Alpine + Nginx 1.27 Alpine multi-stage), `docker/nginx.conf` (SPA routing, gzip, long-term cache headers, security headers).
+- **Root `docker-compose.yml`**: Full-stack compose with MySQL 8.4, Spring Boot backend, and Vite frontend using healthchecks and dependency ordering.
+- **Root README**: Comprehensive documentation with directory layout, quick-start, Docker setup, env-var reference, API table, and deployment guide.
+
+### Changed
+- `netlify.toml` (root): `base = "frontend"`, `publish = "frontend/dist"`.
+- `frontend/netlify.toml`: Canonical Netlify config for the new `frontend/` build target.
+
+### No-change
+- **All backend code**: Zero functional changes. All API contracts, calculation engines, DB migrations, auth, and configuration are untouched.
+- **All API call shapes**: Every `POST`/`GET` path, request body, and response field is identical.
+
+---
+
 ## [Unreleased]
+
 
 ### Added
 - **Metals / Netlify**: New `MetalsDevDataProvider` adapter targeting [metals.dev](https://metals.dev) `/v1/metal/authority?authority=mcx` (MCX reference authority). Returns Gold (MCX 99.5%), indicative 22K Gold, and Silver in INR/g and INR/10 g. Selectable via `INFINANCE_METALS_PROVIDER=metals-dev` (default).

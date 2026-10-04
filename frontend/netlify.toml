@@ -3,26 +3,15 @@
   publish = "frontend/dist"
   command = "npm run build"
 
-
 # ---------------------------------------------------------------------------
 # Backend API proxy
 # ---------------------------------------------------------------------------
-# Netlify only serves the static Vite bundle; it cannot reach the Spring Boot
-# backend on its own.  These rules reverse-proxy /api/* and /actuator/* to
-# the deployed backend.
-#
-# HOW TO CONFIGURE
-# ─────────────────
 # 1. Deploy your Spring Boot backend somewhere publicly reachable
 #    (Render, Railway, Fly.io, your VPS, …).
 # 2. In the Netlify dashboard → Site configuration → Environment variables
 #    set:  BACKEND_URL = https://your-backend-host.example.com
 #    (no trailing slash)
 # 3. Redeploy the Netlify site so the build picks up the new variable.
-#
-# Netlify resolves the :splat placeholder at request time, so no rebuild is
-# needed if only the env-var value changes (only the toml rule itself needs
-# a rebuild when changed).
 # ---------------------------------------------------------------------------
 
 [[redirects]]
@@ -42,3 +31,6 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[build.environment]
+  NODE_VERSION = "20"

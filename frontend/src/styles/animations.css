@@ -1,0 +1,190 @@
+/* ==========================================================================
+   InFinance Animations — animations.css
+   Floating orbs, parallax, scroll-reveal, page transitions.
+   ALL keyframe animations are disabled via prefers-reduced-motion.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Floating gradient orbs (background decoration)
+   -------------------------------------------------------------------------- */
+.orb-container {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0;
+  will-change: transform;
+  /* Fade in when JS is loaded */
+  animation: orbFadeIn 2s var(--ease-out) forwards;
+}
+
+.orb-1 {
+  width: clamp(300px, 45vw, 600px);
+  height: clamp(300px, 45vw, 600px);
+  top: -10%;
+  left: -8%;
+  background: radial-gradient(circle, hsla(96, 60%, 80%, 0.35) 0%, transparent 70%);
+  animation-delay: 0s;
+  animation: orbFadeIn 2s var(--ease-out) 0s forwards, floatA 38s ease-in-out 2s infinite;
+}
+
+.orb-2 {
+  width: clamp(250px, 40vw, 520px);
+  height: clamp(250px, 40vw, 520px);
+  top: 20%;
+  right: -12%;
+  background: radial-gradient(circle, hsla(167, 45%, 75%, 0.28) 0%, transparent 70%);
+  animation: orbFadeIn 2s var(--ease-out) 0.4s forwards, floatB 45s ease-in-out 2.4s infinite;
+}
+
+.orb-3 {
+  width: clamp(200px, 35vw, 450px);
+  height: clamp(200px, 35vw, 450px);
+  bottom: 5%;
+  left: 30%;
+  background: radial-gradient(circle, hsla(44, 75%, 88%, 0.22) 0%, transparent 65%);
+  animation: orbFadeIn 2s var(--ease-out) 0.8s forwards, floatC 52s ease-in-out 2.8s infinite;
+}
+
+:root.dark .orb-1 {
+  background: radial-gradient(circle, hsla(145, 45%, 25%, 0.45) 0%, transparent 70%);
+}
+:root.dark .orb-2 {
+  background: radial-gradient(circle, hsla(167, 40%, 20%, 0.38) 0%, transparent 70%);
+}
+:root.dark .orb-3 {
+  background: radial-gradient(circle, hsla(44, 50%, 18%, 0.28) 0%, transparent 65%);
+}
+
+@keyframes orbFadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes floatA {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25%       { transform: translate(40px, 30px) scale(1.04); }
+  50%       { transform: translate(-20px, 55px) scale(0.97); }
+  75%       { transform: translate(30px, -25px) scale(1.02); }
+}
+
+@keyframes floatB {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-50px, 40px) scale(1.06); }
+  66%       { transform: translate(25px, -30px) scale(0.96); }
+}
+
+@keyframes floatC {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  20%       { transform: translate(30px, -40px) scale(1.03); }
+  60%       { transform: translate(-35px, 25px) scale(0.98); }
+}
+
+/* --------------------------------------------------------------------------
+   prefers-reduced-motion: disable all orb animations
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .orb {
+    animation: none !important;
+    opacity: 0.18; /* still show subtle tint, just static */
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Scroll-reveal — JS adds .revealed via IntersectionObserver
+   -------------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity var(--dur-slow) var(--ease-out),
+              transform var(--dur-slow) var(--ease-out);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered children */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur-slow) var(--ease-out),
+              transform var(--dur-slow) var(--ease-out);
+}
+.reveal-stagger.revealed > *:nth-child(1) { transition-delay: 0ms;   opacity: 1; transform: none; }
+.reveal-stagger.revealed > *:nth-child(2) { transition-delay: 80ms;  opacity: 1; transform: none; }
+.reveal-stagger.revealed > *:nth-child(3) { transition-delay: 160ms; opacity: 1; transform: none; }
+.reveal-stagger.revealed > *:nth-child(4) { transition-delay: 240ms; opacity: 1; transform: none; }
+.reveal-stagger.revealed > *:nth-child(5) { transition-delay: 320ms; opacity: 1; transform: none; }
+.reveal-stagger.revealed > *:nth-child(6) { transition-delay: 400ms; opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-stagger > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Page-level fade transition (applied on route changes in AppShell)
+   -------------------------------------------------------------------------- */
+.page-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--dur-base) var(--ease-out),
+              transform var(--dur-base) var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-enter, .page-enter-active { opacity: 1; transform: none; transition: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Hover lift effect for feature/glossary cards
+   -------------------------------------------------------------------------- */
+.hover-lift {
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-float);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hover-lift:hover { transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Spinner
+   -------------------------------------------------------------------------- */
+.spin { animation: spin 0.9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .spin { animation: none; }
+}
+
+/* --------------------------------------------------------------------------
+   Tab transition (slide underline)
+   -------------------------------------------------------------------------- */
+.tab-indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: var(--accent-mid);
+  border-radius: var(--radius-pill);
+  transition: left var(--dur-base) var(--ease-out), width var(--dur-base) var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .tab-indicator { transition: none; }
+}
