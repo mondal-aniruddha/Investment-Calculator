@@ -1,58 +1,71 @@
+version: '3.9'
+
 services:
+  # ── MySQL 8.4 ──────────────────────────────────────────────────────────────
+  mysql:
+    image: mysql:8.4
+    container_name: infinance-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-infinance}
+      MYSQL_USER: ${MYSQL_USER:-infinance}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-infinance}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-rootpassword}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Spring Boot backend ────────────────────────────────────────────────────
   backend:
     build:
-      context: .
-      dockerfile: docker/backend.Dockerfile
-    environment:
-      SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/infinance?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER:-infinance}
-      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD:-infinance-local}
-      INFINANCE_JWT_SECRET: ${INFINANCE_JWT_SECRET:-local-only-change-this-secret-32-bytes}
-      INFINANCE_ADMIN_USERNAME: ${INFINANCE_ADMIN_USERNAME:-admin}
-      INFINANCE_ADMIN_PASSWORD: ${INFINANCE_ADMIN_PASSWORD:-change-me}
-      APP_CORS_ALLOWED_ORIGINS: ${APP_CORS_ALLOWED_ORIGINS:-http://localhost:5173,http://localhost:8081,https://infinance-home.netlify.app}
-      INFINANCE_METALS_PROVIDER: ${INFINANCE_METALS_PROVIDER:-metals-dev}
-      INFINANCE_METALS_API_KEY: ${INFINANCE_METALS_API_KEY:-}
-      INFINANCE_METALS_BASE_URL: ${INFINANCE_METALS_BASE_URL:-https://api.metals.dev}
-      INFINANCE_METALS_AUTHORITY: ${INFINANCE_METALS_AUTHORITY:-mcx}
-      INFINANCE_METALS_BASE_CURRENCY: ${INFINANCE_METALS_BASE_CURRENCY:-INR}
-      INFINANCE_METALS_UNIT: ${INFINANCE_METALS_UNIT:-g}
+      context: ./backend
+      dockerfile: ../docker/backend.Dockerfile
+    container_name: infinance-backend
+    restart: unless-stopped
     depends_on:
       mysql:
         condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${MYSQL_DATABASE:-infinance}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Kolkata
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER:-infinance}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD:-infinance}
+      INFINANCE_JWT_SECRET: ${INFINANCE_JWT_SECRET:-CHANGE_ME_TO_A_LONG_RANDOM_SECRET_32_CHARS_MIN}
+      INFINANCE_METALS_API_KEY: ${INFINANCE_METALS_API_KEY:-}
+      INFINANCE_AI_ENABLED: ${INFINANCE_AI_ENABLED:-false}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      APP_CORS_ALLOWED_ORIGINS: http://localhost:8081,${FRONTEND_URL:-}
     ports:
       - "8080:8080"
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/actuator/health"]
+      test: ["CMD-SHELL", "curl -fs http://localhost:8080/actuator/health || exit 1"]
       interval: 15s
       timeout: 5s
-      retries: 10
+      retries: 6
+      start_period: 45s
 
-  mysql:
-    image: mysql:8.4
-    environment:
-      MYSQL_DATABASE: infinance
-      MYSQL_USER: ${MYSQL_USER:-infinance}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-infinance-local}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root-local-only}
-    volumes:
-      - mysql-data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u$${MYSQL_USER}", "-p$${MYSQL_PASSWORD}"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-
+  # ── Vite/React frontend ────────────────────────────────────────────────────
   frontend:
     build:
-      context: .
-      dockerfile: docker/frontend.Dockerfile
+      context: ./frontend
+      dockerfile: ../docker/frontend.Dockerfile
+      args:
+        VITE_API_BASE_URL: http://localhost:8080
+    container_name: infinance-frontend
+    restart: unless-stopped
     depends_on:
       backend:
         condition: service_healthy
     ports:
       - "8081:80"
+    environment:
+      BACKEND_URL: http://backend:8080
 
 volumes:
-  mysql-data:
+  mysql_data:
