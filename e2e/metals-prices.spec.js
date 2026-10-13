@@ -163,8 +163,9 @@ test('displays calm non-blocking unavailable state without breaking calculators'
   await expect(page.getByText(/metal reference prices are temporarily unavailable/i)).toBeVisible()
   await expect(page.getByRole('button', { name: /retry/i })).toBeVisible()
 
-  // SIP calculator remains completely operational
-  await expect(page.getByRole('heading', { name: /plan your SIP/i })).toBeVisible()
+  // SIP calculator at /sip remains completely operational
+  await page.goto('/sip')
+  await expect(page.getByRole('heading', { name: /sip.*step-up planner/i })).toBeVisible()
   await page.getByRole('button', { name: /^calculate/i }).click()
   await expect(page.getByText('₹1,45,000')).toBeVisible()
 })
