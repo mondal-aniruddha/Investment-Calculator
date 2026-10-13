@@ -13,13 +13,13 @@ import { useToast } from '../context/ToastContext'
 
 // Nav entries: [path, i18n key, label fallback]
 const NAV_ITEMS = [
+  ['/learn',     'nav.learn',     'Learn Hub'],
+  ['/roadmap',   'nav.roadmap',   'Roadmap'],
   ['/sip',       'nav.sip',       'SIP Planner'],
   ['/loan',      'nav.loan',      'Loan & EMI'],
   ['/fixed',     'nav.fixed',     'Fixed Income'],
   ['/mutual',    'nav.mutual',    'Mutual Funds'],
-  ['/planning',  'nav.planning',  'Smart Planning'],
-  ['/onboarding','nav.onboarding','Onboarding'],
-  ['/education', 'nav.education', 'Education'],
+  ['/planning',  'nav.planning',  'Tax & Planning'],
 ]
 
 // ── User account dropdown ─────────────────────────────────────────────────
@@ -246,30 +246,29 @@ export function AppShell({ children, apiOnline }) {
                 <span>in<span style={{ color: 'var(--accent-muted)' }}>finance</span></span>
               </div>
               <p className="footer-disclaimer">
-                {t('common.disclaimer')} All projections are illustrative estimates based on configured assumptions.
-                Consult a SEBI-registered financial advisor or Chartered Accountant before making any financial decisions.
-                Data sourced from official Ministry of Finance, EPFO, and PFRDA notifications.
+                {t('common.disclaimer')} Educational purposes only. InFinance is not SEBI-registered and does not provide personalized financial, legal, or tax advice. Projections are mathematical estimates based on user inputs and regulatory benchmarks. Consult a certified financial planner or Chartered Accountant before making irreversible decisions.
               </p>
               <p className="footer-disclaimer" style={{ marginTop: '4px' }}>
-                © 2025 InFinance · India · INR · Not SEBI-registered · Not financial advice
+                © 2026 InFinance · India · INR (₹) · 100% Stateless &amp; Privacy-First
               </p>
             </div>
 
             <div className="footer-links">
               <div className="footer-links-row">
-                <Link to="/">Home</Link>
-                <Link to="/sip">SIP</Link>
-                <Link to="/loan">Loan</Link>
-                <Link to="/fixed">Fixed Income</Link>
-                <Link to="/planning">Planning</Link>
+                <Link to="/learn">Learn Hub</Link>
+                <Link to="/roadmap">Roadmap</Link>
+                <Link to="/glossary">Glossary</Link>
+                <Link to="/sip">SIP Planner</Link>
+                <Link to="/loan">Loan &amp; EMI</Link>
               </div>
               <div className="footer-links-row">
-                <Link to="/education">Education</Link>
-                <Link to="/onboarding">Onboarding</Link>
-                <Link to="/about">About & Disclaimer</Link>
+                <Link to="/fixed">Fixed Income</Link>
+                <Link to="/planning">Tax &amp; Planning</Link>
+                <Link to="/privacy">Privacy Policy</Link>
+                <Link to="/about">About &amp; Disclaimer</Link>
               </div>
               <p className="footer-copy">
-                Built with ♥ for Indian personal finance
+                Built with ♥ for young Indians mastering their money
               </p>
             </div>
           </div>
