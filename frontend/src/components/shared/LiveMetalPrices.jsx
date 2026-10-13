@@ -94,6 +94,9 @@ export function LiveMetalPrices() {
         <div className="metals-title-group">
           <div className="section-label">{t('metals.eyebrow')}</div>
           <h2>{t('metals.title')}</h2>
+          <small className="metals-retail-note" style={{ color: 'var(--ink-muted)', display: 'block', marginTop: '2px', fontSize: '0.78rem' }}>
+            {t('home.metals.note', "Indicative reference prices, not a jeweller's retail rate.")}
+          </small>
         </div>
         <div className="metals-controls">
           {data && <StatusBadge status={data.cacheStatus} t={t} />}
@@ -115,7 +118,7 @@ export function LiveMetalPrices() {
       </div>
 
       {loading && !data && (
-        <div className="metals-grid" aria-busy="true">
+        <div className="metals-grid" aria-busy="true" aria-label="Loading metal prices">
           {[1, 2, 3, 4].map((i) => <MetalSkeletonCard key={i} />)}
         </div>
       )}
@@ -123,6 +126,9 @@ export function LiveMetalPrices() {
       {unavailable && !data && (
         <div className="metals-unavailable-card">
           <p>{t('metals.unavailable')}</p>
+          <small style={{ color: 'var(--ink-faint)', display: 'block', marginTop: '4px' }}>
+            {t('home.metals.note', "Indicative reference prices, not a jeweller's retail rate.")}
+          </small>
           <button className="btn btn-secondary" onClick={() => fetchPrices(true)} style={{ marginTop: '12px' }}>
             {t('metals.retry')}
           </button>
