@@ -11,6 +11,7 @@ import {
   ProjectionChart, HowItWorks, TipsCard, CalculatorLayout, CalcPageHeader,
 } from '../components/ui/index'
 import { ResultCard } from '../components/ui/ResultCard'
+import { LearnBeforeYouCalculate } from '../components/shared/LearnBeforeYouCalculate'
 
 const initial = {
   monthlyInvestment: 10000,
@@ -45,6 +46,13 @@ export default function SipPage({ setApiOnline }) {
         label="01 / INVESTING"
         title="SIP & Step-Up Planner"
         subtitle="Model a Systematic Investment Plan with an optional annual step-up. See how regular contributions compound over time."
+      />
+
+      <LearnBeforeYouCalculate
+        slug="what-is-sip"
+        title="New to SIPs?"
+        summary="Learn how a ₹500/month SIP can grow into lakhs using rupee cost averaging — 4-min read."
+        icon="📈"
       />
 
       <div ref={revealRef} className="reveal">

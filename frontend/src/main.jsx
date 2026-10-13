@@ -88,6 +88,9 @@ function App() {
                 <Route path="/calculators/loan-emi"       element={<Navigate to="/loan" replace />} />
                 <Route path="/calculators/tax-regime"     element={<Navigate to="/planning" replace />} />
 
+                {/* Legacy redirects */}
+                <Route path="/education" element={<Navigate to="/glossary" replace />} />
+
                 {/* ── Protected page ── */}
                 <Route
                   path="/account"

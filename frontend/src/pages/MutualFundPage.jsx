@@ -11,6 +11,7 @@ import {
   ProjectionChart, HowItWorks, TipsCard, CalculatorLayout, CalcPageHeader,
 } from '../components/ui/index'
 import { ResultCard } from '../components/ui/ResultCard'
+import { LearnBeforeYouCalculate } from '../components/shared/LearnBeforeYouCalculate'
 
 const initial = {
   initialCorpus: 1000000,
@@ -44,6 +45,13 @@ export default function MutualFundPage({ setApiOnline }) {
         label="04 / FLEXIBILITY"
         title="Mutual Fund Tools — SWP"
         subtitle="Model a Systematic Withdrawal Plan: how long will your corpus last at your chosen monthly withdrawal rate?"
+      />
+
+      <LearnBeforeYouCalculate
+        slug="mutual-funds-basics"
+        title="New to Mutual Funds?"
+        summary="What’s an NAV, expense ratio, and Direct vs Regular plan? Read the plain-language explainer before running numbers."
+        icon="💼"
       />
 
       <div ref={revealRef} className="reveal">
