@@ -181,6 +181,7 @@ export function AuthPage({ initialMode = 'login' }) {
           <div className="auth-tabs" role="tablist">
             <button
               id="tab-login"
+              type="button"
               role="tab"
               aria-selected={mode === 'login'}
               aria-controls="panel-login"
@@ -195,6 +196,7 @@ export function AuthPage({ initialMode = 'login' }) {
             </button>
             <button
               id="tab-register"
+              type="button"
               role="tab"
               aria-selected={mode === 'register'}
               aria-controls="panel-register"
