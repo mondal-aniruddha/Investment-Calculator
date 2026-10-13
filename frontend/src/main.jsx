@@ -78,7 +78,6 @@ function App() {
                 <Route path="/mutual"         element={<MutualFundPage  setApiOnline={setApiOnline} />} />
                 <Route path="/planning"       element={<PlanningPage    setApiOnline={setApiOnline} />} />
                 <Route path="/onboarding"     element={<OnboardingPage />} />
-                <Route path="/education"      element={<EducationPage />} />
                 <Route path="/about"          element={<AboutPage />} />
                 <Route path="/login"          element={<AuthPage initialMode="login" />} />
                 <Route path="/register"       element={<AuthPage initialMode="register" />} />

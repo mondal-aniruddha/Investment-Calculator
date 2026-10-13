@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
@@ -179,34 +179,34 @@ export function AuthPage({ initialMode = 'login' }) {
       <div className="auth-form-panel">
         <div className="card auth-card">
           <div className="auth-tabs" role="tablist">
-            <button
+            <Link
               id="tab-login"
               role="tab"
+              to="/login"
               aria-selected={mode === 'login'}
               aria-controls="panel-login"
               className={`auth-tab ${mode === 'login' ? 'active' : ''}`}
               onClick={() => {
                 setMode('login')
                 setErrorMessage('')
-                navigate('/login', { replace: true, state: location.state })
               }}
             >
               {t('auth.tabLogin')}
-            </button>
-            <button
+            </Link>
+            <Link
               id="tab-register"
               role="tab"
+              to="/register"
               aria-selected={mode === 'register'}
               aria-controls="panel-register"
               className={`auth-tab ${mode === 'register' ? 'active' : ''}`}
               onClick={() => {
                 setMode('register')
                 setErrorMessage('')
-                navigate('/register', { replace: true, state: location.state })
               }}
             >
               {t('auth.tabRegister')}
-            </button>
+            </Link>
           </div>
 
           {errorMessage && (
@@ -266,17 +266,16 @@ export function AuthPage({ initialMode = 'login' }) {
               </button>
 
               <div className="auth-switch-prompt">
-                <button
-                  type="button"
+                <Link
+                  to="/register"
                   className="text-button"
                   onClick={() => {
                     setMode('register')
                     setErrorMessage('')
-                    navigate('/register', { replace: true, state: location.state })
                   }}
                 >
                   {t('auth.switchRegister')}
-                </button>
+                </Link>
               </div>
             </form>
           ) : (
@@ -420,17 +419,16 @@ export function AuthPage({ initialMode = 'login' }) {
               </button>
 
               <div className="auth-switch-prompt">
-                <button
-                  type="button"
+                <Link
+                  to="/login"
                   className="text-button"
                   onClick={() => {
                     setMode('login')
                     setErrorMessage('')
-                    navigate('/login', { replace: true, state: location.state })
                   }}
                 >
                   {t('auth.switchLogin')}
-                </button>
+                </Link>
               </div>
             </form>
           )}
