@@ -11,6 +11,7 @@ import {
   ProjectionChart, HowItWorks, TipsCard, CalculatorLayout, CalcPageHeader,
 } from '../components/ui/index'
 import { ResultCard } from '../components/ui/ResultCard'
+import { LearnBeforeYouCalculate } from '../components/shared/LearnBeforeYouCalculate'
 
 const initial = { principal: 2500000, tenureYears: 20, annualInterestRate: 8.5 }
 
@@ -38,6 +39,13 @@ export default function LoanPage({ setApiOnline }) {
         label="02 / BORROWING"
         title="Loan & EMI Suite"
         subtitle="Calculate your monthly EMI on the reducing-balance method and visualise how your principal shrinks over the loan tenure."
+      />
+
+      <LearnBeforeYouCalculate
+        slug="cibil-score-explained"
+        title="Know your CIBIL score?"
+        summary="Your CIBIL score affects the interest rate you get. A 750+ score can save lakhs — learn how to protect yours."
+        icon="📊"
       />
 
       <div ref={revealRef} className="reveal">

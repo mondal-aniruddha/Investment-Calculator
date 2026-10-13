@@ -11,6 +11,7 @@ import {
   HowItWorks, TipsCard, CalculatorLayout, CalcPageHeader,
 } from '../components/ui/index'
 import { ResultCard } from '../components/ui/ResultCard'
+import { LearnBeforeYouCalculate } from '../components/shared/LearnBeforeYouCalculate'
 
 const initial = {
   scheme: 'FD',
@@ -57,6 +58,13 @@ export default function FixedIncomePage({ setApiOnline }) {
         label="03 / STABILITY"
         title="Fixed-Income Calculators"
         subtitle="Compare FD, RD, PPF, EPF, NPS, SSY, and Post Office schemes at their official rates with post-tax and inflation-adjusted results."
+      />
+
+      <LearnBeforeYouCalculate
+        slug="fd-vs-debt-funds"
+        title="FD vs Debt Funds — which is better?"
+        summary="Government-backed FDs feel safe but debt mutual funds can beat them post-tax. Know the real difference before you lock money in."
+        icon="🏦"
       />
 
       <div ref={revealRef} className="reveal">

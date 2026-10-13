@@ -12,6 +12,7 @@ import {
   ProjectionChart, HowItWorks, CalcPageHeader,
 } from '../components/ui/index'
 import { formatINR } from '../utils/format'
+import { LearnBeforeYouCalculate } from '../components/shared/LearnBeforeYouCalculate'
 
 // ── Reusable planning result panel ──────────────────────────────────────
 function PlanResult({ children }) {
@@ -87,6 +88,13 @@ export default function PlanningPage({ setApiOnline }) {
         label="05 / SMART PLANNING"
         title="Smart Planning Hub"
         subtitle="Six planning tools in one place: health score, Monte Carlo simulation, net worth tracker, goal planner, tax optimizer, and sensitivity analysis."
+      />
+
+      <LearnBeforeYouCalculate
+        slug="old-vs-new-tax-regime"
+        title="Old vs New Tax Regime — which saves you more?"
+        summary="Most people choose the wrong regime and pay thousands extra in tax. Read the 5-min guide before you run the comparison."
+        icon="⚖️"
       />
 
       <div ref={revealRef} className="reveal">
