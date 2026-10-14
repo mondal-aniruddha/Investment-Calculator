@@ -1,6 +1,6 @@
 package com.infinance.goals.service;
 import com.infinance.common.dto.BaseAssumptionsDto;
-import com.infinance.config_engine.service.AssumptionService;
+import com.infinance.configengine.service.AssumptionService;
 import com.infinance.goals.dto.*;
 import com.infinance.goals.engine.GoalPlannerEngine;
 import org.springframework.stereotype.Service;

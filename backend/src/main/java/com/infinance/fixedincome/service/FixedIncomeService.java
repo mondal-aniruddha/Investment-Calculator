@@ -1,7 +1,7 @@
 package com.infinance.fixedincome.service;
 
 import com.infinance.common.dto.BaseAssumptionsDto;
-import com.infinance.config_engine.service.AssumptionService;
+import com.infinance.configengine.service.AssumptionService;
 import com.infinance.fixedincome.dto.*;
 import com.infinance.fixedincome.engine.FixedIncomeEngine;
 import org.springframework.stereotype.Service;

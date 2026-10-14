@@ -2,7 +2,7 @@ spring:
   application:
     name: infinance-calculator-backend
   profiles:
-    active: dev
+    default: dev
   config:
     import:
       - classpath:application-assumptions.yml
@@ -43,5 +43,5 @@ management:
 
 infinance:
   jwt:
-    secret: ${INFINANCE_JWT_SECRET:change-this-development-secret-key-at-least-32-bytes}
+    secret: ${INFINANCE_JWT_SECRET:}
     expiration: ${INFINANCE_JWT_EXPIRATION:86400}

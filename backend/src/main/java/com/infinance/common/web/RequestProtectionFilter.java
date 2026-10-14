@@ -1,5 +1,8 @@
 package com.infinance.common.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.infinance.common.exception.ErrorResponse;
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -14,6 +17,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,6 +27,7 @@ public class RequestProtectionFilter extends OncePerRequestFilter {
     private static final long MAX_REQUEST_BYTES = 1_048_576L;
     private final Map<String, Bucket> buckets = new ConcurrentHashMap<>();
     private final MeterRegistry meterRegistry;
+    private final ObjectMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     public RequestProtectionFilter(MeterRegistry meterRegistry) {
         this.meterRegistry = meterRegistry;
@@ -43,7 +48,14 @@ public class RequestProtectionFilter extends OncePerRequestFilter {
             if (request.getContentLengthLong() > MAX_REQUEST_BYTES) {
                 response.setStatus(HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE);
                 response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-                response.getWriter().write("{\"error\":\"REQUEST_TOO_LARGE\",\"message\":\"Request body exceeds 1 MB\"}");
+                ErrorResponse error = ErrorResponse.of(
+                        HttpServletResponse.SC_REQUEST_ENTITY_TOO_LARGE,
+                        "REQUEST_TOO_LARGE",
+                        "Request body exceeds 1 MB",
+                        List.of(),
+                        correlationId
+                );
+                objectMapper.writeValue(response.getOutputStream(), error);
                 return;
             }
             String key = request.getRemoteAddr() == null ? "unknown" : request.getRemoteAddr();
@@ -53,6 +65,15 @@ public class RequestProtectionFilter extends OncePerRequestFilter {
             if (!bucket.tryConsume(1)) {
                 response.setStatus(429);
                 response.setHeader("Retry-After", "60");
+                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                ErrorResponse error = ErrorResponse.of(
+                        429,
+                        "RATE_LIMIT_EXCEEDED",
+                        "Too many requests. Please retry in 60 seconds.",
+                        List.of(),
+                        correlationId
+                );
+                objectMapper.writeValue(response.getOutputStream(), error);
                 return;
             }
             chain.doFilter(request, response);

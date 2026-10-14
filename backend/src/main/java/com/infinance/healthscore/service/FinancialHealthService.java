@@ -1,6 +1,6 @@
 package com.infinance.healthscore.service;
 import com.infinance.common.dto.BaseAssumptionsDto;
-import com.infinance.config_engine.service.AssumptionService;
+import com.infinance.configengine.service.AssumptionService;
 import com.infinance.healthscore.dto.*;
 import com.infinance.healthscore.engine.FinancialHealthEngine;
 import org.springframework.stereotype.Service;

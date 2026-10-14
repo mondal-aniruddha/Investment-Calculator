@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 
+import com.infinance.common.config.ApiConstants;
+
 @RestController
-@RequestMapping("/api/v1/mutual-funds")
+@RequestMapping(ApiConstants.MUTUAL_FUNDS)
 @Tag(name = "Mutual Fund Tools", description = "SIP, step-up SIP, lumpsum, SWP, CAGR, and XIRR calculators")
 public class MutualFundController {
     private final MutualFundService service;

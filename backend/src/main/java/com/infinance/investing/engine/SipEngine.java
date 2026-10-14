@@ -1,15 +1,12 @@
 package com.infinance.investing.engine;
 
 import com.infinance.common.dto.MoneyAmount;
-import com.infinance.common.money.FinancialMath;
 import com.infinance.investing.dto.AssetBucketDto;
 import com.infinance.investing.dto.ScenarioCorpusDto;
 import com.infinance.investing.dto.YearlyGrowthDto;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,10 +30,6 @@ import java.util.List;
  * </ul>
  */
 public final class SipEngine {
-
-    private static final MathContext MC = MathContext.DECIMAL128;
-    private static final BigDecimal HUNDRED = new BigDecimal("100");
-    private static final BigDecimal TWELVE = new BigDecimal("12");
 
     public record SipCalculationResult(
             BigDecimal totalInvested,
@@ -125,61 +118,9 @@ public final class SipEngine {
             int tenureYears,
             BigDecimal annualReturnPercent,
             BigDecimal annualStepUpPercent) {
-
-        int totalMonths = tenureYears * 12;
-        BigDecimal monthlyRate = annualReturnPercent.divide(HUNDRED, 12, RoundingMode.HALF_UP)
-                .divide(TWELVE, 12, RoundingMode.HALF_UP);
-
-        if (annualStepUpPercent == null || annualStepUpPercent.compareTo(BigDecimal.ZERO) == 0) {
-            // Standard Closed-Form SIP Formula: FV = P * [((1+i)^n - 1) / i] * (1+i)
-            BigDecimal totalInvested = monthlyInvestment.multiply(BigDecimal.valueOf(totalMonths))
-                    .setScale(FinancialMath.MONEY_SCALE, RoundingMode.HALF_UP);
-
-            if (monthlyRate.compareTo(BigDecimal.ZERO) == 0) {
-                return new EngineCorpusResult(totalInvested, BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP), totalInvested);
-            }
-
-            BigDecimal onePlusRate = BigDecimal.ONE.add(monthlyRate);
-            BigDecimal compoundFactor = onePlusRate.pow(totalMonths, MC);
-            BigDecimal numerator = compoundFactor.subtract(BigDecimal.ONE);
-            BigDecimal fv = monthlyInvestment.multiply(numerator, MC)
-                    .divide(monthlyRate, MC)
-                    .multiply(onePlusRate, MC)
-                    .setScale(FinancialMath.MONEY_SCALE, RoundingMode.HALF_UP);
-
-            BigDecimal returns = fv.subtract(totalInvested).setScale(FinancialMath.MONEY_SCALE, RoundingMode.HALF_UP);
-            return new EngineCorpusResult(totalInvested, returns, fv);
-        } else {
-            // Step-up Month-by-month compounding simulation
-            BigDecimal totalInvested = BigDecimal.ZERO;
-            BigDecimal totalCorpus = BigDecimal.ZERO;
-            BigDecimal currentMonthlyP = monthlyInvestment;
-            BigDecimal stepUpMultiplier = BigDecimal.ONE.add(
-                    annualStepUpPercent.divide(HUNDRED, 10, RoundingMode.HALF_UP));
-
-            for (int month = 1; month <= totalMonths; month++) {
-                // Apply step-up at beginning of each 12-month boundary after year 1
-                if (month > 1 && (month - 1) % 12 == 0) {
-                    currentMonthlyP = currentMonthlyP.multiply(stepUpMultiplier, MC);
-                }
-
-                totalInvested = totalInvested.add(currentMonthlyP);
-                int monthsCompounding = totalMonths - month + 1;
-
-                if (monthlyRate.compareTo(BigDecimal.ZERO) == 0) {
-                    totalCorpus = totalCorpus.add(currentMonthlyP);
-                } else {
-                    BigDecimal factor = BigDecimal.ONE.add(monthlyRate).pow(monthsCompounding, MC);
-                    totalCorpus = totalCorpus.add(currentMonthlyP.multiply(factor, MC));
-                }
-            }
-
-            BigDecimal roundedInvested = totalInvested.setScale(FinancialMath.MONEY_SCALE, RoundingMode.HALF_UP);
-            BigDecimal roundedCorpus = totalCorpus.setScale(FinancialMath.MONEY_SCALE, RoundingMode.HALF_UP);
-            BigDecimal roundedReturns = roundedCorpus.subtract(roundedInvested).setScale(FinancialMath.MONEY_SCALE, RoundingMode.HALF_UP);
-
-            return new EngineCorpusResult(roundedInvested, roundedReturns, roundedCorpus);
-        }
+        var res = com.infinance.common.engine.SipCalculationEngine.calculateCorpus(
+                monthlyInvestment, tenureYears, annualReturnPercent, annualStepUpPercent);
+        return new EngineCorpusResult(res.totalInvested(), res.returnsEarned(), res.maturityCorpus());
     }
 
     /**
@@ -191,57 +132,19 @@ public final class SipEngine {
             BigDecimal annualReturnPercent,
             BigDecimal annualStepUpPercent) {
 
-        List<YearlyGrowthDto> progression = new ArrayList<>();
-        BigDecimal monthlyRate = annualReturnPercent.divide(HUNDRED, 12, RoundingMode.HALF_UP)
-                .divide(TWELVE, 12, RoundingMode.HALF_UP);
-        BigDecimal stepUpMultiplier = BigDecimal.ONE.add(
-                annualStepUpPercent.divide(HUNDRED, 10, RoundingMode.HALF_UP));
+        var points = com.infinance.common.engine.SipCalculationEngine.calculateYearlyProgression(
+                monthlyInvestment, tenureYears, annualReturnPercent, annualStepUpPercent);
 
-        // Precompute monthly investments
-        int totalMonths = tenureYears * 12;
-        BigDecimal[] monthlyPayments = new BigDecimal[totalMonths];
-        BigDecimal currentP = monthlyInvestment;
-
-        for (int m = 0; m < totalMonths; m++) {
-            if (m > 0 && m % 12 == 0) {
-                currentP = currentP.multiply(stepUpMultiplier, MC);
-            }
-            monthlyPayments[m] = currentP;
-        }
-
-        for (int yr = 1; yr <= tenureYears; yr++) {
-            int elapsedMonths = yr * 12;
-            BigDecimal cumInvested = BigDecimal.ZERO;
-            BigDecimal corpusAtYear = BigDecimal.ZERO;
-
-            for (int m = 0; m < elapsedMonths; m++) {
-                BigDecimal payment = monthlyPayments[m];
-                cumInvested = cumInvested.add(payment);
-                int monthsRemainingInYear = elapsedMonths - m;
-
-                if (monthlyRate.compareTo(BigDecimal.ZERO) == 0) {
-                    corpusAtYear = corpusAtYear.add(payment);
-                } else {
-                    BigDecimal factor = BigDecimal.ONE.add(monthlyRate).pow(monthsRemainingInYear, MC);
-                    corpusAtYear = corpusAtYear.add(payment.multiply(factor, MC));
-                }
-            }
-
-            BigDecimal roundedInvested = cumInvested.setScale(FinancialMath.MONEY_SCALE, RoundingMode.HALF_UP);
-            BigDecimal roundedCorpus = corpusAtYear.setScale(FinancialMath.MONEY_SCALE, RoundingMode.HALF_UP);
-            BigDecimal roundedGain = roundedCorpus.subtract(roundedInvested).setScale(FinancialMath.MONEY_SCALE, RoundingMode.HALF_UP);
-
-            progression.add(new YearlyGrowthDto(
-                    yr,
-                    roundedInvested,
-                    roundedCorpus,
-                    roundedGain,
-                    MoneyAmount.of(roundedInvested),
-                    MoneyAmount.of(roundedCorpus)
-            ));
-        }
-
-        return progression;
+        return points.stream()
+                .map(p -> new YearlyGrowthDto(
+                        p.year(),
+                        p.investedCumulative(),
+                        p.corpusExpected(),
+                        p.returnsEarnedCumulative(),
+                        MoneyAmount.of(p.investedCumulative()),
+                        MoneyAmount.of(p.corpusExpected())
+                ))
+                .toList();
     }
 
     /**

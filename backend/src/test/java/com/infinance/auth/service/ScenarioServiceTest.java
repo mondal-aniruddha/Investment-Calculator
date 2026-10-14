@@ -1,7 +1,7 @@
 package com.infinance.auth.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infinance.auth.dto.AuthDtos.*;
+import com.infinance.auth.dto.*;
 import com.infinance.auth.repository.SavedScenarioRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -2,7 +2,7 @@ package com.infinance.tax.service;
 
 import com.infinance.common.dto.BaseAssumptionsDto;
 import com.infinance.common.dto.MoneyAmount;
-import com.infinance.config_engine.service.AssumptionService;
+import com.infinance.configengine.service.AssumptionService;
 import com.infinance.tax.dto.RegimeTaxSummaryDto;
 import com.infinance.tax.dto.TaxCalculationRequestDto;
 import com.infinance.tax.dto.TaxCalculationResponseDto;

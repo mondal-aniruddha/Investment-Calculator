@@ -68,8 +68,9 @@ public class MetalsMarketService {
                 cache.put(cacheKey, entry);
                 return fresh.withCacheStatus(CacheStatus.LIVE);
             } catch (Exception ex) {
-                log.warn("Failed to fetch fresh metals market data from {}: {}",
-                        provider.getProviderName(), ex.getClass().getSimpleName());
+                String correlationId = org.slf4j.MDC.get("correlationId");
+                log.warn("[correlationId={}] Failed to fetch fresh metals market data from {}: {}",
+                        correlationId, provider.getProviderName(), ex.getClass().getSimpleName());
 
                 if (cached != null && now.isBefore(cached.staleUntil())) {
                     log.info("Serving stale cached metals data fetched at {} (valid until {})",

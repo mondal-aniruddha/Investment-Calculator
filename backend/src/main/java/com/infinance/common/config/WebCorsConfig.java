@@ -1,22 +1,33 @@
 package com.infinance.common.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.List;
-
+/**
+ * CORS configuration for all /api/** endpoints.
+ *
+ * Allowed origins are injected via {@link CorsProperties} (bound from
+ * app.cors.allowed-origins).  The default set (local Vite dev ports) lives in
+ * CorsProperties; profile overrides live in application-dev.yml /
+ * application-prod.yml; production overrides come from the
+ * APP_CORS_ALLOWED_ORIGINS environment variable.
+ *
+ * Phase 6: migrated from raw @Value injection to typed @ConfigurationProperties.
+ */
 @Configuration
 public class WebCorsConfig implements WebMvcConfigurer {
 
-    @Value("${app.cors.allowed-origins:http://localhost:5173,http://localhost:5174,http://localhost:5175,http://localhost:3000,http://127.0.0.1:5173,http://127.0.0.1:5174,http://127.0.0.1:5175,https://infinance-home.netlify.app}")
-    private List<String> allowedOrigins;
+    private final CorsProperties corsProperties;
+
+    public WebCorsConfig(CorsProperties corsProperties) {
+        this.corsProperties = corsProperties;
+    }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOrigins(allowedOrigins.toArray(new String[0]))
+                .allowedOrigins(corsProperties.getAllowedOrigins().toArray(new String[0]))
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true)

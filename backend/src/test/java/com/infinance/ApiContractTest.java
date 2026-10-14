@@ -1,7 +1,7 @@
 package com.infinance;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infinance.investing.dto.SipRequestDto;
+import com.infinance.investing.dto.SipRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
@@ -27,7 +27,7 @@ class ApiContractTest {
 
     @Test
     void sipContractContainsProjectionAndAssumptions() throws Exception {
-        SipRequestDto request = SipRequestDto.builder()
+        SipRequest request = SipRequest.builder()
                 .monthlyInvestment(new BigDecimal("1000"))
                 .investmentHorizonYears(3)
                 .expectedAnnualReturn(new BigDecimal("10"))
