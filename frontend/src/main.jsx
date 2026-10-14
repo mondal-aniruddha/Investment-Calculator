@@ -23,6 +23,7 @@ import { AppShell }      from './layouts/AppShell'
 
 // Shared components
 import { ProtectedRoute } from './components/shared/ProtectedRoute'
+import { ErrorBoundary }  from './components/shared/ErrorBoundary'
 
 // Pages
 import HomePage          from './pages/HomePage'
@@ -57,57 +58,61 @@ function App() {
   }, [])
 
   return (
-    <HelmetProvider>
-      <BrowserRouter>
-        <ToastProvider>
-          <AuthProvider>
-            <AppShell apiOnline={apiOnline}>
-              <Routes>
-                {/* ── Public pages ── */}
-                <Route path="/"               element={<HomePage setApiOnline={setApiOnline} />} />
-                <Route path="/learn"          element={<LearnHubPage />} />
-                <Route path="/learn/:slug"    element={<ArticleDetailPage />} />
-                <Route path="/glossary"       element={<GlossaryPage />} />
-                <Route path="/roadmap"        element={<RoadmapPage />} />
-                <Route path="/privacy"        element={<PrivacyPage />} />
+    <ErrorBoundary level="root">
+      <HelmetProvider>
+        <BrowserRouter>
+          <ToastProvider>
+            <AuthProvider>
+              <AppShell apiOnline={apiOnline}>
+                <ErrorBoundary level="route">
+                  <Routes>
+                    {/* ── Public pages ── */}
+                    <Route path="/"               element={<HomePage setApiOnline={setApiOnline} />} />
+                    <Route path="/learn"          element={<LearnHubPage />} />
+                    <Route path="/learn/:slug"    element={<ArticleDetailPage />} />
+                    <Route path="/glossary"       element={<GlossaryPage />} />
+                    <Route path="/roadmap"        element={<RoadmapPage />} />
+                    <Route path="/privacy"        element={<PrivacyPage />} />
 
-                {/* Calculators & Planning */}
-                <Route path="/sip"            element={<SipPage  setApiOnline={setApiOnline} />} />
-                <Route path="/loan"           element={<LoanPage setApiOnline={setApiOnline} />} />
-                <Route path="/fixed"          element={<FixedIncomePage setApiOnline={setApiOnline} />} />
-                <Route path="/mutual"         element={<MutualFundPage  setApiOnline={setApiOnline} />} />
-                <Route path="/planning"       element={<PlanningPage    setApiOnline={setApiOnline} />} />
-                <Route path="/onboarding"     element={<OnboardingPage />} />
-                <Route path="/about"          element={<AboutPage />} />
-                <Route path="/login"          element={<AuthPage initialMode="login" />} />
-                <Route path="/register"       element={<AuthPage initialMode="register" />} />
+                    {/* Calculators & Planning */}
+                    <Route path="/sip"            element={<SipPage  setApiOnline={setApiOnline} />} />
+                    <Route path="/loan"           element={<LoanPage setApiOnline={setApiOnline} />} />
+                    <Route path="/fixed"          element={<FixedIncomePage setApiOnline={setApiOnline} />} />
+                    <Route path="/mutual"         element={<MutualFundPage  setApiOnline={setApiOnline} />} />
+                    <Route path="/planning"       element={<PlanningPage    setApiOnline={setApiOnline} />} />
+                    <Route path="/onboarding"     element={<OnboardingPage />} />
+                    <Route path="/about"          element={<AboutPage />} />
+                    <Route path="/login"          element={<AuthPage initialMode="login" />} />
+                    <Route path="/register"       element={<AuthPage initialMode="register" />} />
 
-                {/* SEO clean URL aliases */}
-                <Route path="/calculators/sip-calculator" element={<Navigate to="/sip" replace />} />
-                <Route path="/calculators/loan-emi"       element={<Navigate to="/loan" replace />} />
-                <Route path="/calculators/tax-regime"     element={<Navigate to="/planning" replace />} />
+                    {/* SEO clean URL aliases */}
+                    <Route path="/calculators/sip-calculator" element={<Navigate to="/sip" replace />} />
+                    <Route path="/calculators/loan-emi"       element={<Navigate to="/loan" replace />} />
+                    <Route path="/calculators/tax-regime"     element={<Navigate to="/planning" replace />} />
 
-                {/* Legacy redirects */}
-                <Route path="/education" element={<Navigate to="/glossary" replace />} />
+                    {/* Legacy redirects */}
+                    <Route path="/education" element={<Navigate to="/glossary" replace />} />
 
-                {/* ── Protected page ── */}
-                <Route
-                  path="/account"
-                  element={
-                    <ProtectedRoute>
-                      <AccountPage />
-                    </ProtectedRoute>
-                  }
-                />
+                    {/* ── Protected page ── */}
+                    <Route
+                      path="/account"
+                      element={
+                        <ProtectedRoute>
+                          <AccountPage />
+                        </ProtectedRoute>
+                      }
+                    />
 
-                {/* Fallback */}
-                <Route path="*" element={<Navigate to="/" replace />} />
-              </Routes>
-            </AppShell>
-          </AuthProvider>
-        </ToastProvider>
-      </BrowserRouter>
-    </HelmetProvider>
+                    {/* Fallback */}
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                  </Routes>
+                </ErrorBoundary>
+              </AppShell>
+            </AuthProvider>
+          </ToastProvider>
+        </BrowserRouter>
+      </HelmetProvider>
+    </ErrorBoundary>
   )
 }
 

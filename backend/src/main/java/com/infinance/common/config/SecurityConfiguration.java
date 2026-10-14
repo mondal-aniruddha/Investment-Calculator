@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.infinance.auth.security.JwtAuthenticationFilter;
 import com.infinance.common.exception.ErrorResponse;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -35,7 +36,9 @@ public class SecurityConfiguration {
                         .contentSecurityPolicy(csp -> csp.policyDirectives("default-src 'self'; frame-ancestors 'none'"))
                         .frameOptions(options -> options.deny())
                         .httpStrictTransportSecurity(hsts -> hsts.includeSubDomains(true).maxAgeInSeconds(31536000)))
-                .exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint()))
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(authenticationEntryPoint())
+                        .accessDeniedHandler(accessDeniedHandler()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login", "/api/v1/market/**", "/api/v1/learn/**", "/api/v1/glossary/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/actuator/health").permitAll()
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
@@ -53,10 +56,37 @@ public class SecurityConfiguration {
         return (request, response, authException) -> {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            String correlationId = request.getHeader("X-Correlation-ID");
+            if (correlationId == null) {
+                correlationId = org.slf4j.MDC.get("correlationId");
+            }
             ErrorResponse error = ErrorResponse.of(
                     HttpServletResponse.SC_UNAUTHORIZED,
                     "UNAUTHORIZED",
-                    "Full authentication is required to access this resource"
+                    "Full authentication is required to access this resource",
+                    List.of(),
+                    correlationId
+            );
+            mapper.writeValue(response.getOutputStream(), error);
+        };
+    }
+
+    @Bean
+    public org.springframework.security.web.access.AccessDeniedHandler accessDeniedHandler() {
+        ObjectMapper mapper = JsonMapper.builder().findAndAddModules().build();
+        return (request, response, accessDeniedException) -> {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            String correlationId = request.getHeader("X-Correlation-ID");
+            if (correlationId == null) {
+                correlationId = org.slf4j.MDC.get("correlationId");
+            }
+            ErrorResponse error = ErrorResponse.of(
+                    HttpServletResponse.SC_FORBIDDEN,
+                    "FORBIDDEN",
+                    "Access is denied to this resource",
+                    List.of(),
+                    correlationId
             );
             mapper.writeValue(response.getOutputStream(), error);
         };

@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { marked } from 'marked'
 import { fetchArticleBySlug } from '../services/learnService'
 import { SEO } from '../components/shared/SEO'
 import { DisclaimerBanner } from '../components/shared/DisclaimerBanner'
+import { DataState } from '../components/shared/DataState'
 import { formatKolkataTime } from '../utils/format'
 
 // Configure marked options
@@ -19,56 +20,45 @@ export default function ArticleDetailPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  useEffect(() => {
-    let isMounted = true
+  const loadArticle = useCallback(() => {
     setLoading(true)
     setError(null)
 
     fetchArticleBySlug(slug)
       .then((data) => {
-        if (isMounted) {
-          setArticle(data)
-          setLoading(false)
-        }
+        setArticle(data)
+        setLoading(false)
       })
       .catch((err) => {
-        if (isMounted) {
-          console.error('Error fetching article:', err)
-          setError('Article not found or backend unavailable.')
-          setLoading(false)
-        }
+        setError(err?.message || 'Article not found or backend unavailable.')
+        setLoading(false)
       })
-
-    return () => { isMounted = false }
   }, [slug])
 
-  if (loading) {
-    return (
-      <div className="page-container article-detail-page">
-        <div className="card" style={{ padding: '40px' }}>
-          <div className="skeleton-line" style={{ width: '30%', height: '16px', marginBottom: '20px' }} />
-          <div className="skeleton-line" style={{ width: '80%', height: '36px', marginBottom: '24px' }} />
-          <div className="skeleton-line" style={{ width: '100%', height: '18px', marginBottom: '12px' }} />
-          <div className="skeleton-line" style={{ width: '95%', height: '18px', marginBottom: '12px' }} />
-          <div className="skeleton-line" style={{ width: '70%', height: '18px' }} />
-        </div>
-      </div>
-    )
-  }
+  useEffect(() => {
+    loadArticle()
+  }, [loadArticle])
 
-  if (error || !article) {
+  if (loading || error || !article) {
     return (
       <div className="page-container article-detail-page">
-        <div className="card" style={{ textAlign: 'center', padding: '48px 24px' }}>
-          <span style={{ fontSize: '36px' }} aria-hidden="true">📖</span>
-          <h2 style={{ margin: '16px 0 8px' }}>Guide not found</h2>
-          <p style={{ color: 'var(--ink-muted)', marginBottom: '24px' }}>
-            The guide you are looking for does not exist or may have moved.
-          </p>
-          <button className="btn btn-primary" onClick={() => navigate('/learn')}>
-            Return to Learn Hub
-          </button>
-        </div>
+        <DataState
+          loading={loading}
+          error={error}
+          empty={!article}
+          onRetry={loadArticle}
+          skeletonType="detail"
+          emptyIcon="📖"
+          emptyMessage="Guide not found"
+          emptySubtitle="The guide you are looking for does not exist or may have moved."
+        />
+        {!loading && (
+          <div style={{ textAlign: 'center', marginTop: '16px' }}>
+            <button className="btn btn-primary" onClick={() => navigate('/learn')}>
+              Return to Learn Hub
+            </button>
+          </div>
+        )}
       </div>
     )
   }

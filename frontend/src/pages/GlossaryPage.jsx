@@ -1,27 +1,36 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchGlossaryTerms } from '../services/glossaryService'
 import { SEO } from '../components/shared/SEO'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { DataState } from '../components/shared/DataState'
 
 export default function GlossaryPage() {
   const [terms, setTerms] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [query, setQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('ALL')
   const revealRef = useScrollReveal()
 
-  useEffect(() => {
+  const loadTerms = useCallback(() => {
+    setLoading(true)
+    setError(null)
+
     fetchGlossaryTerms()
       .then((data) => {
         setTerms(data || [])
         setLoading(false)
       })
       .catch((err) => {
-        console.error('Failed to load glossary terms:', err)
+        setError(err?.message || 'Could not load glossary terms from backend.')
         setLoading(false)
       })
   }, [])
+
+  useEffect(() => {
+    loadTerms()
+  }, [loadTerms])
 
   // Categories
   const categories = useMemo(() => {
@@ -88,26 +97,18 @@ export default function GlossaryPage() {
         ))}
       </div>
 
-      {/* Terms Grid */}
-      {loading ? (
-        <div className="glossary-dictionary-grid">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="card glossary-card skeleton-card">
-              <div className="skeleton-line" style={{ width: '30%', height: '20px', marginBottom: '12px' }} />
-              <div className="skeleton-line" style={{ width: '90%', height: '14px', marginBottom: '8px' }} />
-              <div className="skeleton-line" style={{ width: '75%', height: '14px' }} />
-            </div>
-          ))}
-        </div>
-      ) : filteredTerms.length === 0 ? (
-        <div className="card empty-state-card" style={{ textAlign: 'center', padding: '48px 24px' }}>
-          <span style={{ fontSize: '32px' }} aria-hidden="true">📖</span>
-          <h3 style={{ margin: '12px 0 6px' }}>No terms match your search</h3>
-          <p style={{ color: 'var(--ink-muted)', margin: 0 }}>
-            Try searching for another term or clear the filter.
-          </p>
-        </div>
-      ) : (
+      {/* Terms Grid rendered via DataState */}
+      <DataState
+        loading={loading}
+        error={error}
+        empty={filteredTerms.length === 0}
+        onRetry={loadTerms}
+        skeletonCount={6}
+        skeletonType="card"
+        emptyIcon="📖"
+        emptyMessage="No terms match your search"
+        emptySubtitle="Try searching for another term or clear the filter."
+      >
         <div className="glossary-dictionary-grid">
           {filteredTerms.map((item) => (
             <article key={item.term} className="card glossary-term-card hover-lift">
@@ -138,7 +139,7 @@ export default function GlossaryPage() {
             </article>
           ))}
         </div>
-      )}
+      </DataState>
     </div>
   )
 }

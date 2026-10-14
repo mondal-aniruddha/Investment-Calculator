@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
 import { request } from '../services/api'
+import { DataState } from '../components/shared/DataState'
 
 export function AccountPage() {
   const { t } = useTranslation()
@@ -11,6 +12,7 @@ export function AccountPage() {
 
   const [scenarios, setScenarios] = useState([])
   const [loadingScenarios, setLoadingScenarios] = useState(false)
+  const [scenariosError, setScenariosError] = useState(null)
   const [editing, setEditing] = useState(false)
   const [displayName, setDisplayName] = useState(user?.displayName || '')
   const [phone, setPhone] = useState(user?.phone || '')
@@ -26,11 +28,12 @@ export function AccountPage() {
 
   const fetchScenarios = async () => {
     setLoadingScenarios(true)
+    setScenariosError(null)
     try {
       const data = await request('/api/v1/scenarios')
       setScenarios(Array.isArray(data) ? data : [])
-    } catch {
-      // Scenarios fail silently or empty
+    } catch (err) {
+      setScenariosError(err?.message || 'Could not load saved scenarios.')
     } finally {
       setLoadingScenarios(false)
     }
@@ -155,17 +158,16 @@ export function AccountPage() {
           </button>
         </div>
 
-        {loadingScenarios ? (
-          <div className="card loading-skeleton-wrapper" aria-busy="true">
-            <div className="skeleton-bone" style={{ width: '100%', height: '5rem', marginBottom: '1rem' }} />
-            <div className="skeleton-bone" style={{ width: '100%', height: '5rem' }} />
-          </div>
-        ) : scenarios.length === 0 ? (
-          <div className="card empty-scenarios-card">
-            <p>You have not saved any calculation scenarios yet.</p>
-            <small>Run any calculator to create and compare projection scenarios.</small>
-          </div>
-        ) : (
+        <DataState
+          loading={loadingScenarios}
+          error={scenariosError}
+          empty={scenarios.length === 0}
+          onRetry={fetchScenarios}
+          skeletonCount={2}
+          skeletonType="card"
+          emptyMessage="You have not saved any calculation scenarios yet."
+          emptySubtitle="Run any calculator to create and compare projection scenarios."
+        >
           <div className="scenarios-grid">
             {scenarios.map((sc) => (
               <div key={sc.id} className="card scenario-item-card">
@@ -188,7 +190,7 @@ export function AccountPage() {
               </div>
             ))}
           </div>
-        )}
+        </DataState>
       </section>
 
       {/* Danger Zone */}

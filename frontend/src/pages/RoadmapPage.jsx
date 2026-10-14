@@ -92,8 +92,8 @@ export default function RoadmapPage() {
       const next = { ...prev, [stepId]: !prev[stepId] }
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
-      } catch (e) {
-        console.warn('Could not save roadmap progress:', e)
+      } catch {
+        // Storage quota exceeded or disabled
       }
       return next
     })

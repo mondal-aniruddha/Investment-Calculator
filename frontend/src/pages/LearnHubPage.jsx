@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { fetchArticles } from '../services/learnService'
 import { SEO } from '../components/shared/SEO'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { DataState } from '../components/shared/DataState'
 
 const CATEGORIES = [
   'ALL',
@@ -24,28 +25,24 @@ export default function LearnHubPage() {
   const [error, setError] = useState(null)
   const revealRef = useScrollReveal()
 
-  useEffect(() => {
-    let isMounted = true
+  const loadArticles = useCallback(() => {
     setLoading(true)
     setError(null)
 
     fetchArticles(selectedCategory, query)
       .then((data) => {
-        if (isMounted) {
-          setArticles(data || [])
-          setLoading(false)
-        }
+        setArticles(data || [])
+        setLoading(false)
       })
       .catch((err) => {
-        if (isMounted) {
-          console.error('Failed to load articles:', err)
-          setError('Could not load articles from backend. Please verify backend is running.')
-          setLoading(false)
-        }
+        setError(err?.message || 'Could not load articles from backend. Please verify backend is running.')
+        setLoading(false)
       })
-
-    return () => { isMounted = false }
   }, [selectedCategory, query])
+
+  useEffect(() => {
+    loadArticles()
+  }, [loadArticles])
 
   const handleCategoryChange = (cat) => {
     setSelectedCategory(cat)
@@ -102,34 +99,17 @@ export default function LearnHubPage() {
         ))}
       </div>
 
-      {/* Quick stats or error banner */}
-      {error && (
-        <div className="card error-banner" role="alert" style={{ margin: '16px 0', borderColor: 'var(--error)' }}>
-          <p style={{ color: 'var(--error)', margin: 0 }}>{error}</p>
-        </div>
-      )}
-
-      {/* Article Grid */}
-      {loading ? (
-        <div className="articles-grid">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="card article-card skeleton-card">
-              <div className="skeleton-line" style={{ width: '40%', height: '14px', marginBottom: '12px' }} />
-              <div className="skeleton-line" style={{ width: '85%', height: '22px', marginBottom: '12px' }} />
-              <div className="skeleton-line" style={{ width: '100%', height: '14px', marginBottom: '8px' }} />
-              <div className="skeleton-line" style={{ width: '70%', height: '14px' }} />
-            </div>
-          ))}
-        </div>
-      ) : articles.length === 0 ? (
-        <div className="card empty-state-card" style={{ textAlign: 'center', padding: '48px 24px' }}>
-          <span style={{ fontSize: '32px' }} aria-hidden="true">🔍</span>
-          <h3 style={{ margin: '12px 0 6px' }}>No articles found</h3>
-          <p style={{ color: 'var(--ink-muted)', margin: 0 }}>
-            Try searching with a different term or select &apos;All Guides&apos;.
-          </p>
-        </div>
-      ) : (
+      {/* Article Grid rendered via DataState */}
+      <DataState
+        loading={loading}
+        error={error}
+        empty={articles.length === 0}
+        onRetry={loadArticles}
+        skeletonCount={6}
+        skeletonType="card"
+        emptyMessage="No articles found"
+        emptySubtitle="Try searching with a different term or select 'All Guides'."
+      >
         <div className="articles-grid">
           {articles.map((art) => (
             <article key={art.slug} className="card article-card hover-lift">
@@ -166,7 +146,7 @@ export default function LearnHubPage() {
             </article>
           ))}
         </div>
-      )}
+      </DataState>
 
       {/* Bottom CTA to Roadmap & Glossary */}
       <div className="card hub-footer-cta reveal" style={{ marginTop: '40px', padding: '28px' }}>

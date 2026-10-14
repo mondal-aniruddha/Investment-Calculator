@@ -34,8 +34,7 @@ export async function fetchGlossaryTerms() {
       cachedTerms = Array.isArray(data) && data.length > 0 ? data : FALLBACK_GLOSSARY
       return cachedTerms
     })
-    .catch((err) => {
-      console.warn('Backend glossary unavailable, falling back to local dictionary:', err.message)
+    .catch(() => {
       cachedTerms = FALLBACK_GLOSSARY
       return cachedTerms
     })

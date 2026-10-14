@@ -69,7 +69,9 @@ export default function PlanningPage({ setApiOnline }) {
         liabilities: JSON.parse(networth.liabilities),
         history: JSON.parse(networth.history),
       })
-    } catch { /* invalid JSON — no-op */ }
+    } catch {
+      calc.setFieldError?.('networth', 'Invalid JSON syntax in assets, liabilities, or history.')
+    }
   }
 
   const runGoals = () => {
@@ -79,7 +81,9 @@ export default function PlanningPage({ setApiOnline }) {
         goals: JSON.parse(el.value),
         availableMonthlySavings: 25000,
       })
-    } catch { /* invalid JSON — no-op */ }
+    } catch {
+      calc.setFieldError?.('goals', 'Invalid JSON syntax in goals input.')
+    }
   }
 
   return (

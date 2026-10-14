@@ -93,11 +93,13 @@ public class MetalsDevDataProvider implements MetalsDataProvider {
 
             return normalize(response, properties, Instant.now());
         } catch (MetalsProviderException ex) {
-            log.warn("Metals.dev provider validation failed: {}", ex.getMessage());
+            String correlationId = org.slf4j.MDC.get("correlationId");
+            log.warn("[correlationId={}] Metals.dev provider validation failed: {}", correlationId, ex.getMessage());
             throw ex;
         } catch (Exception ex) {
-            log.warn("Failed to retrieve metals quotes from metals.dev provider: {} - {}",
-                    ex.getClass().getSimpleName(), ex.getMessage());
+            String correlationId = org.slf4j.MDC.get("correlationId");
+            log.warn("[correlationId={}] Failed to retrieve metals quotes from metals.dev provider: {} - {}",
+                    correlationId, ex.getClass().getSimpleName(), ex.getMessage());
             throw new MetalsProviderException("Upstream market data provider call failed", ex);
         }
     }
