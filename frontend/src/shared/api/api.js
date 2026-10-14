@@ -1,5 +1,5 @@
 import { ApiError } from './ApiError'
-import { API_BASE_URL } from '../lib/config'
+import { API_BASE_URL } from '../config/env'
 
 export { ApiError }
 

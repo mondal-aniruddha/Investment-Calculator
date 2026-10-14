@@ -1,6 +1,7 @@
 package com.infinance.common.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +14,9 @@ import java.util.List;
  *
  * Environment variable override (Spring Boot relaxed binding):
  *   APP_CORS_ALLOWED_ORIGINS=http://localhost:5173,https://example.com
- *
- * Replaces the raw @Value injection in WebCorsConfig so that:
- *  - The property surface is documented, typed, and testable.
- *  - IDE auto-completion works via spring-boot-configuration-processor.
- *  - No long hardcoded default strings live in Java source code.
  */
 @ConfigurationProperties(prefix = "app.cors")
+@Validated
 public class CorsProperties {
 
     /**
