@@ -1,8 +1,8 @@
 import { ApiError } from './ApiError'
+import { API_BASE_URL } from '../lib/config'
 
 export { ApiError }
 
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '')
 const DEFAULT_TIMEOUT_MS = 15000
 const MAX_GET_RETRIES = 2
 
