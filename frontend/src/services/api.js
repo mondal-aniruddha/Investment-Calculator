@@ -2,7 +2,7 @@
 // Moved to frontend/src/services/api.js as part of the monorepo restructure.
 // No functional changes.
 
-export const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '')
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '')
 
 export function getApiUrl(path) {
   if (!path) return ''

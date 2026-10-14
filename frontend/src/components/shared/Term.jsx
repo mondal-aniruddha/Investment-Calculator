@@ -82,4 +82,3 @@ export function Term({ term, children }) {
   )
 }
 
-export default Term

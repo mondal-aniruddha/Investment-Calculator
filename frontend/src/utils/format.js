@@ -32,16 +32,6 @@ export const formatINRDecimal = (value, fractionDigits = 2) => {
 }
 
 /**
- * Format a number with Indian digit grouping (no currency symbol).
- * Example: 1234567 → "12,34,567"
- * @param {number|string} value
- */
-export const formatIndianNumber = (value) =>
-  new Intl.NumberFormat('en-IN', {
-    maximumFractionDigits: 0,
-  }).format(Number(value || 0))
-
-/**
  * Format a Date or ISO string in Indian Standard Time (Asia/Kolkata).
  * Returns a readable date+time string, or the original string on error.
  * @param {string|Date} isoString
@@ -59,14 +49,3 @@ export const formatKolkataTime = (isoString) => {
   }
 }
 
-/**
- * Compact format: abbreviate large numbers (₹12.3L, ₹1.2Cr).
- * For display in summary rows and chart labels.
- * @param {number} value
- */
-export const formatINRCompact = (value) => {
-  const n = Number(value || 0)
-  if (n >= 1e7) return `₹${(n / 1e7).toFixed(2)} Cr`
-  if (n >= 1e5) return `₹${(n / 1e5).toFixed(2)} L`
-  return formatINR(n)
-}

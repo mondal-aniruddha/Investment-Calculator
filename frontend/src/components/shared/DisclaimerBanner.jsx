@@ -35,4 +35,3 @@ export function DisclaimerBanner({ compact = false }) {
   )
 }
 
-export default DisclaimerBanner

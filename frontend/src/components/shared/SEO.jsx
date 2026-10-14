@@ -44,4 +44,3 @@ export function SEO({
   )
 }
 
-export default SEO

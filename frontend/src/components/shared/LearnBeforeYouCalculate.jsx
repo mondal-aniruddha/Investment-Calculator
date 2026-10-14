@@ -27,4 +27,3 @@ export function LearnBeforeYouCalculate({ slug, title, summary, icon = '📖' })
   )
 }
 
-export default LearnBeforeYouCalculate

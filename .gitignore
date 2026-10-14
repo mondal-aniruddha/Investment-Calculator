@@ -9,6 +9,8 @@ backend/target/
 .jqwik-database
 backend/.jqwik-database
 *.jqwik-database
+# Spring annotation processor generated files (tracked only when non-trivial)
+backend/src/main/resources/META-INF/additional-spring-configuration-metadata.json
 
 # Playwright & test reports
 test-results/
