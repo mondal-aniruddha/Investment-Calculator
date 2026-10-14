@@ -1,9 +1,9 @@
-package com.infinance.config_engine.service;
+package com.infinance.configengine.service;
 
 import com.infinance.common.config.FinancialProperties;
 import com.infinance.common.dto.BaseAssumptionsDto;
-import com.infinance.config_engine.entity.FinancialAssumptionEntity;
-import com.infinance.config_engine.repository.FinancialAssumptionRepository;
+import com.infinance.configengine.entity.FinancialAssumptionEntity;
+import com.infinance.configengine.repository.FinancialAssumptionRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

@@ -1,4 +1,4 @@
-package com.infinance.config_engine.entity;
+package com.infinance.configengine.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

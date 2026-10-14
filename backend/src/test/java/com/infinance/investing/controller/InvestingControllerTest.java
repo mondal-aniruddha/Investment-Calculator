@@ -1,7 +1,7 @@
 package com.infinance.investing.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infinance.investing.dto.SipRequestDto;
+import com.infinance.investing.dto.SipRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ class InvestingControllerTest {
     @Test
     @DisplayName("POST /api/v1/investing/sip should calculate SIP and return 200 OK")
     void shouldCalculateSipSuccessfully() throws Exception {
-        SipRequestDto request = SipRequestDto.builder()
+        SipRequest request = SipRequest.builder()
                 .monthlyInvestment(new BigDecimal("10000.00"))
                 .investmentHorizonYears(10)
                 .expectedAnnualReturn(new BigDecimal("12.00"))
@@ -52,7 +52,7 @@ class InvestingControllerTest {
     @Test
     @DisplayName("POST /api/v1/investing/sip should fail validation when monthly amount is under ₹100")
     void shouldFailValidationWhenSipUnderMin() throws Exception {
-        SipRequestDto request = SipRequestDto.builder()
+        SipRequest request = SipRequest.builder()
                 .monthlyInvestment(new BigDecimal("50.00")) // Min is 100
                 .investmentHorizonYears(10)
                 .build();

@@ -1,4 +1,4 @@
-package com.infinance.config_engine.dto;
+package com.infinance.configengine.dto;
 
 import jakarta.validation.constraints.*;
 import java.math.BigDecimal;

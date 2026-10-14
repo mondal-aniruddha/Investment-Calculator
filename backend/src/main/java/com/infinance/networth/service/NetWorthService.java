@@ -1,5 +1,5 @@
 package com.infinance.networth.service;
-import com.infinance.config_engine.service.AssumptionService;
+import com.infinance.configengine.service.AssumptionService;
 import com.infinance.networth.dto.*;
 import com.infinance.networth.engine.NetWorthEngine;
 import org.springframework.stereotype.Service;

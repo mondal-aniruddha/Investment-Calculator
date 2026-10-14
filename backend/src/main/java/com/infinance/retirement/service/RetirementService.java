@@ -2,7 +2,7 @@ package com.infinance.retirement.service;
 
 import com.infinance.common.dto.BaseAssumptionsDto;
 import com.infinance.common.dto.MoneyAmount;
-import com.infinance.config_engine.service.AssumptionService;
+import com.infinance.configengine.service.AssumptionService;
 import com.infinance.retirement.dto.RetirementRequestDto;
 import com.infinance.retirement.dto.RetirementResponseDto;
 import com.infinance.retirement.engine.RetirementEngine;

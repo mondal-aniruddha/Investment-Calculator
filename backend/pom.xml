@@ -30,6 +30,7 @@
         <tomcat.version>11.0.26</tomcat.version>
         <!-- MySQL Connector/J 26.7.0 fixes CVE-2026-60586/60623 -->
         <mysql-connector-j.version>26.7.0</mysql-connector-j.version>
+        <archunit.version>1.4.0</archunit.version>
     </properties>
 
     <dependencies>
@@ -147,6 +148,12 @@
             <groupId>net.jqwik</groupId>
             <artifactId>jqwik</artifactId>
             <version>${jqwik.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+            <version>${archunit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

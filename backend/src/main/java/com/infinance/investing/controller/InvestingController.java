@@ -1,8 +1,9 @@
 package com.infinance.investing.controller;
 
 import com.infinance.investing.dto.LumpsumRequestDto;
+import com.infinance.investing.dto.LumpsumResponse;
 import com.infinance.investing.dto.SipRequestDto;
-import com.infinance.investing.dto.SipResponseDto;
+import com.infinance.investing.dto.SipResponse;
 import com.infinance.investing.service.InvestingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,14 +28,14 @@ public class InvestingController {
     @PostMapping("/sip")
     @Operation(summary = "Calculate SIP growth and wealth creation",
                description = "Computes future value of monthly SIP, step-up projection, pessimistic/expected/optimistic scenarios, and risk-adjusted asset allocation.")
-    public ResponseEntity<SipResponseDto> calculateSip(@Valid @RequestBody SipRequestDto request) {
+    public ResponseEntity<SipResponse> calculateSip(@Valid @RequestBody SipRequestDto request) {
         return ResponseEntity.ok(investingService.calculateSip(request));
     }
 
     @PostMapping("/lumpsum")
     @Operation(summary = "Calculate one-time lumpsum investment growth",
                description = "Computes compounded future value and year-by-year progression for one-time lumpsum investments.")
-    public ResponseEntity<LumpsumRequestDto.Response> calculateLumpsum(
+    public ResponseEntity<LumpsumResponse> calculateLumpsum(
             @Valid @RequestBody LumpsumRequestDto.Request request) {
         return ResponseEntity.ok(investingService.calculateLumpsum(request));
     }

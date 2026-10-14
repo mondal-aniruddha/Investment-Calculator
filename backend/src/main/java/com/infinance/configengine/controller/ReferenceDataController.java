@@ -1,6 +1,6 @@
-package com.infinance.config_engine.controller;
+package com.infinance.configengine.controller;
 
-import com.infinance.config_engine.service.ReferenceDataRefreshService;
+import com.infinance.configengine.service.ReferenceDataRefreshService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;

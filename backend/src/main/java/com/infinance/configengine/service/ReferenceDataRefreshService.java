@@ -1,4 +1,4 @@
-package com.infinance.config_engine.service;
+package com.infinance.configengine.service;
 
 import com.infinance.common.config.RefreshProperties;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;

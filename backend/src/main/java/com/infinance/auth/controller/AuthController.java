@@ -1,6 +1,6 @@
 package com.infinance.auth.controller;
 
-import com.infinance.auth.dto.AuthDtos.*;
+import com.infinance.auth.dto.*;
 import com.infinance.auth.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

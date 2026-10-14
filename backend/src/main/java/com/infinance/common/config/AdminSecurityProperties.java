@@ -3,7 +3,7 @@ package com.infinance.common.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "infinance.admin")
-public class SecurityConfig {
+public class AdminSecurityProperties {
     private String username = "admin";
     private String password = "change-me";
 

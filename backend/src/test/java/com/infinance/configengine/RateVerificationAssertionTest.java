@@ -1,4 +1,4 @@
-package com.infinance.config_engine;
+package com.infinance.configengine;
 
 import com.infinance.common.config.FinancialProperties;
 import com.infinance.tax.dto.TaxSlabDto;

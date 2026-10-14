@@ -1,4 +1,4 @@
-package com.infinance.config_engine.entity;
+package com.infinance.configengine.entity;
 
 import jakarta.persistence.*;
 import java.time.Instant;

@@ -1,7 +1,7 @@
 package com.infinance.retirement.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infinance.retirement.dto.RetirementRequestDto;
+import com.infinance.retirement.dto.RetirementRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ class RetirementControllerTest {
     @Test
     @DisplayName("POST /api/v1/retirement/plan should compute retirement corpus and trajectory")
     void shouldCalculateRetirementPlan() throws Exception {
-        RetirementRequestDto request = RetirementRequestDto.builder()
+        RetirementRequest request = RetirementRequest.builder()
                 .currentAge(30)
                 .targetRetirementAge(60)
                 .lifeExpectancy(85)
@@ -57,7 +57,7 @@ class RetirementControllerTest {
     @Test
     @DisplayName("POST /api/v1/retirement/plan should reject invalid age when currentAge >= retirementAge")
     void shouldRejectInvalidRetirementAge() throws Exception {
-        RetirementRequestDto request = RetirementRequestDto.builder()
+        RetirementRequest request = RetirementRequest.builder()
                 .currentAge(45)
                 .targetRetirementAge(40) // invalid
                 .currentMonthlyExpenses(new BigDecimal("50000.00"))

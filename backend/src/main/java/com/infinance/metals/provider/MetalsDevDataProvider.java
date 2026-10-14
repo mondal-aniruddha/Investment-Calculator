@@ -22,7 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.context.annotation.Profile;
+
 @Component
+@Profile("dev")
 @ConditionalOnProperty(name = "infinance.metals.provider", havingValue = "metals-dev", matchIfMissing = true)
 public class MetalsDevDataProvider implements MetalsDataProvider {
 

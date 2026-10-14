@@ -2,11 +2,12 @@ package com.infinance.investing.service;
 
 import com.infinance.common.dto.BaseAssumptionsDto;
 import com.infinance.common.dto.MoneyAmount;
-import com.infinance.config_engine.service.AssumptionService;
+import com.infinance.configengine.service.AssumptionService;
 import com.infinance.investing.dto.AssetBucketDto;
 import com.infinance.investing.dto.LumpsumRequestDto;
+import com.infinance.investing.dto.LumpsumResponse;
 import com.infinance.investing.dto.SipRequestDto;
-import com.infinance.investing.dto.SipResponseDto;
+import com.infinance.investing.dto.SipResponse;
 import com.infinance.investing.engine.LumpsumEngine;
 import com.infinance.investing.engine.SipEngine;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class InvestingService {
         this.assumptionService = assumptionService;
     }
 
-    public SipResponseDto calculateSip(SipRequestDto request) {
+    public SipResponse calculateSip(SipRequestDto request) {
         BigDecimal annualReturn = request.getExpectedAnnualReturn();
         if (annualReturn == null) {
             String profile = request.getRiskProfile() != null ? request.getRiskProfile().toUpperCase() : "MODERATE";
@@ -53,7 +54,7 @@ public class InvestingService {
 
         BaseAssumptionsDto assumptions = assumptionService.buildBaseAssumptions(null, moduleExtras);
 
-        return SipResponseDto.builder()
+        return SipResponse.builder()
                 .totalInvested(result.totalInvested())
                 .estimatedReturns(result.estimatedReturns())
                 .maturityCorpus(result.maturityCorpus())
@@ -72,7 +73,7 @@ public class InvestingService {
                 .build();
     }
 
-    public LumpsumRequestDto.Response calculateLumpsum(LumpsumRequestDto.Request request) {
+    public LumpsumResponse calculateLumpsum(LumpsumRequestDto.Request request) {
         BigDecimal annualReturn = request.getExpectedAnnualReturn();
         if (annualReturn == null) {
             annualReturn = assumptionService.getProperties().getRates().getMarketBenchmarks().getEquityNiftyCagr();
@@ -91,7 +92,7 @@ public class InvestingService {
 
         BaseAssumptionsDto assumptions = assumptionService.buildBaseAssumptions(null, moduleExtras);
 
-        return LumpsumRequestDto.Response.builder()
+        return LumpsumResponse.builder()
                 .totalInvested(result.totalInvested())
                 .estimatedReturns(result.estimatedReturns())
                 .maturityCorpus(result.maturityCorpus())

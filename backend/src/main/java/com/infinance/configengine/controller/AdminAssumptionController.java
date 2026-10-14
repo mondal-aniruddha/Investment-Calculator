@@ -1,8 +1,8 @@
-package com.infinance.config_engine.controller;
+package com.infinance.configengine.controller;
 
-import com.infinance.config_engine.dto.AssumptionUpsertRequest;
-import com.infinance.config_engine.dto.TaxSlabUpsertRequest;
-import com.infinance.config_engine.service.AdminAssumptionService;
+import com.infinance.configengine.dto.AssumptionUpsertRequest;
+import com.infinance.configengine.dto.TaxSlabUpsertRequest;
+import com.infinance.configengine.service.AdminAssumptionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

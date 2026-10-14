@@ -2,8 +2,8 @@ package com.infinance.auth.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infinance.auth.dto.AuthDtos.LoginRequest;
-import com.infinance.auth.dto.AuthDtos.RegisterRequest;
+import com.infinance.auth.dto.LoginRequest;
+import com.infinance.auth.dto.RegisterRequest;
 import com.infinance.auth.security.LoginRateLimitFilter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

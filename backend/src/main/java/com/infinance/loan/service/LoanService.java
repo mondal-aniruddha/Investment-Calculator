@@ -1,7 +1,7 @@
 package com.infinance.loan.service;
 
 import com.infinance.common.dto.BaseAssumptionsDto;
-import com.infinance.config_engine.service.AssumptionService;
+import com.infinance.configengine.service.AssumptionService;
 import com.infinance.loan.dto.*;
 import com.infinance.loan.engine.LoanEngine;
 import org.springframework.stereotype.Service;

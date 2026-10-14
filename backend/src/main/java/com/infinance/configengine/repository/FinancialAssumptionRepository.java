@@ -1,6 +1,6 @@
-package com.infinance.config_engine.repository;
+package com.infinance.configengine.repository;
 
-import com.infinance.config_engine.entity.FinancialAssumptionEntity;
+import com.infinance.configengine.entity.FinancialAssumptionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

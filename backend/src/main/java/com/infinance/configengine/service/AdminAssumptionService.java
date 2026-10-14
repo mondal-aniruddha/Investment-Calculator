@@ -1,13 +1,13 @@
-package com.infinance.config_engine.service;
+package com.infinance.configengine.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.infinance.config_engine.dto.AssumptionUpsertRequest;
-import com.infinance.config_engine.dto.TaxSlabUpsertRequest;
-import com.infinance.config_engine.entity.AssumptionAuditEntity;
-import com.infinance.config_engine.entity.FinancialAssumptionEntity;
-import com.infinance.config_engine.repository.AssumptionAuditRepository;
-import com.infinance.config_engine.repository.FinancialAssumptionRepository;
+import com.infinance.configengine.dto.AssumptionUpsertRequest;
+import com.infinance.configengine.dto.TaxSlabUpsertRequest;
+import com.infinance.configengine.entity.AssumptionAuditEntity;
+import com.infinance.configengine.entity.FinancialAssumptionEntity;
+import com.infinance.configengine.repository.AssumptionAuditRepository;
+import com.infinance.configengine.repository.FinancialAssumptionRepository;
 import com.infinance.tax.entity.TaxSlabEntity;
 import com.infinance.tax.repository.TaxSlabRepository;
 import jakarta.transaction.Transactional;
