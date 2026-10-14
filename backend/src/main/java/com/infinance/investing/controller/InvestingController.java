@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.infinance.common.config.ApiConstants;
+
 @RestController
-@RequestMapping("/api/v1/investing")
+@RequestMapping(ApiConstants.INVESTING)
 @Tag(name = "Start Investing (SIP & Compounding)", description = "APIs for Systematic Investment Plans (SIP), Step-up SIP, and Lumpsum compounding calculations")
 public class InvestingController {
 

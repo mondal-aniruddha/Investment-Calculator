@@ -1,4 +1,5 @@
-import { request } from '../../../shared/api/api'
+import { request } from '../../../shared/api/httpClient'
+import { ENDPOINTS } from '../../../shared/api/endpoints'
 
 let cachedTerms = null
 let fetchPromise = null
@@ -29,7 +30,7 @@ export async function fetchGlossaryTerms() {
   if (cachedTerms) return cachedTerms
   if (fetchPromise) return fetchPromise
 
-  fetchPromise = request('/api/v1/glossary')
+  fetchPromise = request(ENDPOINTS.GLOSSARY.TERMS)
     .then((data) => {
       cachedTerms = Array.isArray(data) && data.length > 0 ? data : FALLBACK_GLOSSARY
       return cachedTerms

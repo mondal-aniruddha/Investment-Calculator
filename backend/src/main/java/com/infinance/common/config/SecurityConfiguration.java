@@ -40,10 +40,20 @@ public class SecurityConfiguration {
                         .authenticationEntryPoint(authenticationEntryPoint())
                         .accessDeniedHandler(accessDeniedHandler()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login", "/api/v1/market/**", "/api/v1/learn/**", "/api/v1/glossary/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/actuator/health").permitAll()
-                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/v1/config/refresh").hasRole("ADMIN")
-                        .requestMatchers("/api/v1/auth/**", "/api/v1/scenarios/**").hasRole("USER")
+                        .requestMatchers(
+                                ApiConstants.AUTH + "/register",
+                                ApiConstants.AUTH + "/login",
+                                ApiConstants.MARKET + "/**",
+                                ApiConstants.LEARN + "/**",
+                                ApiConstants.GLOSSARY + "/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/actuator/health"
+                        ).permitAll()
+                        .requestMatchers(ApiConstants.ADMIN + "/**").hasRole("ADMIN")
+                        .requestMatchers(ApiConstants.CONFIG + "/refresh").hasRole("ADMIN")
+                        .requestMatchers(ApiConstants.AUTH + "/**", ApiConstants.SCENARIOS + "/**").hasRole("USER")
                         .anyRequest().permitAll())
                 .httpBasic(basic -> {})
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

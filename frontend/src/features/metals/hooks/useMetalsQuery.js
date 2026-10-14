@@ -10,19 +10,13 @@
  *  - Single AbortController per request managed by React Query's signal
  */
 import { useQuery } from '@tanstack/react-query'
-import { getApiUrl } from '../../../shared/api/api'
+import { getMetalPrices } from '../api/metalsApi'
 
 export const METALS_QUERY_KEY = ['market', 'metals']
 export const METALS_REFETCH_INTERVAL_MS = 5 * 60 * 1000 // 5 minutes
 
 async function fetchMetalPrices({ signal }) {
-  const res = await fetch(getApiUrl('/api/v1/market/metals'), {
-    headers: { Accept: 'application/json' },
-    cache: 'no-store',
-    signal,
-  })
-  if (!res.ok) throw new Error(`Metals service returned ${res.status}`)
-  return res.json()
+  return getMetalPrices({ signal })
 }
 
 /**

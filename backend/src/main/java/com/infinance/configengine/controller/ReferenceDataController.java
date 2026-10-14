@@ -6,8 +6,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.infinance.common.config.ApiConstants;
+
 @RestController
-@RequestMapping("/api/v1/config")
+@RequestMapping(ApiConstants.CONFIG)
 @Tag(name = "Reference data refresh", description = "Status of scheduled reference-data refresh jobs")
 public class ReferenceDataController {
     private final ReferenceDataRefreshService service;

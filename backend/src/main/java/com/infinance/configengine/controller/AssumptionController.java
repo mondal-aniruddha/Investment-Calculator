@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+import com.infinance.common.config.ApiConstants;
+
 @RestController
-@RequestMapping("/api/v1/config")
+@RequestMapping(ApiConstants.CONFIG)
 @Tag(name = "Configuration & Assumptions", description = "Endpoints for fetching financial assumptions, benchmarks, and scheme rates")
 public class AssumptionController {
 

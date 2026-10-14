@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-@RestController @RequestMapping("/api/v1/auth") @Tag(name="Authentication")
+import com.infinance.common.config.ApiConstants;
+
+@RestController @RequestMapping(ApiConstants.AUTH) @Tag(name="Authentication")
 public class AuthController {
     private final AuthService service;
     public AuthController(AuthService service) { this.service=service; }
@@ -17,6 +19,6 @@ public class AuthController {
     @PostMapping("/login") @Operation(summary="Issue a JWT") public AuthResponse login(@Valid @RequestBody LoginRequest r) { return service.login(r); }
     @GetMapping("/profile") @Operation(summary="Get current profile") public ProfileResponse profile(Authentication a) { return service.profile(a.getName()); }
     @GetMapping("/me") @Operation(summary="Get current profile (alias)") public ProfileResponse me(Authentication a) { return service.profile(a.getName()); }
-    @PutMapping("/profile") public ProfileResponse update(Authentication a,@Valid @RequestBody ProfileUpdateRequest r) { return service.update(a.getName(),r); }
+    @PutMapping("/profile") @Operation(summary="Update current profile") public ProfileResponse update(Authentication a,@Valid @RequestBody ProfileUpdateRequest r) { return service.update(a.getName(),r); }
     @DeleteMapping("/account") @ResponseStatus(HttpStatus.NO_CONTENT) @Operation(summary="Delete account and all saved data") public void delete(Authentication a) { service.delete(a.getName()); }
 }

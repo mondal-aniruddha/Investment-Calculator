@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.infinance.common.config.ApiConstants;
+
 @RestController
-@RequestMapping("/api/v1/market")
+@RequestMapping(ApiConstants.MARKET)
 @Tag(name = "Precious Metal Reference Prices", description = "Public market reference prices for Gold, Silver, Platinum, and Palladium in INR/gram")
 public class MetalsMarketController {
 

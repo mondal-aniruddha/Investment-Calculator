@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../../context/AuthContext'
 import { useToast } from '../../../context/ToastContext'
-import { request } from '../../../shared/api/api'
+import { getScenarios, updateProfile, deleteScenario, deleteAccount } from '../api/authApi'
 import { DataState } from '../../../components/shared/DataState'
 
 export function AccountPage() {
@@ -30,7 +30,7 @@ export function AccountPage() {
     setLoadingScenarios(true)
     setScenariosError(null)
     try {
-      const data = await request('/api/v1/scenarios')
+      const data = await getScenarios()
       setScenarios(Array.isArray(data) ? data : [])
     } catch (err) {
       setScenariosError(err?.message || 'Could not load saved scenarios.')
@@ -43,10 +43,7 @@ export function AccountPage() {
     e.preventDefault()
     setUpdating(true)
     try {
-      await request('/api/v1/auth/profile', {
-        method: 'PUT',
-        body: JSON.stringify({ displayName: displayName.trim(), phone: phone.trim() || null }),
-      })
+      await updateProfile({ displayName: displayName.trim(), phone: phone.trim() || null })
       toast.success('Profile updated successfully.')
       setEditing(false)
     } catch (err) {
@@ -58,7 +55,7 @@ export function AccountPage() {
 
   const handleDeleteScenario = async (id) => {
     try {
-      await request(`/api/v1/scenarios/${id}`, { method: 'DELETE' })
+      await deleteScenario(id)
       setScenarios((prev) => prev.filter((s) => s.id !== id))
       toast.success('Scenario deleted.')
     } catch (err) {
@@ -71,7 +68,7 @@ export function AccountPage() {
       return
     }
     try {
-      await request('/api/v1/auth/account', { method: 'DELETE' })
+      await deleteAccount()
       toast.info('Account deleted.')
       logout()
     } catch (err) {

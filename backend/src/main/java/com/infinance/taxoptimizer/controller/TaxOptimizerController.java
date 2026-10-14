@@ -5,7 +5,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
-@RestController @RequestMapping("/api/v1/tax/optimizer") @Tag(name="Tax-Saving Optimizer")
+import com.infinance.common.config.ApiConstants;
+
+@RestController @RequestMapping(ApiConstants.TAX_OPTIMIZER) @Tag(name="Tax-Saving Optimizer")
 public class TaxOptimizerController {
     private final TaxOptimizerService service;
     public TaxOptimizerController(TaxOptimizerService service) { this.service = service; }

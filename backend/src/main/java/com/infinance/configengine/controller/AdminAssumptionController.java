@@ -10,8 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import com.infinance.common.config.ApiConstants;
+
 @RestController
-@RequestMapping("/api/v1/admin")
+@RequestMapping(ApiConstants.ADMIN)
 @Tag(name = "Admin reference data", description = "Role-protected CRUD for financial assumptions, tax slabs, and audit-backed reference data")
 public class AdminAssumptionController {
     private final AdminAssumptionService service;

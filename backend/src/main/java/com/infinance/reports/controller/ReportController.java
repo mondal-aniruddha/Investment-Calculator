@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.infinance.common.config.ApiConstants;
+
 @RestController
-@RequestMapping("/api/v1/reports")
+@RequestMapping(ApiConstants.REPORTS)
 @Tag(name = "Personalized reports", description = "Export combined calculator results and applied assumptions")
 public class ReportController {
     private final ReportExportService reportExportService;

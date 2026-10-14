@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import com.infinance.common.config.ApiConstants;
+
 @RestController
-@RequestMapping("/api/v1/glossary")
+@RequestMapping(ApiConstants.GLOSSARY)
 @Tag(name = "Financial Glossary", description = "Endpoints for financial terms dictionary and inline tooltips (CAGR, XIRR, Expense Ratio, etc.)")
 public class GlossaryController {
 
