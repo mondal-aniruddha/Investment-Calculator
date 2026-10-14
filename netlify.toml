@@ -1,0 +1,24 @@
+[build]
+  base    = "frontend"
+  publish = "dist"
+  command = "npm run build"
+
+# ---------------------------------------------------------------------------
+# Production Deployment Architecture on Netlify
+# ---------------------------------------------------------------------------
+# The frontend SPA communicates with the Spring Boot backend via CORS.
+# 1. Set VITE_API_BASE_URL in Netlify dashboard (Site configuration -> Environment variables):
+#    VITE_API_BASE_URL = https://api.your-domain.com
+# 2. Configure CORS origins on backend to allow the Netlify origin:
+#    APP_CORS_ALLOWED_ORIGINS = https://infinance-home.netlify.app
+# 3. All non-asset routes route to index.html for client-side HTML5 history routing.
+# ---------------------------------------------------------------------------
+
+# SPA Fallback Rule
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[build.environment]
+  NODE_VERSION = "20"
