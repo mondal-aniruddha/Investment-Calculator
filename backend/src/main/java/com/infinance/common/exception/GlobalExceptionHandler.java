@@ -63,16 +63,13 @@ public class GlobalExceptionHandler {
         log.warn("[correlationId={}] Handler method parameter validation failed", correlationId);
 
         List<FieldErrorItem> fieldErrors = new ArrayList<>();
-        ex.getAllValidationResults().forEach(result -> {
-            String paramName = result.getMethodParameter().getParameterName();
-            result.getResolvableErrors().forEach(error -> {
-                fieldErrors.add(new FieldErrorItem(
-                        paramName != null ? paramName : "parameter",
-                        null,
-                        error.getDefaultMessage()
-                ));
-            });
-        });
+        for (var error : ex.getAllErrors()) {
+            fieldErrors.add(new FieldErrorItem(
+                    "parameter",
+                    null,
+                    error.getDefaultMessage()
+            ));
+        }
 
         ErrorResponse response = ErrorResponse.of(
                 HttpStatus.BAD_REQUEST.value(),

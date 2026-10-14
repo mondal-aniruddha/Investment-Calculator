@@ -1,15 +1,12 @@
 package com.infinance.investing.engine;
 
 import com.infinance.common.dto.MoneyAmount;
-import com.infinance.common.money.FinancialMath;
 import com.infinance.investing.dto.AssetBucketDto;
 import com.infinance.investing.dto.ScenarioCorpusDto;
 import com.infinance.investing.dto.YearlyGrowthDto;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,10 +30,6 @@ import java.util.List;
  * </ul>
  */
 public final class SipEngine {
-
-    private static final MathContext MC = MathContext.DECIMAL128;
-    private static final BigDecimal HUNDRED = new BigDecimal("100");
-    private static final BigDecimal TWELVE = new BigDecimal("12");
 
     public record SipCalculationResult(
             BigDecimal totalInvested,
