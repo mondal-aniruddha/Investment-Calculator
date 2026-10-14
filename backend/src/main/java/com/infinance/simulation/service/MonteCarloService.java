@@ -1,5 +1,5 @@
 package com.infinance.simulation.service;
-import com.infinance.config_engine.service.AssumptionService;
+import com.infinance.configengine.service.AssumptionService;
 import com.infinance.simulation.dto.*;
 import com.infinance.simulation.engine.MonteCarloEngine;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.infinance.auth.service;
 
-import com.infinance.auth.dto.AuthDtos.*;
+import com.infinance.auth.dto.*;
 import com.infinance.auth.entity.UserEntity;
 import com.infinance.auth.repository.UserRepository;
 import com.infinance.auth.repository.SavedScenarioRepository;

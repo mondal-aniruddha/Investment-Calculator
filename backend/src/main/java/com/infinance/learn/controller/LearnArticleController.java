@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import com.infinance.common.config.ApiConstants;
+
 @RestController
-@RequestMapping("/api/v1/learn")
+@RequestMapping(ApiConstants.LEARN)
 @Tag(name = "Learn Hub", description = "Plain-language, jargon-free personal finance articles and starter explainers for India")
 public class LearnArticleController {
 

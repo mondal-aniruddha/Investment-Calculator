@@ -5,6 +5,35 @@ All notable changes to the InFinance Calculator project will be documented in th
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] — 2026-10-14
+
+### Clean Architecture Refactoring & Modernization (Phases 0–8)
+
+#### Added
+- **Golden Characterization Tests:** Added `LumpsumEngineGoldenTest`, `MutualFundEngineGoldenTest`, and `TaxOptimizerEngineGoldenTest` locking in financial calculation precision.
+- **RFC 7807 Global Exception Handling:** Uniform problem details with distributed `correlationId` tracking on all error responses (`GlobalExceptionHandler`).
+- **OpenAPI 3.1 & Swagger Documentation:** Grouped OpenAPI specs (`public`, `admin`) and centralized route constants in `ApiConstants.java`.
+- **Frontend Server State Management:** Added `@tanstack/react-query` v5 with dedicated query client and `useCalculatorMutation` hook.
+- **Standardized Frontend API Client:** Added `httpClient.js` supporting AbortController, request timeouts, typed `ApiError`, and automated retry on transient failures.
+- **Production Safety Validator:** Added `ProductionConfigurationValidator` in Spring Boot (`prod` profile) to fail-fast if insecure default secrets or DB credentials are detected.
+- **Code Quality & Linting:** Configured ESLint 9 flat config (`eslint.config.js`), Prettier (`.prettierrc`), `.editorconfig`, and CI automated checks.
+- **Architectural Documentation:** Added `docs/ARCHITECTURE.md`, `docs/API.md`, `docs/CONTRIBUTING.md`, `docs/CHANGES.md`, and `docs/adr/0001-state-management.md`.
+
+#### Changed
+- **Repository Consolidation:** Completely deleted legacy root frontend monolith, consolidating all UI, Vite 7 configs, and Playwright tests into `frontend/`.
+- **Package Modernization:** Renamed `com.infinance.config_engine` to standard idiomatic `com.infinance.configengine`.
+- **Security Decoupling:** Extracted `SecurityProperties` and `CorsProperties` into independent `@ConfigurationProperties` beans.
+- **Frontend Domain Slices:** Reorganized frontend into modular feature slices under `src/features/*`.
+- **Configuration Centralization:** Centralized frontend environment variable access into `src/shared/config/env.js`.
+- **Spring Profile Defaults:** Changed active profile property from hardcoded `spring.profiles.active: dev` to standard `spring.profiles.default: dev`.
+
+#### Preserved & Guaranteed
+- **0 breaking public API contract changes:** All existing `/api/v1/*` endpoints, JSON inputs, and responses remain identical.
+- **0 changes to financial calculations:** All financial formulas and outputs remain exact.
+- **0 edits to applied Flyway database migrations:** Migrations V1 through V6 intact.
+
+---
+
 ## [2.0.0] — 2025-10-04
 
 ### Added (Frontend — major restructure)

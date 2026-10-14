@@ -1,7 +1,7 @@
 package com.infinance.taxoptimizer.service;
 import com.infinance.common.dto.BaseAssumptionsDto;
 import com.infinance.common.config.FinancialProperties;
-import com.infinance.config_engine.service.AssumptionService;
+import com.infinance.configengine.service.AssumptionService;
 import com.infinance.tax.dto.TaxCalculationRequestDto;
 import com.infinance.tax.service.TaxService;
 import com.infinance.taxoptimizer.dto.*;

@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
+import com.infinance.common.config.ApiConstants;
+
 @RestController
-@RequestMapping("/api/v1/tax")
+@RequestMapping(ApiConstants.TAX)
 @Tag(name = "Income Tax Calculator & Explainer", description = "Endpoints for Indian Income Tax calculations comparing Old and New regimes (FY 2024-25 & beyond)")
 public class TaxController {
 

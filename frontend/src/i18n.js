@@ -4,20 +4,62 @@ import { initReactI18next } from 'react-i18next'
 const resources = {
   en: {
     translation: {
-      nav: { learn: 'Learn Hub', roadmap: 'Roadmap', sip: 'SIP planner', loan: 'Loan & EMI', fixed: 'Fixed income', mutual: 'Mutual fund tools', planning: 'Smart planning', onboarding: 'Onboarding', education: 'Education', account: 'Account' },
-      hero: { eyebrow: 'YOUR MONEY, MADE CLEAR', title: 'Plan with clarity.', title2: 'Grow with intention.', subtitle: 'Illustrative tools for Indian investments, loans, and long-term decisions.' },
-      common: { connected: 'API connected', offline: 'API offline', theme: 'Dark mode', language: 'Language', disclaimer: 'Educational estimates, not financial advice.' },
-      onboarding: { title: 'Your five-step money map', subtitle: 'Answer a few questions to get a useful starting point.', next: 'Next', back: 'Back', finish: 'Build my plan', age: 'What is your age?', income: 'Monthly take-home income', obligations: 'Monthly obligations and debt payments', goals: 'What are you planning for?', risk: 'How comfortable are you with market ups and downs?', recommendations: 'Start with these calculators' },
-      education: { title: 'Financial education hub', search: 'Search glossary and explainers', glossary: 'Glossary', articles: 'Explainers', disclaimer: 'Information is general education, not personal advice.' },
+      nav: {
+        learn: 'Learn Hub',
+        roadmap: 'Roadmap',
+        sip: 'SIP planner',
+        loan: 'Loan & EMI',
+        fixed: 'Fixed income',
+        mutual: 'Mutual fund tools',
+        planning: 'Smart planning',
+        onboarding: 'Onboarding',
+        education: 'Education',
+        account: 'Account',
+      },
+      hero: {
+        eyebrow: 'YOUR MONEY, MADE CLEAR',
+        title: 'Plan with clarity.',
+        title2: 'Grow with intention.',
+        subtitle: 'Illustrative tools for Indian investments, loans, and long-term decisions.',
+      },
+      common: {
+        connected: 'API connected',
+        offline: 'API offline',
+        theme: 'Dark mode',
+        language: 'Language',
+        disclaimer: 'Educational estimates, not financial advice.',
+      },
+      onboarding: {
+        title: 'Your five-step money map',
+        subtitle: 'Answer a few questions to get a useful starting point.',
+        next: 'Next',
+        back: 'Back',
+        finish: 'Build my plan',
+        age: 'What is your age?',
+        income: 'Monthly take-home income',
+        obligations: 'Monthly obligations and debt payments',
+        goals: 'What are you planning for?',
+        risk: 'How comfortable are you with market ups and downs?',
+        recommendations: 'Start with these calculators',
+      },
+      education: {
+        title: 'Financial education hub',
+        search: 'Search glossary and explainers',
+        glossary: 'Glossary',
+        articles: 'Explainers',
+        disclaimer: 'Information is general education, not personal advice.',
+      },
       home: {
         seo: {
           title: 'Plan your money with clarity · InFinance',
-          description: 'Free, educational personal-finance calculators for India. Calculate SIP, Loan & EMI, PPF, NPS, Tax regimes, SWP, and Retirement in ₹ with transparent math.',
+          description:
+            'Free, educational personal-finance calculators for India. Calculate SIP, Loan & EMI, PPF, NPS, Tax regimes, SWP, and Retirement in ₹ with transparent math.',
         },
         hero: {
           eyebrow: 'YOUR MONEY, MADE CLEAR · INDIA · INR',
           title: 'Plan your money with clarity',
-          subtitle: 'Free, INR-native, educational calculators for Indian investments, loans, and long-term decisions. Transparent assumptions, no sales pitches, no login required.',
+          subtitle:
+            'Free, INR-native, educational calculators for Indian investments, loans, and long-term decisions. Transparent assumptions, no sales pitches, no login required.',
           ctaPrimary: 'Start a SIP plan',
           ctaSecondary: 'Explore the Learn Hub',
           illustration: {
@@ -46,7 +88,8 @@ const resources = {
         calculators: {
           eyebrow: 'COMPLETE FINANCIAL SUITE',
           title: 'Financial calculators for India',
-          subtitle: 'Accurate, explainable math tailored for Indian tax regimes, banking products, and investment instruments.',
+          subtitle:
+            'Accurate, explainable math tailored for Indian tax regimes, banking products, and investment instruments.',
           openCta: 'Open calculator →',
           sip: {
             title: 'SIP & Lumpsum',
@@ -80,7 +123,8 @@ const resources = {
         teaser: {
           eyebrow: 'QUICK ESTIMATOR',
           title: 'Interactive SIP Estimator',
-          subtitle: 'See how modest monthly investments compound over time before opening full planning options.',
+          subtitle:
+            'See how modest monthly investments compound over time before opening full planning options.',
           monthlyLabel: 'Monthly investment',
           tenureLabel: 'Time horizon',
           tenureUnit: 'years',
@@ -98,7 +142,8 @@ const resources = {
         howItWorks: {
           eyebrow: 'THE INFINANCE METHOD',
           title: 'How it works',
-          subtitle: 'A straightforward, explainable workflow designed to give you clarity without overwhelm.',
+          subtitle:
+            'A straightforward, explainable workflow designed to give you clarity without overwhelm.',
           step1: {
             num: '01',
             title: 'Enter your numbers',
@@ -118,7 +163,8 @@ const resources = {
         why: {
           eyebrow: 'WHY CHOOSE INFINANCE',
           title: 'Built with purpose and integrity',
-          subtitle: 'We believe personal finance tools should empower citizens with clarity, not sell high-commission products.',
+          subtitle:
+            'We believe personal finance tools should empower citizens with clarity, not sell high-commission products.',
           tile1: {
             title: 'Explainable results',
             desc: 'Every mathematical formula and benchmark rate is displayed in plain view. No hidden assumptions or black-box predictions.',
@@ -142,7 +188,8 @@ const resources = {
         learnTeaser: {
           eyebrow: 'LEARN BEFORE YOU INVEST',
           title: 'From our Learn Hub',
-          subtitle: 'Bite-sized, jargon-free guides to master foundational personal finance concepts.',
+          subtitle:
+            'Bite-sized, jargon-free guides to master foundational personal finance concepts.',
           article1: {
             tag: 'INVESTING',
             title: 'SIP vs Lumpsum: Which is right for your investment style?',
@@ -181,15 +228,18 @@ const resources = {
         perGram: '/ g',
         per10Grams: '/ 10 g',
         indicative22k: '22K Indicative',
-        indicative22kNote: 'Indicative purity conversion (22/24), not a jeweller retail price (excludes GST, making charges, margins)',
+        indicative22kNote:
+          'Indicative purity conversion (22/24), not a jeweller retail price (excludes GST, making charges, margins)',
         lastUpdated: 'Last updated',
         refresh: 'Refresh metal prices',
         refreshing: 'Refreshing...',
         statusLive: 'Live',
         statusCached: 'Cached',
         statusStale: 'Stale',
-        disclaimer: 'Indicative MCX reference prices for planning; not a jeweller retail price (excludes GST, making charges, margins) and not for trading.',
-        unavailable: 'Metal reference prices are temporarily unavailable. Calculators remain fully operational.',
+        disclaimer:
+          'Indicative MCX reference prices for planning; not a jeweller retail price (excludes GST, making charges, margins) and not for trading.',
+        unavailable:
+          'Metal reference prices are temporarily unavailable. Calculators remain fully operational.',
         retry: 'Retry',
         source: 'Source',
       },
@@ -228,24 +278,79 @@ const resources = {
         accountCreated: 'Account created successfully! You are now signed in.',
         loginSuccess: 'Signed in successfully.',
       },
+      errors: {
+        generic: 'An unexpected error occurred. Please try again.',
+        loadFailedTitle: 'Failed to load content',
+        retry: 'Try again',
+        emptyTitle: 'No records found',
+        emptySubtitle: 'Try refining your search or selecting a different category.',
+        timeout: 'The request timed out. Please check your internet connection.',
+        network: 'Unable to reach the server. Please check your network connection.',
+        sessionExpired: 'Your session has expired. Please sign in again.',
+        rateLimited: 'Too many requests. Please wait a moment and try again.',
+        serviceUnavailable: 'Service is temporarily unavailable. Please try again shortly.',
+        validationFailed: 'Please correct the highlighted errors and try again.',
+      },
     },
   },
   hi: {
     translation: {
-      nav: { learn: 'सीखें (Learn)', roadmap: 'रोडमैप', sip: 'SIP प्लानर', loan: 'लोन और EMI', fixed: 'स्थिर आय', mutual: 'म्यूचुअल फंड', planning: 'स्मार्ट प्लानिंग', onboarding: 'ऑनबोर्डिंग', education: 'शिक्षा', account: 'खाता' },
-      hero: { eyebrow: 'आपका पैसा, सरल तरीके से', title: 'स्पष्ट योजना बनाएं।', title2: 'इरादे से बढ़ें।', subtitle: 'भारतीय निवेश और ऋण के लिए शैक्षिक कैलकुलेटर।' },
-      common: { connected: 'API जुड़ा है', offline: 'API ऑफलाइन', theme: 'डार्क मोड', language: 'भाषा', disclaimer: 'शैक्षिक अनुमान, वित्तीय सलाह नहीं।' },
-      onboarding: { title: 'आपका पांच चरणों का मनी मैप', subtitle: 'सही शुरुआत के लिए कुछ सवालों के जवाब दें।', next: 'आगे', back: 'पीछे', finish: 'मेरी योजना बनाएं', age: 'आपकी उम्र क्या है?', income: 'मासिक हाथ में आय', obligations: 'मासिक दायित्व और ऋण भुगतान', goals: 'आप किस लक्ष्य के लिए योजना बना रहे हैं?', risk: 'बाजार के उतार-चढ़ाव के साथ आप कितने सहज हैं?', recommendations: 'इन कैलकुलेटर से शुरू करें' },
-      education: { title: 'वित्तीय शिक्षा केंद्र', search: 'ग्लॉसरी और लेख खोजें', glossary: 'ग्लॉसरी', articles: 'समझाने वाले लेख', disclaimer: 'सामान्य जानकारी, व्यक्तिगत सलाह नहीं।' },
+      nav: {
+        learn: 'सीखें (Learn)',
+        roadmap: 'रोडमैप',
+        sip: 'SIP प्लानर',
+        loan: 'लोन और EMI',
+        fixed: 'स्थिर आय',
+        mutual: 'म्यूचुअल फंड',
+        planning: 'स्मार्ट प्लानिंग',
+        onboarding: 'ऑनबोर्डिंग',
+        education: 'शिक्षा',
+        account: 'खाता',
+      },
+      hero: {
+        eyebrow: 'आपका पैसा, सरल तरीके से',
+        title: 'स्पष्ट योजना बनाएं।',
+        title2: 'इरादे से बढ़ें।',
+        subtitle: 'भारतीय निवेश और ऋण के लिए शैक्षिक कैलकुलेटर।',
+      },
+      common: {
+        connected: 'API जुड़ा है',
+        offline: 'API ऑफलाइन',
+        theme: 'डार्क मोड',
+        language: 'भाषा',
+        disclaimer: 'शैक्षिक अनुमान, वित्तीय सलाह नहीं।',
+      },
+      onboarding: {
+        title: 'आपका पांच चरणों का मनी मैप',
+        subtitle: 'सही शुरुआत के लिए कुछ सवालों के जवाब दें।',
+        next: 'आगे',
+        back: 'पीछे',
+        finish: 'मेरी योजना बनाएं',
+        age: 'आपकी उम्र क्या है?',
+        income: 'मासिक हाथ में आय',
+        obligations: 'मासिक दायित्व और ऋण भुगतान',
+        goals: 'आप किस लक्ष्य के लिए योजना बना रहे हैं?',
+        risk: 'बाजार के उतार-चढ़ाव के साथ आप कितने सहज हैं?',
+        recommendations: 'इन कैलकुलेटर से शुरू करें',
+      },
+      education: {
+        title: 'वित्तीय शिक्षा केंद्र',
+        search: 'ग्लॉसरी और लेख खोजें',
+        glossary: 'ग्लॉसरी',
+        articles: 'समझाने वाले लेख',
+        disclaimer: 'सामान्य जानकारी, व्यक्तिगत सलाह नहीं।',
+      },
       home: {
         seo: {
           title: 'स्पष्टता के साथ अपने पैसों की योजना बनाएं · InFinance',
-          description: 'भारत के लिए मुफ्त, शैक्षिक व्यक्तिगत वित्त कैलकुलेटर। SIP, लोन और EMI, PPF, NPS, टैक्स व्यवस्था और रिटायरमेंट की गणना करें।',
+          description:
+            'भारत के लिए मुफ्त, शैक्षिक व्यक्तिगत वित्त कैलकुलेटर। SIP, लोन और EMI, PPF, NPS, टैक्स व्यवस्था और रिटायरमेंट की गणना करें।',
         },
         hero: {
           eyebrow: 'आपका पैसा, सरल तरीके से · भारत · INR',
           title: 'स्पष्टता के साथ अपने पैसों की योजना बनाएं',
-          subtitle: 'भारतीय निवेश, ऋण और दीर्घकालिक निर्णयों के लिए मुफ्त, INR-आधारित शैक्षिक कैलकुलेटर। पारदर्शी धारणाएं, कोई बिक्री दबाव नहीं, लॉगिन की आवश्यकता नहीं।',
+          subtitle:
+            'भारतीय निवेश, ऋण और दीर्घकालिक निर्णयों के लिए मुफ्त, INR-आधारित शैक्षिक कैलकुलेटर। पारदर्शी धारणाएं, कोई बिक्री दबाव नहीं, लॉगिन की आवश्यकता नहीं।',
           ctaPrimary: 'SIP योजना शुरू करें',
           ctaSecondary: 'सीखने का केंद्र देखें (Learn Hub)',
           illustration: {
@@ -274,7 +379,8 @@ const resources = {
         calculators: {
           eyebrow: 'कैलकुलेटर संग्रह',
           title: 'भारत के वित्तीय कैलकुलेटर',
-          subtitle: 'भारतीय कर नियमों, बैंकिंग उत्पादों और निवेश साधनों के लिए सटीक, पारदर्शी गणित।',
+          subtitle:
+            'भारतीय कर नियमों, बैंकिंग उत्पादों और निवेश साधनों के लिए सटीक, पारदर्शी गणित।',
           openCta: 'कैलकुलेटर खोलें →',
           sip: {
             title: 'SIP और एकमुश्त (Lumpsum)',
@@ -346,7 +452,8 @@ const resources = {
         why: {
           eyebrow: 'InFinance क्यों चुनें',
           title: 'उद्देश्य और निष्पक्षता के साथ निर्मित',
-          subtitle: 'हमारा मानना ​​है कि वित्तीय टूल्स को नागरिकों को सशक्त बनाना चाहिए, न कि उत्पाद बेचना चाहिए।',
+          subtitle:
+            'हमारा मानना ​​है कि वित्तीय टूल्स को नागरिकों को सशक्त बनाना चाहिए, न कि उत्पाद बेचना चाहिए।',
           tile1: {
             title: 'स्पष्ट और पारदर्शी परिणाम',
             desc: 'प्रत्येक सूत्र और दर सामने दिखाई देती है। कोई छिपी हुई मान्यता या एल्गोरिदम नहीं।',
@@ -409,15 +516,18 @@ const resources = {
         perGram: '/ ग्राम',
         per10Grams: '/ 10 ग्राम',
         indicative22k: '22K सांकेतिक',
-        indicative22kNote: 'सांकेतिक शुद्धता रूपांतरण (22/24), आभूषण खुदरा दर नहीं (GST, मेकिंग चार्ज, मार्जिन शामिल नहीं)',
+        indicative22kNote:
+          'सांकेतिक शुद्धता रूपांतरण (22/24), आभूषण खुदरा दर नहीं (GST, मेकिंग चार्ज, मार्जिन शामिल नहीं)',
         lastUpdated: 'अंतिम अपडेट',
         refresh: 'धातु मूल्य रिफ्रेश करें',
         refreshing: 'रिफ्रेश हो रहा है...',
         statusLive: 'लाइव',
         statusCached: 'कैश्ड',
         statusStale: 'पुराना',
-        disclaimer: 'योजना के लिए सांकेतिक MCX संदर्भ मूल्य; आभूषण खुदरा दर नहीं (GST, मेकिंग चार्ज, मार्जिन शामिल नहीं) और ट्रेडिंग के लिए नहीं।',
-        unavailable: 'धातु संदर्भ मूल्य अस्थायी रूप से अनुपलब्ध हैं। कैलकुलेटर सामान्य रूप से कार्य कर रहे हैं।',
+        disclaimer:
+          'योजना के लिए सांकेतिक MCX संदर्भ मूल्य; आभूषण खुदरा दर नहीं (GST, मेकिंग चार्ज, मार्जिन शामिल नहीं) और ट्रेडिंग के लिए नहीं।',
+        unavailable:
+          'धातु संदर्भ मूल्य अस्थायी रूप से अनुपलब्ध हैं। कैलकुलेटर सामान्य रूप से कार्य कर रहे हैं।',
         retry: 'पुनः प्रयास करें',
         source: 'स्रोत',
       },
@@ -442,7 +552,8 @@ const resources = {
         strengthFair: 'सामान्य',
         strengthGood: 'अच्छा',
         strengthStrong: 'मजबूत',
-        strengthReq: 'बड़े अक्षरों, छोटे अक्षरों और एक संख्या के साथ कम से कम 8 वर्णों का उपयोग करें।',
+        strengthReq:
+          'बड़े अक्षरों, छोटे अक्षरों और एक संख्या के साथ कम से कम 8 वर्णों का उपयोग करें।',
         submitLogin: 'साइन इन करें',
         submitRegister: 'खाता बनाएं',
         submitting: 'कृपया प्रतीक्षा करें...',
@@ -456,24 +567,79 @@ const resources = {
         accountCreated: 'खाता सफलतापूर्वक बनाया गया! आप अब साइन इन हैं।',
         loginSuccess: 'सफलतापूर्वक साइन इन किया गया।',
       },
+      errors: {
+        generic: 'एक अप्रत्याशित त्रुटि हुई। कृपया पुनः प्रयास करें।',
+        loadFailedTitle: 'सामग्री लोड करने में विफल',
+        retry: 'पुनः प्रयास करें',
+        emptyTitle: 'कोई परिणाम नहीं मिला',
+        emptySubtitle: 'अपनी खोज को संशोधित करें या किसी अन्य श्रेणी का चयन करें।',
+        timeout: 'अनुरोध समय समाप्त हो गया। कृपया अपना इंटरनेट कनेक्शन जांचें।',
+        network: 'सर्वर से संपर्क करने में असमर्थ। कृपया अपना नेटवर्क कनेक्शन जांचें।',
+        sessionExpired: 'आपका सत्र समाप्त हो गया है। कृपया पुनः साइन इन करें।',
+        rateLimited: 'बहुत अधिक अनुरोध। कृपया कुछ समय प्रतीक्षा करें और पुनः प्रयास करें।',
+        serviceUnavailable: 'सेवा अस्थायी रूप से अनुपलब्ध है। कृपया शीघ्र ही पुनः प्रयास करें।',
+        validationFailed: 'कृपया हाइलाइट की गई त्रुटियों को ठीक करें और पुनः प्रयास करें।',
+      },
     },
   },
   bn: {
     translation: {
-      nav: { learn: 'লার্ন হাব', roadmap: 'রোডম্যাপ', sip: 'SIP প্ল্যানার', loan: 'লোন ও EMI', fixed: 'স্থির আয়', mutual: 'মিউচুয়াল ফান্ড', planning: 'স্মার্ট প্ল্যানিং', onboarding: 'অনবোর্ডিং', education: 'শিক্ষা', account: 'অ্যাকাউন্ট' },
-      hero: { eyebrow: 'আপনার টাকা, সহজভাবে', title: 'স্পষ্ট পরিকল্পনা করুন।', title2: 'উদ্দেশ্য নিয়ে বাড়ান।', subtitle: 'ভারতীয় বিনিয়োগ ও ঋণের শিক্ষামূলক ক্যালকুলেটর।' },
-      common: { connected: 'API সংযুক্ত', offline: 'API অফলাইন', theme: 'ডার্ক মোড', language: 'ভাষা', disclaimer: 'শিক্ষামূলক হিসাব, আর্থিক পরামর্শ নয়।' },
-      onboarding: { title: 'আপনার পাঁচ ধাপের মানি ম্যাপ', subtitle: 'শুরু করার জন্য কয়েকটি প্রশ্নের উত্তর দিন।', next: 'পরবর্তী', back: 'পেছনে', finish: 'আমার পরিকল্পনা তৈরি করুন', age: 'আপনার বয়স কত?', income: 'মাসিক হাতে পাওয়া আয়', obligations: 'মাসিক দায় ও ঋণ পরিশোধ', goals: 'কোন লক্ষ্যের জন্য পরিকল্পনা করছেন?', risk: 'বাজারের ওঠানামায় আপনি কতটা স্বচ্ছন্দ?', recommendations: 'এই ক্যালকুলেটর দিয়ে শুরু করুন' },
-      education: { title: 'আর্থিক শিক্ষা কেন্দ্র', search: 'গ্লসারি ও ব্যাখ্যা খুঁজুন', glossary: 'গ্লসারি', articles: 'ব্যাখ্যা', disclaimer: 'সাধারণ তথ্য, ব্যক্তিগত পরামর্শ নয়।' },
+      nav: {
+        learn: 'লার্ন হাব',
+        roadmap: 'রোডম্যাপ',
+        sip: 'SIP প্ল্যানার',
+        loan: 'লোন ও EMI',
+        fixed: 'স্থির আয়',
+        mutual: 'মিউচুয়াল ফান্ড',
+        planning: 'স্মার্ট প্ল্যানিং',
+        onboarding: 'অনবোর্ডিং',
+        education: 'শিক্ষা',
+        account: 'অ্যাকাউন্ট',
+      },
+      hero: {
+        eyebrow: 'আপনার টাকা, সহজভাবে',
+        title: 'স্পষ্ট পরিকল্পনা করুন।',
+        title2: 'উদ্দেশ্য নিয়ে বাড়ান।',
+        subtitle: 'ভারতীয় বিনিয়োগ ও ঋণের শিক্ষামূলক ক্যালকুলেটর।',
+      },
+      common: {
+        connected: 'API সংযুক্ত',
+        offline: 'API অফলাইন',
+        theme: 'ডার্ক মোড',
+        language: 'ভাষা',
+        disclaimer: 'শিক্ষামূলক হিসাব, আর্থিক পরামর্শ নয়।',
+      },
+      onboarding: {
+        title: 'আপনার পাঁচ ধাপের মানি ম্যাপ',
+        subtitle: 'শুরু করার জন্য কয়েকটি প্রশ্নের উত্তর দিন।',
+        next: 'পরবর্তী',
+        back: 'পেছনে',
+        finish: 'আমার পরিকল্পনা তৈরি করুন',
+        age: 'আপনার বয়স কত?',
+        income: 'মাসিক হাতে পাওয়া আয়',
+        obligations: 'মাসিক দায় ও ঋণ পরিশোধ',
+        goals: 'কোন লক্ষ্যের জন্য পরিকল্পনা করছেন?',
+        risk: 'বাজারের ওঠানামায় আপনি কতটা স্বচ্ছন্দ?',
+        recommendations: 'এই ক্যালকুলেটর দিয়ে শুরু করুন',
+      },
+      education: {
+        title: 'আর্থিক শিক্ষা কেন্দ্র',
+        search: 'গ্লসারি ও ব্যাখ্যা খুঁজুন',
+        glossary: 'গ্লসারি',
+        articles: 'ব্যাখ্যা',
+        disclaimer: 'সাধারণ তথ্য, ব্যক্তিগত পরামর্শ নয়।',
+      },
       home: {
         seo: {
           title: 'স্পষ্টতার সাথে আপনার টাকার পরিকল্পনা করুন · InFinance',
-          description: 'ভারতের জন্য বিনামূল্যে শিক্ষামূলক ব্যক্তিগত আর্থিক ক্যালকুলেটর। SIP, ঋণ ও EMI, PPF, NPS, ট্যাক্স ব্যবস্থা এবং অবসরের হিসাব করুন।',
+          description:
+            'ভারতের জন্য বিনামূল্যে শিক্ষামূলক ব্যক্তিগত আর্থিক ক্যালকুলেটর। SIP, ঋণ ও EMI, PPF, NPS, ট্যাক্স ব্যবস্থা এবং অবসরের হিসাব করুন।',
         },
         hero: {
           eyebrow: 'আপনার টাকা, সহজভাবে · ভারত · INR',
           title: 'স্পষ্টতার সাথে আপনার টাকার পরিকল্পনা করুন',
-          subtitle: 'ভারতীয় বিনিয়োগ, ঋণ এবং দীর্ঘমেয়াদী সিদ্ধান্তের জন্য বিনামূল্যে, INR-ভিত্তিক শিক্ষামূলক ক্যালকুলেটর। স্বচ্ছ অনুমান, কোনো বিক্রির চাপ নেই, কোনো লগইন প্রয়োজন নেই।',
+          subtitle:
+            'ভারতীয় বিনিয়োগ, ঋণ এবং দীর্ঘমেয়াদী সিদ্ধান্তের জন্য বিনামূল্যে, INR-ভিত্তিক শিক্ষামূলক ক্যালকুলেটর। স্বচ্ছ অনুমান, কোনো বিক্রির চাপ নেই, কোনো লগইন প্রয়োজন নেই।',
           ctaPrimary: 'SIP পরিকল্পনা শুরু করুন',
           ctaSecondary: 'লার্ন হাব অন্বেষণ করুন (Learn Hub)',
           illustration: {
@@ -554,7 +720,8 @@ const resources = {
         howItWorks: {
           eyebrow: 'কার্যপ্রণালী',
           title: 'তিনটি সহজ ধাপে পরিকল্পনা করুন',
-          subtitle: 'একটি স্বচ্ছ এবং স্পষ্ট পদ্ধতি যা আপনাকে জটিলতা ছাড়াই সঠিক সিদ্ধান্ত নিতে সাহায্য করে।',
+          subtitle:
+            'একটি স্বচ্ছ এবং স্পষ্ট পদ্ধতি যা আপনাকে জটিলতা ছাড়াই সঠিক সিদ্ধান্ত নিতে সাহায্য করে।',
           step1: {
             num: '০১',
             title: 'আপনার তথ্য লিখুন',
@@ -637,15 +804,18 @@ const resources = {
         perGram: '/ গ্রাম',
         per10Grams: '/ ১০ গ্রাম',
         indicative22k: '২২কে নির্দেশক',
-        indicative22kNote: 'নির্দেশক বিশুদ্ধতার রূপান্তর (২২/২৪), গহনার খুচরা দর নয় (GST, মেকিং চার্জ, মার্জিন বাদে)',
+        indicative22kNote:
+          'নির্দেশক বিশুদ্ধতার রূপান্তর (২২/২৪), গহনার খুচরা দর নয় (GST, মেকিং চার্জ, মার্জিন বাদে)',
         lastUpdated: 'সর্বশেষ আপডেট',
         refresh: 'ধাতুর দাম রিফ্রেশ করুন',
         refreshing: 'রিফ্রেশ হচ্ছে...',
         statusLive: 'লাইভ',
         statusCached: 'ক্যাশেড',
         statusStale: 'পুরনো',
-        disclaimer: 'পরিকল্পনার জন্য নির্দেশক MCX রেফারেন্স মূল্য; গহনার খুচরা দর নয় (GST, মেকিং চার্জ, মার্জিন বাদে) and ট্রেডিংয়ের জন্য নয়।',
-        unavailable: 'ধাতুর রেফারেন্স দাম সাময়িকভাবে অনুপলব্ধ। ক্যালকুলেটর স্বাভাবিকভাবে কাজ করছে।',
+        disclaimer:
+          'পরিকল্পনার জন্য নির্দেশক MCX রেফারেন্স মূল্য; গহনার খুচরা দর নয় (GST, মেকিং চার্জ, মার্জিন বাদে) and ট্রেডিংয়ের জন্য নয়।',
+        unavailable:
+          'ধাতুর রেফারেন্স দাম সাময়িকভাবে অনুপলব্ধ। ক্যালকুলেটর স্বাভাবিকভাবে কাজ করছে।',
         retry: 'আবার চেষ্টা করুন',
         source: 'উৎস',
       },
@@ -683,6 +853,20 @@ const resources = {
         signedInAs: 'হিসাবে সাইন ইন করা হয়েছে',
         accountCreated: 'অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে! আপনি এখন সাইন ইন আছেন।',
         loginSuccess: 'সফলভাবে সাইন ইন হয়েছে।',
+      },
+      errors: {
+        generic: 'একটি অপ্রত্যাশিত ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
+        loadFailedTitle: 'বিষয়বস্তু লোড করতে ব্যর্থ হয়েছে',
+        retry: 'আবার চেষ্টা করুন',
+        emptyTitle: 'কোন তথ্য পাওয়া যায়নি',
+        emptySubtitle: 'অনুসন্ধান সংশোধন করুন অথবা অন্য বিভাগ নির্বাচন করুন।',
+        timeout: 'অনুরোধের সময় শেষ হয়েছে। অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন।',
+        network: 'সার্ভারে পৌঁছানো সম্ভব হচ্ছে না। অনুগ্রহ করে নেটওয়ার্ক সংযোগ পরীক্ষা করুন।',
+        sessionExpired: 'আপনার সেশনের মেয়াদ শেষ হয়ে গেছে। অনুগ্রহ করে আবার সাইন ইন করুন।',
+        rateLimited:
+          'খুব বেশি অনুরোধ করা হয়েছে। অনুগ্রহ করে কিছুক্ষণ অপেক্ষা করে আবার চেষ্টা করুন।',
+        serviceUnavailable: 'পরিষেবা সাময়িকভাবে অনুপলব্ধ। অনুগ্রহ করে একটু পরে চেষ্টা করুন।',
+        validationFailed: 'হাইলাইট করা ত্রুটিগুলি সংশোধন করে আবার চেষ্টা করুন।',
       },
     },
   },

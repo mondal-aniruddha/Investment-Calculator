@@ -3,42 +3,22 @@
   publish = "dist"
   command = "npm run build"
 
-
 # ---------------------------------------------------------------------------
-# Backend API proxy
+# Production Deployment Architecture on Netlify
 # ---------------------------------------------------------------------------
-# Netlify only serves the static Vite bundle; it cannot reach the Spring Boot
-# backend on its own.  These rules reverse-proxy /api/* and /actuator/* to
-# the deployed backend.
-#
-# HOW TO CONFIGURE
-# ─────────────────
-# 1. Deploy your Spring Boot backend somewhere publicly reachable
-#    (Render, Railway, Fly.io, your VPS, …).
-# 2. In the Netlify dashboard → Site configuration → Environment variables
-#    set:  BACKEND_URL = https://your-backend-host.example.com
-#    (no trailing slash)
-# 3. Redeploy the Netlify site so the build picks up the new variable.
-#
-# Netlify resolves the :splat placeholder at request time, so no rebuild is
-# needed if only the env-var value changes (only the toml rule itself needs
-# a rebuild when changed).
+# The frontend SPA communicates with the Spring Boot backend via CORS.
+# 1. Set VITE_API_BASE_URL in Netlify dashboard (Site configuration -> Environment variables):
+#    VITE_API_BASE_URL = https://api.your-domain.com
+# 2. Configure CORS origins on backend to allow the Netlify origin:
+#    APP_CORS_ALLOWED_ORIGINS = https://infinance-home.netlify.app
+# 3. All non-asset routes route to index.html for client-side HTML5 history routing.
 # ---------------------------------------------------------------------------
 
-[[redirects]]
-  from    = "/api/*"
-  to      = ":BACKEND_URL/api/:splat"
-  status  = 200
-  force   = true
-
-[[redirects]]
-  from    = "/actuator/*"
-  to      = ":BACKEND_URL/actuator/:splat"
-  status  = 200
-  force   = true
-
-# SPA Fallback Rule — must be LAST so it does not swallow /api/* requests
+# SPA Fallback Rule
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+[build.environment]
+  NODE_VERSION = "20"

@@ -2,7 +2,6 @@ package com.infinance.investing.engine;
 
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
-import net.jqwik.api.Assume;
 import net.jqwik.api.constraints.DoubleRange;
 import net.jqwik.api.constraints.IntRange;
 
@@ -33,10 +32,9 @@ class SipEnginePropertiesTest {
     void scenariosRemainOrderedForNonNegativeInputs(
             @ForAll @DoubleRange(min = 100, max = 100000) double monthlyInvestment,
             @ForAll @IntRange(min = 1, max = 30) int years,
-            @ForAll @DoubleRange(min = 0, max = 30) double annualReturn) {
+            @ForAll @DoubleRange(min = 3, max = 30) double annualReturn) {
         BigDecimal monthly = BigDecimal.valueOf(monthlyInvestment).setScale(2);
         BigDecimal annual = BigDecimal.valueOf(annualReturn).setScale(2);
-        Assume.that(annual.compareTo(BigDecimal.valueOf(3)) >= 0);
 
         SipEngine.SipCalculationResult result = SipEngine.calculate(
                 monthly, years, annual, BigDecimal.ZERO);

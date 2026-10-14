@@ -9,7 +9,7 @@ const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
   const { t } = useTranslation()
-  const toast  = useToast()
+  const toast = useToast()
 
   const [token, setToken] = useState(() => {
     if (typeof sessionStorage !== 'undefined') {
@@ -22,7 +22,11 @@ export function AuthProvider({ children }) {
     if (typeof sessionStorage !== 'undefined') {
       const stored = sessionStorage.getItem('infinance-user')
       if (stored) {
-        try { return JSON.parse(stored) } catch { return null }
+        try {
+          return JSON.parse(stored)
+        } catch {
+          return null
+        }
       }
     }
     return null
@@ -77,16 +81,37 @@ export function AuthProvider({ children }) {
       method: 'POST',
       body: JSON.stringify({ email, password }),
     })
-    if (res.token) { sessionStorage.setItem('infinance-token', res.token); setToken(res.token) }
-    if (res.profile) { sessionStorage.setItem('infinance-user', JSON.stringify(res.profile)); setUser(res.profile) }
+    if (res.token) {
+      sessionStorage.setItem('infinance-token', res.token)
+      setToken(res.token)
+    }
+    if (res.profile) {
+      sessionStorage.setItem('infinance-user', JSON.stringify(res.profile))
+      setUser(res.profile)
+    }
     return res
   }, [])
 
   const register = useCallback(async ({ email, password, displayName, phone, username }) => {
-    const payload = { email, password, displayName, ...(phone ? { phone } : {}), ...(username ? { username } : {}) }
-    const res = await request('/api/v1/auth/register', { method: 'POST', body: JSON.stringify(payload) })
-    if (res.token) { sessionStorage.setItem('infinance-token', res.token); setToken(res.token) }
-    if (res.profile) { sessionStorage.setItem('infinance-user', JSON.stringify(res.profile)); setUser(res.profile) }
+    const payload = {
+      email,
+      password,
+      displayName,
+      ...(phone ? { phone } : {}),
+      ...(username ? { username } : {}),
+    }
+    const res = await request('/api/v1/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    })
+    if (res.token) {
+      sessionStorage.setItem('infinance-token', res.token)
+      setToken(res.token)
+    }
+    if (res.profile) {
+      sessionStorage.setItem('infinance-user', JSON.stringify(res.profile))
+      setUser(res.profile)
+    }
     return res
   }, [])
 
@@ -98,9 +123,13 @@ export function AuthProvider({ children }) {
   }, [])
 
   const value = {
-    user, token, loading,
+    user,
+    token,
+    loading,
     isAuthenticated: Boolean(token && user),
-    login, register, logout,
+    login,
+    register,
+    logout,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

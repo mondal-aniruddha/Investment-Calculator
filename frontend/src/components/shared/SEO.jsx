@@ -12,8 +12,11 @@ export function SEO({
   jsonLd = null,
 }) {
   const siteTitle = 'InFinance'
-  const fullTitle = title ? `${title} | ${siteTitle}` : 'InFinance | Smart Financial Planning & Learning for India'
-  const currentUrl = typeof window !== 'undefined' ? window.location.href : 'https://infinance-home.netlify.app'
+  const fullTitle = title
+    ? `${title} | ${siteTitle}`
+    : 'InFinance | Smart Financial Planning & Learning for India'
+  const currentUrl =
+    typeof window !== 'undefined' ? window.location.href : 'https://infinance-home.netlify.app'
   const canonicalUrl = canonical || currentUrl
 
   return (
@@ -35,13 +38,7 @@ export function SEO({
       <meta name="twitter:description" content={description} />
 
       {/* Structured Data (JSON-LD) */}
-      {jsonLd && (
-        <script type="application/ld+json">
-          {JSON.stringify(jsonLd)}
-        </script>
-      )}
+      {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
     </Helmet>
   )
 }
-
-export default SEO

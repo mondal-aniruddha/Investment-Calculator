@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.infinance.common.config.ApiConstants;
+
 @RestController
-@RequestMapping("/api/v1/retirement")
+@RequestMapping(ApiConstants.RETIREMENT)
 @Tag(name = "Retirement Planner", description = "Endpoints for inflation-adjusted retirement corpus forecasting, accumulation trajectories, and safe withdrawal analysis")
 public class RetirementController {
 

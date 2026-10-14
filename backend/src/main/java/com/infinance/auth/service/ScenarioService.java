@@ -3,7 +3,7 @@ package com.infinance.auth.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infinance.auth.dto.AuthDtos.*;
+import com.infinance.auth.dto.*;
 import com.infinance.auth.entity.*;
 import com.infinance.auth.repository.SavedScenarioRepository;
 import com.infinance.common.exception.InvalidFinancialInputException;

@@ -13,24 +13,47 @@ export default function OnboardingPage() {
   const navigate = useNavigate()
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState({
-    age: 30, income: 75000, obligations: 25000,
-    goals: 'retirement', risk: 'moderate',
+    age: 30,
+    income: 75000,
+    obligations: 25000,
+    goals: 'retirement',
+    risk: 'moderate',
   })
 
   const update = (key) => (e) =>
-    setAnswers({ ...answers, [key]: e.target.type === 'number' ? Number(e.target.value) : e.target.value })
+    setAnswers({
+      ...answers,
+      [key]: e.target.type === 'number' ? Number(e.target.value) : e.target.value,
+    })
 
   const recommendations =
     answers.goals === 'debt'
-      ? [['/loan', t('nav.loan', 'Loan & EMI')], ['/planning', t('nav.planning', 'Smart Planning')]]
+      ? [
+          ['/loan', t('nav.loan', 'Loan & EMI')],
+          ['/planning', t('nav.planning', 'Smart Planning')],
+        ]
       : answers.goals === 'education'
-      ? [['/sip', t('nav.sip', 'SIP Planner')], ['/fixed', t('nav.fixed', 'Fixed Income')]]
-      : [['/sip', t('nav.sip', 'SIP Planner')], ['/planning', t('nav.planning', 'Smart Planning')], ['/mutual', t('nav.mutual', 'Mutual Funds')]]
+        ? [
+            ['/sip', t('nav.sip', 'SIP Planner')],
+            ['/fixed', t('nav.fixed', 'Fixed Income')],
+          ]
+        : [
+            ['/sip', t('nav.sip', 'SIP Planner')],
+            ['/planning', t('nav.planning', 'Smart Planning')],
+            ['/mutual', t('nav.mutual', 'Mutual Funds')],
+          ]
 
   const questions = [
     <div key="age">
       <h2>{t('onboarding.age', 'What is your age?')}</h2>
-      <NumberField label="Age" value={answers.age} suffix="years" onChange={update('age')} min={18} max={100} />
+      <NumberField
+        label="Age"
+        value={answers.age}
+        suffix="years"
+        onChange={update('age')}
+        min={18}
+        max={100}
+      />
     </div>,
     <div key="income">
       <h2>{t('onboarding.income', 'Monthly take-home income')}</h2>
@@ -38,7 +61,11 @@ export default function OnboardingPage() {
     </div>,
     <div key="obligations">
       <h2>{t('onboarding.obligations', 'Monthly obligations and debt payments')}</h2>
-      <MoneyField label="Monthly obligations (₹)" value={answers.obligations} onChange={update('obligations')} />
+      <MoneyField
+        label="Monthly obligations (₹)"
+        value={answers.obligations}
+        onChange={update('obligations')}
+      />
     </div>,
     <div key="goals">
       <h2>{t('onboarding.goals', 'What are you planning for?')}</h2>
@@ -70,7 +97,14 @@ export default function OnboardingPage() {
       </p>
 
       {/* Stepper */}
-      <div className="stepper" aria-label={`Step ${step + 1} of 5`} role="progressbar" aria-valuenow={step + 1} aria-valuemin={1} aria-valuemax={5}>
+      <div
+        className="stepper"
+        aria-label={`Step ${step + 1} of 5`}
+        role="progressbar"
+        aria-valuenow={step + 1}
+        aria-valuemin={1}
+        aria-valuemax={5}
+      >
         {[0, 1, 2, 3, 4].map((i) => (
           <span
             key={i}
@@ -100,7 +134,11 @@ export default function OnboardingPage() {
               style={{ flex: 1 }}
               aria-label={step === 4 ? 'Finish and see recommendations' : 'Go to next step'}
             >
-              <span>{step === 4 ? t('onboarding.finish', 'Build my plan') : t('onboarding.next', 'Next')}</span>
+              <span>
+                {step === 4
+                  ? t('onboarding.finish', 'Build my plan')
+                  : t('onboarding.next', 'Next')}
+              </span>
               <span aria-hidden="true">→</span>
             </button>
           </div>
@@ -111,7 +149,8 @@ export default function OnboardingPage() {
         <div className="recommendations" role="region" aria-label="Recommended calculators">
           <h2>{t('onboarding.recommendations', 'Start with these calculators')}</h2>
           <p style={{ fontSize: '13px', color: 'var(--ink-muted)', margin: '4px 0 16px' }}>
-            Profile: {answers.age} years old · {formatINR(answers.income)}/month · {answers.risk} risk
+            Profile: {answers.age} years old · {formatINR(answers.income)}/month · {answers.risk}{' '}
+            risk
           </p>
           {recommendations.map(([path, label]) => (
             <button

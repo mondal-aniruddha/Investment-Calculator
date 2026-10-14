@@ -8,8 +8,10 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.infinance.common.config.ApiConstants;
+
 @RestController
-@RequestMapping("/api/v1/fixed-income")
+@RequestMapping(ApiConstants.FIXED_INCOME)
 @Tag(name = "Fixed-Income Calculators", description = "Configuration-driven FD, RD, PPF, EPF, NPS, Sukanya, and post-office projections")
 public class FixedIncomeController {
     private final FixedIncomeService service;
