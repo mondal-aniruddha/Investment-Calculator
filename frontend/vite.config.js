@@ -30,4 +30,8 @@ export default defineConfig({
       '/actuator': 'http://localhost:8080',
     },
   },
+  test: {
+    include: ['src/**/*.{test,spec}.{js,jsx}'],
+    exclude: ['e2e/**', 'node_modules/**', 'dist/**'],
+  },
 })
