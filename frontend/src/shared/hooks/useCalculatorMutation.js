@@ -57,7 +57,7 @@ export function useCalculatorMutation(setApiOnline) {
         return null
       }
     },
-    [mutation.mutateAsync], // eslint-disable-line react-hooks/exhaustive-deps
+    [mutation.mutateAsync] // eslint-disable-line react-hooks/exhaustive-deps
   )
 
   const reset = useCallback(() => {
@@ -79,7 +79,8 @@ export function useCalculatorMutation(setApiOnline) {
   }, [])
 
   const errorMessage =
-    mutation.error?.message || (mutation.isError ? 'Start Spring Boot on http://localhost:8080.' : '')
+    mutation.error?.message ||
+    (mutation.isError ? 'Start Spring Boot on http://localhost:8080.' : '')
 
   return {
     result: mutation.data ?? null,

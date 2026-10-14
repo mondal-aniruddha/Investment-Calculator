@@ -33,11 +33,26 @@ export function DataState({
     if (skeletonType === 'detail') {
       return (
         <div className="card skeleton-card" style={{ padding: '32px 24px', margin: '20px 0' }}>
-          <div className="skeleton-line" style={{ width: '30%', height: '16px', marginBottom: '16px' }} />
-          <div className="skeleton-line" style={{ width: '80%', height: '32px', marginBottom: '20px' }} />
-          <div className="skeleton-line" style={{ width: '100%', height: '16px', marginBottom: '10px' }} />
-          <div className="skeleton-line" style={{ width: '95%', height: '16px', marginBottom: '10px' }} />
-          <div className="skeleton-line" style={{ width: '90%', height: '16px', marginBottom: '10px' }} />
+          <div
+            className="skeleton-line"
+            style={{ width: '30%', height: '16px', marginBottom: '16px' }}
+          />
+          <div
+            className="skeleton-line"
+            style={{ width: '80%', height: '32px', marginBottom: '20px' }}
+          />
+          <div
+            className="skeleton-line"
+            style={{ width: '100%', height: '16px', marginBottom: '10px' }}
+          />
+          <div
+            className="skeleton-line"
+            style={{ width: '95%', height: '16px', marginBottom: '10px' }}
+          />
+          <div
+            className="skeleton-line"
+            style={{ width: '90%', height: '16px', marginBottom: '10px' }}
+          />
           <div className="skeleton-line" style={{ width: '60%', height: '16px' }} />
         </div>
       )
@@ -47,9 +62,18 @@ export function DataState({
       <div className={skeletonType === 'list' ? 'articles-list' : 'articles-grid'}>
         {Array.from({ length: skeletonCount }).map((_, idx) => (
           <div key={idx} className="card skeleton-card" style={{ padding: '20px' }}>
-            <div className="skeleton-line" style={{ width: '35%', height: '14px', marginBottom: '12px' }} />
-            <div className="skeleton-line" style={{ width: '85%', height: '20px', marginBottom: '12px' }} />
-            <div className="skeleton-line" style={{ width: '100%', height: '14px', marginBottom: '8px' }} />
+            <div
+              className="skeleton-line"
+              style={{ width: '35%', height: '14px', marginBottom: '12px' }}
+            />
+            <div
+              className="skeleton-line"
+              style={{ width: '85%', height: '20px', marginBottom: '12px' }}
+            />
+            <div
+              className="skeleton-line"
+              style={{ width: '100%', height: '14px', marginBottom: '8px' }}
+            />
             <div className="skeleton-line" style={{ width: '65%', height: '14px' }} />
           </div>
         ))}
@@ -58,7 +82,10 @@ export function DataState({
   }
 
   if (error) {
-    const errorText = typeof error === 'string' ? error : error?.message || t('errors.generic', 'An error occurred while loading data.')
+    const errorText =
+      typeof error === 'string'
+        ? error
+        : error?.message || t('errors.generic', 'An error occurred while loading data.')
     const correlationId = error?.correlationId
 
     return (
@@ -121,14 +148,21 @@ export function DataState({
           background: 'var(--bg-surface, #ffffff)',
         }}
       >
-        <span style={{ fontSize: '36px', display: 'block', marginBottom: '12px' }} aria-hidden="true">
+        <span
+          style={{ fontSize: '36px', display: 'block', marginBottom: '12px' }}
+          aria-hidden="true"
+        >
           {emptyIcon}
         </span>
         <h3 style={{ margin: '0 0 8px', fontSize: '18px' }}>
           {emptyMessage || t('errors.emptyTitle', 'No records found')}
         </h3>
         <p style={{ color: 'var(--ink-muted, #64748b)', margin: 0, fontSize: '14px' }}>
-          {emptySubtitle || t('errors.emptySubtitle', 'Try refining your search or selecting a different category.')}
+          {emptySubtitle ||
+            t(
+              'errors.emptySubtitle',
+              'Try refining your search or selecting a different category.'
+            )}
         </p>
       </div>
     )

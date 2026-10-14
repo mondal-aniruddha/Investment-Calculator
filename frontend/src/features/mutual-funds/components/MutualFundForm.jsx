@@ -1,5 +1,8 @@
 import {
-  MoneyField, NumberField, SubmitButton, ErrorBox
+  MoneyField,
+  NumberField,
+  SubmitButton,
+  ErrorBox,
 } from '../../../shared/components/ui/index'
 
 export function MutualFundForm({ form, update, handleSubmit, loading, error }) {
@@ -18,7 +21,8 @@ export function MutualFundForm({ form, update, handleSubmit, loading, error }) {
           value={form.annualReturn}
           suffix="% p.a."
           onChange={update('annualReturn')}
-          min={1} max={30}
+          min={1}
+          max={30}
         />
         <MoneyField
           label="Monthly withdrawal (₹)"
@@ -33,14 +37,16 @@ export function MutualFundForm({ form, update, handleSubmit, loading, error }) {
           value={form.tenureYears}
           suffix="years"
           onChange={update('tenureYears')}
-          min={1} max={50}
+          min={1}
+          max={50}
         />
         <NumberField
           label="Annual withdrawal step-up"
           value={form.annualWithdrawalIncrease}
           suffix="%"
           onChange={update('annualWithdrawalIncrease')}
-          min={0} max={30}
+          min={0}
+          max={30}
         />
       </div>
       <SubmitButton loading={loading} label="Run SWP projection" />

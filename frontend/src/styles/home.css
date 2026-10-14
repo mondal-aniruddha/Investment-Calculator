@@ -17,8 +17,9 @@
 .reveal-ready {
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
-              transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
@@ -30,13 +31,27 @@
 }
 
 /* Stagger inside grids */
-.reveal-ready.stagger-1 { transition-delay: 60ms; }
-.reveal-ready.stagger-2 { transition-delay: 120ms; }
-.reveal-ready.stagger-3 { transition-delay: 180ms; }
-.reveal-ready.stagger-4 { transition-delay: 240ms; }
-.reveal-ready.stagger-5 { transition-delay: 300ms; }
-.reveal-ready.stagger-6 { transition-delay: 360ms; }
-.reveal-ready.stagger-7 { transition-delay: 420ms; }
+.reveal-ready.stagger-1 {
+  transition-delay: 60ms;
+}
+.reveal-ready.stagger-2 {
+  transition-delay: 120ms;
+}
+.reveal-ready.stagger-3 {
+  transition-delay: 180ms;
+}
+.reveal-ready.stagger-4 {
+  transition-delay: 240ms;
+}
+.reveal-ready.stagger-5 {
+  transition-delay: 300ms;
+}
+.reveal-ready.stagger-6 {
+  transition-delay: 360ms;
+}
+.reveal-ready.stagger-7 {
+  transition-delay: 420ms;
+}
 
 /* --------------------------------------------------------------------------
    Hero Section
@@ -131,9 +146,10 @@
   border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;
-  transition: transform 200ms var(--ease-out),
-              box-shadow 200ms var(--ease-out),
-              background 200ms var(--ease-out);
+  transition:
+    transform 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out),
+    background 200ms var(--ease-out);
   box-shadow: 0 4px 16px rgba(35, 75, 60, 0.22);
 }
 
@@ -174,9 +190,10 @@
   border: 1px solid var(--line);
   cursor: pointer;
   text-decoration: none;
-  transition: transform 200ms var(--ease-out),
-              border-color 200ms var(--ease-out),
-              background 200ms var(--ease-out);
+  transition:
+    transform 200ms var(--ease-out),
+    border-color 200ms var(--ease-out),
+    background 200ms var(--ease-out);
 }
 
 .hero-cta-btn-secondary:hover {
@@ -260,11 +277,15 @@
 }
 
 @keyframes drawSvgLine {
-  to { stroke-dashoffset: 0; }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes fadeSvgBand {
-  to { opacity: 1; }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes heroFadeIn {
@@ -304,9 +325,15 @@
   display: inline-block;
 }
 
-.legend-dot.opt { background: #71a34b; }
-.legend-dot.exp { background: var(--accent); }
-.legend-dot.con { background: #e1a378; }
+.legend-dot.opt {
+  background: #71a34b;
+}
+.legend-dot.exp {
+  background: var(--accent);
+}
+.legend-dot.con {
+  background: #e1a378;
+}
 
 /* --------------------------------------------------------------------------
    Trust Strip
@@ -335,7 +362,9 @@
   font-weight: 500;
   color: var(--ink);
   box-shadow: 0 1px 4px rgba(24, 62, 43, 0.04);
-  transition: transform 180ms var(--ease-out), border-color 180ms;
+  transition:
+    transform 180ms var(--ease-out),
+    border-color 180ms;
 }
 
 .trust-pill:hover {
@@ -424,9 +453,10 @@
   padding: clamp(20px, 3vw, 26px);
   text-decoration: none;
   color: inherit;
-  transition: transform 200ms var(--ease-out),
-              box-shadow 200ms var(--ease-out),
-              border-color 200ms var(--ease-out);
+  transition:
+    transform 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out),
+    border-color 200ms var(--ease-out);
   box-shadow: var(--shadow-card);
   position: relative;
 }
@@ -697,7 +727,9 @@
   font-size: 0.88rem;
   font-weight: 600;
   text-decoration: none;
-  transition: transform 180ms, background 180ms;
+  transition:
+    transform 180ms,
+    background 180ms;
 }
 
 .teaser-full-plan-link:hover {
@@ -886,9 +918,10 @@
   text-decoration: none;
   color: inherit;
   box-shadow: var(--shadow-card);
-  transition: transform 200ms var(--ease-out),
-              box-shadow 200ms var(--ease-out),
-              border-color 200ms;
+  transition:
+    transform 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out),
+    border-color 200ms;
 }
 
 .learn-article-card:hover {
@@ -991,7 +1024,9 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: transform 180ms, background 180ms;
+  transition:
+    transform 180ms,
+    background 180ms;
   flex-shrink: 0;
 }
 

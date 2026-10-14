@@ -8,11 +8,24 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+/**
+ * Application service for retail loan calculations, including Equated Monthly Installment (EMI),
+ * prepayment strategies, surplus vs. prepayment comparisons, balance transfer savings, and floating rate impact.
+ *
+ * <p>Enriches mathematical calculations from {@link LoanEngine} with contextual assumption metadata.</p>
+ */
 @Service
 public class LoanService {
     private final AssumptionService assumptions;
+
     public LoanService(AssumptionService assumptions) { this.assumptions = assumptions; }
 
+    /**
+     * Calculates the fixed monthly EMI and amortization schedule.
+     *
+     * @param r Loan EMI request containing principal, tenure in years, and annual interest rate
+     * @return LoanCalculationResponse with monthly EMI, total interest, and amortization schedule
+     */
     public LoanCalculationResponse emi(LoanEmiRequest r) {
         return withAssumptions(LoanEngine.calculateEmi(r.principal(), r.tenureYears(), r.annualInterestRate()),
                 Map.of("calculation", "EMI", "annualInterestRate", r.annualInterestRate()));

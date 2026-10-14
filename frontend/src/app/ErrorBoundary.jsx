@@ -67,8 +67,16 @@ export class ErrorBoundary extends Component {
             <h2 style={{ fontSize: '22px', fontWeight: 600, marginBottom: '8px' }}>
               Something went wrong
             </h2>
-            <p style={{ color: 'var(--ink-muted, #64748b)', fontSize: '14px', marginBottom: '20px', lineHeight: 1.5 }}>
-              We encountered an issue rendering this section. You can try refreshing or returning to the home page.
+            <p
+              style={{
+                color: 'var(--ink-muted, #64748b)',
+                fontSize: '14px',
+                marginBottom: '20px',
+                lineHeight: 1.5,
+              }}
+            >
+              We encountered an issue rendering this section. You can try refreshing or returning to
+              the home page.
             </p>
 
             {correlationId && (
@@ -84,7 +92,9 @@ export class ErrorBoundary extends Component {
               </div>
             )}
 
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <div
+              style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}
+            >
               <button
                 type="button"
                 className="btn-primary"

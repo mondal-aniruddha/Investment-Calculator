@@ -7,8 +7,13 @@
 import { useCalculator } from '../../../shared/hooks/useCalculator'
 import { useScrollReveal } from '../../../shared/hooks/useScrollReveal'
 import {
-  MoneyField, NumberField, ActionButton, ErrorBox,
-  ProjectionChart, HowItWorks, CalcPageHeader,
+  MoneyField,
+  NumberField,
+  ActionButton,
+  ErrorBox,
+  ProjectionChart,
+  HowItWorks,
+  CalcPageHeader,
 } from '../../../shared/components/ui/index'
 import { formatINR } from '../../../shared/lib/format'
 import { LearnBeforeYouCalculate } from '../../../components/shared/LearnBeforeYouCalculate'
@@ -75,7 +80,6 @@ export default function PlanningPage({ setApiOnline }) {
 
       <div ref={revealRef} className="reveal">
         <div className="planning-grid">
-
           {/* ── Health score ── */}
           <PlanCard label="HEALTH SCORE" title="Financial health score">
             {Object.entries(health.form).map(([key, value]) => (
@@ -85,17 +89,24 @@ export default function PlanningPage({ setApiOnline }) {
                 value={value}
                 suffix={key === 'emergencyFundMonths' ? 'months' : '%'}
                 onChange={health.update(key)}
-                min={0} max={100}
+                min={0}
+                max={100}
               />
             ))}
-            <ActionButton loading={calc.loading} onClick={health.handleSubmit} loadingLabel="Calculating…">
+            <ActionButton
+              loading={calc.loading}
+              onClick={health.handleSubmit}
+              loadingLabel="Calculating…"
+            >
               Calculate score
             </ActionButton>
             {calc.result?.score !== undefined && (
               <PlanResult>
                 <strong>{calc.result.score}/100</strong>
                 <span>{calc.result.band}</span>
-                <p style={{ fontSize: '12px', marginTop: '4px' }}>{calc.result.topImprovements?.join(' · ')}</p>
+                <p style={{ fontSize: '12px', marginTop: '4px' }}>
+                  {calc.result.topImprovements?.join(' · ')}
+                </p>
               </PlanResult>
             )}
           </PlanCard>
@@ -103,15 +114,50 @@ export default function PlanningPage({ setApiOnline }) {
           {/* ── Monte Carlo ── */}
           <PlanCard label="SIMULATION" title="Monte Carlo retirement test">
             <div className="field-row">
-              <NumberField label="Monthly contribution" value={monte.form.monthlyContribution} suffix="₹" onChange={monte.update('monthlyContribution')} min={0} />
-              <NumberField label="Years" value={monte.form.years} suffix="years" onChange={monte.update('years')} min={1} max={50} />
+              <NumberField
+                label="Monthly contribution"
+                value={monte.form.monthlyContribution}
+                suffix="₹"
+                onChange={monte.update('monthlyContribution')}
+                min={0}
+              />
+              <NumberField
+                label="Years"
+                value={monte.form.years}
+                suffix="years"
+                onChange={monte.update('years')}
+                min={1}
+                max={50}
+              />
             </div>
             <div className="field-row">
-              <NumberField label="Expected return" value={monte.form.expectedAnnualReturn} suffix="%" onChange={monte.update('expectedAnnualReturn')} min={1} />
-              <NumberField label="Volatility (σ)" value={monte.form.annualVolatility} suffix="%" onChange={monte.update('annualVolatility')} min={0} />
+              <NumberField
+                label="Expected return"
+                value={monte.form.expectedAnnualReturn}
+                suffix="%"
+                onChange={monte.update('expectedAnnualReturn')}
+                min={1}
+              />
+              <NumberField
+                label="Volatility (σ)"
+                value={monte.form.annualVolatility}
+                suffix="%"
+                onChange={monte.update('annualVolatility')}
+                min={0}
+              />
             </div>
-            <NumberField label="Target corpus" value={monte.form.targetCorpus} suffix="₹" onChange={monte.update('targetCorpus')} min={0} />
-            <ActionButton loading={calc.loading} onClick={monte.handleSubmit} loadingLabel="Running…">
+            <NumberField
+              label="Target corpus"
+              value={monte.form.targetCorpus}
+              suffix="₹"
+              onChange={monte.update('targetCorpus')}
+              min={0}
+            />
+            <ActionButton
+              loading={calc.loading}
+              onClick={monte.handleSubmit}
+              loadingLabel="Running…"
+            >
               Run simulation
             </ActionButton>
             {calc.result?.successProbabilityPercent !== undefined && (
@@ -119,7 +165,9 @@ export default function PlanningPage({ setApiOnline }) {
                 <strong>{calc.result.successProbabilityPercent}%</strong>
                 <span>probability of reaching target</span>
                 <p style={{ fontSize: '12px', marginTop: '4px' }}>
-                  10th: {formatINR(calc.result.percentile10)} · Median: {formatINR(calc.result.percentile50)} · 90th: {formatINR(calc.result.percentile90)}
+                  10th: {formatINR(calc.result.percentile10)} · Median:{' '}
+                  {formatINR(calc.result.percentile50)} · 90th:{' '}
+                  {formatINR(calc.result.percentile90)}
                 </p>
               </PlanResult>
             )}
@@ -127,28 +175,35 @@ export default function PlanningPage({ setApiOnline }) {
 
           {/* ── Net worth ── */}
           <PlanCard label="NET WORTH" title="Track assets and liabilities">
-            <label>Assets (JSON)
+            <label>
+              Assets (JSON)
               <textarea
                 value={networth.form.assets}
                 onChange={networth.update('assets')}
                 rows={3}
               />
             </label>
-            <label>Liabilities (JSON)
+            <label>
+              Liabilities (JSON)
               <textarea
                 value={networth.form.liabilities}
                 onChange={networth.update('liabilities')}
                 rows={3}
               />
             </label>
-            <label>History (JSON)
+            <label>
+              History (JSON)
               <textarea
                 value={networth.form.history}
                 onChange={networth.update('history')}
                 rows={2}
               />
             </label>
-            <ActionButton loading={calc.loading} onClick={networth.handleSubmit} loadingLabel="Calculating…">
+            <ActionButton
+              loading={calc.loading}
+              onClick={networth.handleSubmit}
+              loadingLabel="Calculating…"
+            >
               Calculate net worth
             </ActionButton>
             {calc.result?.netWorth !== undefined && (
@@ -156,7 +211,8 @@ export default function PlanningPage({ setApiOnline }) {
                 <strong>{formatINR(calc.result.netWorth)}</strong>
                 <span>current net worth</span>
                 <p style={{ fontSize: '12px', marginTop: '4px' }}>
-                  Assets {formatINR(calc.result.totalAssets)} · Liabilities {formatINR(calc.result.totalLiabilities)}
+                  Assets {formatINR(calc.result.totalAssets)} · Liabilities{' '}
+                  {formatINR(calc.result.totalLiabilities)}
                 </p>
               </PlanResult>
             )}
@@ -164,7 +220,8 @@ export default function PlanningPage({ setApiOnline }) {
 
           {/* ── Goals ── */}
           <PlanCard label="GOALS" title="Fund multiple goals">
-            <label>Goals (JSON)
+            <label>
+              Goals (JSON)
               <textarea
                 id="goals-json"
                 value={goals.goalsJson}
@@ -178,7 +235,11 @@ export default function PlanningPage({ setApiOnline }) {
               suffix="₹"
               onChange={(e) => goals.setAvailableMonthlySavings(Number(e.target.value))}
             />
-            <ActionButton loading={calc.loading} onClick={goals.handleSubmit} loadingLabel="Planning…">
+            <ActionButton
+              loading={calc.loading}
+              onClick={goals.handleSubmit}
+              loadingLabel="Planning…"
+            >
               Plan goals
             </ActionButton>
             {calc.result?.totalRequiredMonthlyInvestment !== undefined && (
@@ -186,7 +247,9 @@ export default function PlanningPage({ setApiOnline }) {
                 <strong>{formatINR(calc.result.totalRequiredMonthlyInvestment)}</strong>
                 <span>required monthly</span>
                 <p style={{ fontSize: '12px', marginTop: '4px' }}>
-                  {calc.result.exceedsAvailableSavings ? '⚠ Savings shortfall detected.' : '✓ Goals fit the available savings.'}
+                  {calc.result.exceedsAvailableSavings
+                    ? '⚠ Savings shortfall detected.'
+                    : '✓ Goals fit the available savings.'}
                 </p>
               </PlanResult>
             )}
@@ -200,8 +263,18 @@ export default function PlanningPage({ setApiOnline }) {
               onChange={tax.update('grossSalary')}
             />
             <div className="field-row">
-              <NumberField label="80C used" value={tax.form.section80C} suffix="₹" onChange={tax.update('section80C')} />
-              <NumberField label="NPS used" value={tax.form.section80CCD1BNps} suffix="₹" onChange={tax.update('section80CCD1BNps')} />
+              <NumberField
+                label="80C used"
+                value={tax.form.section80C}
+                suffix="₹"
+                onChange={tax.update('section80C')}
+              />
+              <NumberField
+                label="NPS used"
+                value={tax.form.section80CCD1BNps}
+                suffix="₹"
+                onChange={tax.update('section80CCD1BNps')}
+              />
             </div>
             <ActionButton
               loading={calc.loading}
@@ -221,23 +294,27 @@ export default function PlanningPage({ setApiOnline }) {
           {/* ── Sensitivity ── */}
           <PlanCard label="WHAT-IF" title="Sensitivity analysis">
             <div className="field-row">
-              <NumberField label="Monthly investment" value={25000} suffix="₹" onChange={() => {}} />
+              <NumberField
+                label="Monthly investment"
+                value={25000}
+                suffix="₹"
+                onChange={() => {}}
+              />
               <NumberField label="Years" value={15} suffix="years" onChange={() => {}} />
             </div>
             <div className="field-row">
               <NumberField label="Expected return" value={12} suffix="%" onChange={() => {}} />
               <NumberField label="Inflation rate" value={6} suffix="%" onChange={() => {}} />
             </div>
-            <ActionButton
-              loading={calc.loading}
-              onClick={runSensitivity}
-              loadingLabel="Comparing…"
-            >
+            <ActionButton loading={calc.loading} onClick={runSensitivity} loadingLabel="Comparing…">
               Compare scenarios
             </ActionButton>
             {calc.result?.scenarios && (
               <ProjectionChart
-                points={calc.result.scenarios.map((s) => ({ year: `${s.variable}-${s.direction}`, value: s.corpus }))}
+                points={calc.result.scenarios.map((s) => ({
+                  year: `${s.variable}-${s.direction}`,
+                  value: s.corpus,
+                }))}
                 title="Sensitivity scenarios"
               />
             )}
@@ -248,7 +325,6 @@ export default function PlanningPage({ setApiOnline }) {
             <HowItWorks text="Smart planning combines goal affordability, health signals, net-worth snapshots, configured tax limits, deterministic Monte Carlo ranges, and sensitivity analysis. These are planning aids, not predictions or advice." />
             {calc.error && <ErrorBox text={calc.error} />}
           </div>
-
         </div>
       </div>
     </>

@@ -12,7 +12,9 @@ export function ProjectionChart({ points = [], title = 'Projection' }) {
           <div className="bar-wrap" key={p.year ?? p.month}>
             <div
               className="bar"
-              style={{ height: `${Math.max(6, (Number(p.value || p.principalBalance || 0) / max) * 100)}%` }}
+              style={{
+                height: `${Math.max(6, (Number(p.value || p.principalBalance || 0) / max) * 100)}%`,
+              }}
               title={formatINR(p.value || p.principalBalance)}
               role="presentation"
             />

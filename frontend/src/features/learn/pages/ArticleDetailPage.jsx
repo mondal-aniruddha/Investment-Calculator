@@ -90,12 +90,7 @@ export default function ArticleDetailPage() {
 
   return (
     <div className="page-container article-detail-page">
-      <SEO
-        title={article.title}
-        description={article.excerpt}
-        ogType="article"
-        jsonLd={jsonLd}
-      />
+      <SEO title={article.title} description={article.excerpt} ogType="article" jsonLd={jsonLd} />
 
       {/* Breadcrumb Header */}
       <nav className="article-breadcrumb" aria-label="Breadcrumb">
@@ -130,9 +125,12 @@ export default function ArticleDetailPage() {
         {article.relatedCalculatorPath && (
           <div className="related-calculator-banner">
             <div className="calc-banner-info">
-              <span className="calc-banner-icon" aria-hidden="true">⚡</span>
+              <span className="calc-banner-icon" aria-hidden="true">
+                ⚡
+              </span>
               <div>
-                <strong>Interactive Tool Available:</strong> Put this concept into practice with real numbers.
+                <strong>Interactive Tool Available:</strong> Put this concept into practice with
+                real numbers.
               </div>
             </div>
             <Link to={article.relatedCalculatorPath} className="btn btn-primary btn-sm">
@@ -144,17 +142,15 @@ export default function ArticleDetailPage() {
         <hr className="article-divider" />
 
         {/* Rendered Markdown Body */}
-        <div
-          className="article-body-markdown"
-          dangerouslySetInnerHTML={{ __html: htmlContent }}
-        />
+        <div className="article-body-markdown" dangerouslySetInnerHTML={{ __html: htmlContent }} />
 
         {/* Sources & Citations */}
         {article.sources && (
           <div className="article-sources-box">
             <h4>Official Sources &amp; References</h4>
             <p>
-              Information verified against authoritative Indian financial publications and regulatory notifications:
+              Information verified against authoritative Indian financial publications and
+              regulatory notifications:
             </p>
             <ul>
               {article.sources.split(',').map((src, i) => (
@@ -171,7 +167,14 @@ export default function ArticleDetailPage() {
       </article>
 
       {/* Back to Hub Nav */}
-      <div style={{ marginTop: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div
+        style={{
+          marginTop: '24px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Link to="/learn" className="btn btn-secondary">
           ← Back to all Guides
         </Link>

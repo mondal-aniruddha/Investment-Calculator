@@ -1,5 +1,9 @@
 import {
-  MoneyField, NumberField, SelectField, SubmitButton, ErrorBox
+  MoneyField,
+  NumberField,
+  SelectField,
+  SubmitButton,
+  ErrorBox,
 } from '../../../shared/components/ui/index'
 
 const SCHEME_LABELS = {
@@ -17,7 +21,9 @@ export function FixedIncomeForm({ form, update, handleSubmit, loading, error }) 
     <form className="card calculator-card" onSubmit={handleSubmit} noValidate>
       <SelectField label="Scheme" value={form.scheme} onChange={update('scheme')}>
         {Object.entries(SCHEME_LABELS).map(([val, label]) => (
-          <option key={val} value={val}>{label}</option>
+          <option key={val} value={val}>
+            {label}
+          </option>
         ))}
       </SelectField>
 
@@ -35,14 +41,16 @@ export function FixedIncomeForm({ form, update, handleSubmit, loading, error }) 
           value={form.tenureYears}
           suffix="years"
           onChange={update('tenureYears')}
-          min={1} max={50}
+          min={1}
+          max={50}
         />
         <NumberField
           label="Your tax rate"
           value={form.taxRate}
           suffix="%"
           onChange={update('taxRate')}
-          min={0} max={42}
+          min={0}
+          max={42}
         />
       </div>
 
@@ -51,7 +59,8 @@ export function FixedIncomeForm({ form, update, handleSubmit, loading, error }) 
         value={form.annualRate}
         suffix="% p.a."
         onChange={update('annualRate')}
-        min={0} max={30}
+        min={0}
+        max={30}
       />
 
       <NumberField
@@ -59,7 +68,8 @@ export function FixedIncomeForm({ form, update, handleSubmit, loading, error }) 
         value={form.inflationRate}
         suffix="%"
         onChange={update('inflationRate')}
-        min={0} max={20}
+        min={0}
+        max={20}
       />
 
       <SubmitButton loading={loading} label="Calculate maturity value" />

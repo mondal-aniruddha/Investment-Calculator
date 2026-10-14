@@ -13,28 +13,30 @@ import { useToast } from '../context/ToastContext'
 
 // Nav entries: [path, i18n key, label fallback]
 const NAV_ITEMS = [
-  ['/learn',     'nav.learn',     'Learn Hub'],
-  ['/roadmap',   'nav.roadmap',   'Roadmap'],
-  ['/sip',       'nav.sip',       'SIP Planner'],
-  ['/loan',      'nav.loan',      'Loan & EMI'],
-  ['/fixed',     'nav.fixed',     'Fixed Income'],
-  ['/mutual',    'nav.mutual',    'Mutual Funds'],
-  ['/planning',  'nav.planning',  'Tax & Planning'],
+  ['/learn', 'nav.learn', 'Learn Hub'],
+  ['/roadmap', 'nav.roadmap', 'Roadmap'],
+  ['/sip', 'nav.sip', 'SIP Planner'],
+  ['/loan', 'nav.loan', 'Loan & EMI'],
+  ['/fixed', 'nav.fixed', 'Fixed Income'],
+  ['/mutual', 'nav.mutual', 'Mutual Funds'],
+  ['/planning', 'nav.planning', 'Tax & Planning'],
 ]
 
 // ── User account dropdown ─────────────────────────────────────────────────
 function UserNavMenu() {
   const { user, isAuthenticated, logout } = useAuth()
-  const { t }    = useTranslation()
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
-  const toast    = useToast()
+  const toast = useToast()
   const navigate = useNavigate()
-  const ref      = useRef(null)
+  const ref = useRef(null)
 
   // Close on outside click
   useEffect(() => {
     if (!open) return
-    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false) }
+    const handler = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
+    }
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
   }, [open])
@@ -65,9 +67,13 @@ function UserNavMenu() {
         aria-haspopup="menu"
         aria-label={t('auth.userMenu')}
       >
-        <span className="user-avatar-badge" aria-hidden="true">{initial}</span>
+        <span className="user-avatar-badge" aria-hidden="true">
+          {initial}
+        </span>
         <span className="user-name-text">{user.displayName || user.username || user.email}</span>
-        <span style={{ fontSize: '10px' }} aria-hidden="true">▼</span>
+        <span style={{ fontSize: '10px' }} aria-hidden="true">
+          ▼
+        </span>
       </button>
 
       {open && (
@@ -100,13 +106,15 @@ function UserNavMenu() {
 // ── Main AppShell ──────────────────────────────────────────────────────────
 export function AppShell({ children, apiOnline }) {
   const { dark, toggle } = useTheme()
-  const { t }            = useTranslation()
-  const location         = useLocation()
-  const navigate         = useNavigate()
+  const { t } = useTranslation()
+  const location = useLocation()
+  const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false)
 
   // Close mobile menu on route change
-  useEffect(() => { setMenuOpen(false) }, [location.pathname])
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [location.pathname])
 
   const isActive = (path) => {
     if (path === '/') return location.pathname === '/'
@@ -127,8 +135,12 @@ export function AppShell({ children, apiOnline }) {
         <div className="container topbar-inner">
           {/* Brand */}
           <Link className="brand" to="/" aria-label="InFinance home">
-            <span className="brand-mark" aria-hidden="true">↗</span>
-            <span>in<span>finance</span></span>
+            <span className="brand-mark" aria-hidden="true">
+              ↗
+            </span>
+            <span>
+              in<span>finance</span>
+            </span>
           </Link>
 
           {/* Desktop nav */}
@@ -159,9 +171,15 @@ export function AppShell({ children, apiOnline }) {
           {/* Topbar actions */}
           <div className="topbar-actions">
             {/* API status */}
-            <div className="api-status" aria-live="polite" aria-label={apiOnline ? t('common.connected') : t('common.offline')}>
+            <div
+              className="api-status"
+              aria-live="polite"
+              aria-label={apiOnline ? t('common.connected') : t('common.offline')}
+            >
               <span className={apiOnline ? 'status-dot online' : 'status-dot'} />
-              <span className="sr-only">{apiOnline ? t('common.connected') : t('common.offline')}</span>
+              <span className="sr-only">
+                {apiOnline ? t('common.connected') : t('common.offline')}
+              </span>
             </div>
 
             {/* Language picker */}
@@ -226,14 +244,14 @@ export function AppShell({ children, apiOnline }) {
           </button>
         ))}
         <div className="mobile-menu-divider" />
-        <Link to="/about" onClick={() => setMenuOpen(false)}>About</Link>
+        <Link to="/about" onClick={() => setMenuOpen(false)}>
+          About
+        </Link>
       </nav>
 
       {/* ── Main content ── */}
       <main className="app-main" id="main-content">
-        <div className="container">
-          {children}
-        </div>
+        <div className="container">{children}</div>
       </main>
 
       {/* ── Footer ── */}
@@ -243,10 +261,16 @@ export function AppShell({ children, apiOnline }) {
             <div className="footer-brand">
               <div className="footer-brand-logo">
                 <span style={{ fontSize: '18px' }}>↗</span>
-                <span>in<span style={{ color: 'var(--accent-muted)' }}>finance</span></span>
+                <span>
+                  in<span style={{ color: 'var(--accent-muted)' }}>finance</span>
+                </span>
               </div>
               <p className="footer-disclaimer">
-                {t('common.disclaimer')} Educational purposes only. InFinance is not SEBI-registered and does not provide personalized financial, legal, or tax advice. Projections are mathematical estimates based on user inputs and regulatory benchmarks. Consult a certified financial planner or Chartered Accountant before making irreversible decisions.
+                {t('common.disclaimer')} Educational purposes only. InFinance is not SEBI-registered
+                and does not provide personalized financial, legal, or tax advice. Projections are
+                mathematical estimates based on user inputs and regulatory benchmarks. Consult a
+                certified financial planner or Chartered Accountant before making irreversible
+                decisions.
               </p>
               <p className="footer-disclaimer" style={{ marginTop: '4px' }}>
                 © 2026 InFinance · India · INR (₹) · 100% Stateless &amp; Privacy-First
@@ -267,9 +291,7 @@ export function AppShell({ children, apiOnline }) {
                 <Link to="/privacy">Privacy Policy</Link>
                 <Link to="/about">About &amp; Disclaimer</Link>
               </div>
-              <p className="footer-copy">
-                Built with ♥ for young Indians mastering their money
-              </p>
+              <p className="footer-copy">Built with ♥ for young Indians mastering their money</p>
             </div>
           </div>
         </div>

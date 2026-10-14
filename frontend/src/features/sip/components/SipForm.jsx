@@ -1,5 +1,9 @@
 import {
-  MoneyField, NumberField, SelectField, SubmitButton, ErrorBox
+  MoneyField,
+  NumberField,
+  SelectField,
+  SubmitButton,
+  ErrorBox,
 } from '../../../shared/components/ui/index'
 
 export function SipForm({ form, update, handleSubmit, loading, error, formErrors = {} }) {
@@ -13,7 +17,10 @@ export function SipForm({ form, update, handleSubmit, loading, error, formErrors
         required
       />
       {formErrors.monthlyInvestment && (
-        <span className="field-error-text" style={{ color: 'var(--error, #ef4444)', fontSize: '12px' }}>
+        <span
+          className="field-error-text"
+          style={{ color: 'var(--error, #ef4444)', fontSize: '12px' }}
+        >
           {formErrors.monthlyInvestment}
         </span>
       )}
@@ -24,14 +31,16 @@ export function SipForm({ form, update, handleSubmit, loading, error, formErrors
           value={form.investmentHorizonYears}
           suffix="years"
           onChange={update('investmentHorizonYears')}
-          min={1} max={50}
+          min={1}
+          max={50}
         />
         <NumberField
           label="Expected return"
           value={form.expectedAnnualReturn}
           suffix="% p.a."
           onChange={update('expectedAnnualReturn')}
-          min={1} max={30}
+          min={1}
+          max={30}
         />
       </div>
 
@@ -40,7 +49,8 @@ export function SipForm({ form, update, handleSubmit, loading, error, formErrors
         value={form.annualStepUpPercent}
         suffix="%"
         onChange={update('annualStepUpPercent')}
-        min={0} max={50}
+        min={0}
+        max={50}
       />
 
       <SelectField label="Risk profile" value={form.riskProfile} onChange={update('riskProfile')}>

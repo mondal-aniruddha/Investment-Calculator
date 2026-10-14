@@ -12,7 +12,8 @@ export function TipsCard({ tips = [] }) {
         ))}
       </ul>
       <p className="tips-disclaimer">
-        Educational guidance only. Consult a SEBI-registered financial advisor or Chartered Accountant for personalised advice.
+        Educational guidance only. Consult a SEBI-registered financial advisor or Chartered
+        Accountant for personalised advice.
       </p>
     </div>
   )

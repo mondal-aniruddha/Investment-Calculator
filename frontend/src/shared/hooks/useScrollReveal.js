@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
  * useScrollReveal — attaches an IntersectionObserver to a ref'd element.
  * Adds the 'revealed' class when the element enters the viewport.
  * The actual fade/slide is handled in animations.css (.reveal, .reveal-stagger).
- * 
+ *
  * Respects prefers-reduced-motion: skips the observer and marks all revealed immediately.
  *
  * @param {IntersectionObserverInit} options — threshold, rootMargin, etc.

@@ -5,7 +5,11 @@
 import { useCalculator } from '../../../shared/hooks/useCalculator'
 import { useScrollReveal } from '../../../shared/hooks/useScrollReveal'
 import {
-  HowItWorks, TipsCard, CalculatorLayout, CalcPageHeader, ResultCard
+  HowItWorks,
+  TipsCard,
+  CalculatorLayout,
+  CalcPageHeader,
+  ResultCard,
 } from '../../../shared/components/ui/index'
 import { LearnBeforeYouCalculate } from '../../../components/shared/LearnBeforeYouCalculate'
 import { useFixedIncomeForm } from '../hooks/useFixedIncomeForm'

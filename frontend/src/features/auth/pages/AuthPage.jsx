@@ -102,7 +102,12 @@ export function AuthPage({ initialMode = 'login' }) {
       return
     }
 
-    if (!passwordCriteria.minLength || !passwordCriteria.hasUpper || !passwordCriteria.hasLower || !passwordCriteria.hasDigit) {
+    if (
+      !passwordCriteria.minLength ||
+      !passwordCriteria.hasUpper ||
+      !passwordCriteria.hasLower ||
+      !passwordCriteria.hasDigit
+    ) {
       setErrorMessage(t('auth.strengthReq'))
       return
     }
@@ -133,7 +138,9 @@ export function AuthPage({ initialMode = 'login' }) {
       <div className="auth-brand-panel">
         <div className="auth-brand-header">
           <div className="brand-mark-lg">↗</div>
-          <h2>in<span>finance</span></h2>
+          <h2>
+            in<span>finance</span>
+          </h2>
         </div>
         <p className="auth-brand-tagline">
           {mode === 'login' ? t('auth.subtitleLogin') : t('auth.subtitleRegister')}
@@ -206,7 +213,13 @@ export function AuthPage({ initialMode = 'login' }) {
           )}
 
           {mode === 'login' ? (
-            <form id="panel-login" role="tabpanel" aria-labelledby="tab-login" onSubmit={handleLoginSubmit} noValidate>
+            <form
+              id="panel-login"
+              role="tabpanel"
+              aria-labelledby="tab-login"
+              onSubmit={handleLoginSubmit}
+              noValidate
+            >
               <h1 className="auth-title">{t('auth.titleLogin')}</h1>
               <p className="auth-subtitle">{t('auth.subtitleLogin')}</p>
 
@@ -268,7 +281,13 @@ export function AuthPage({ initialMode = 'login' }) {
               </div>
             </form>
           ) : (
-            <form id="panel-register" role="tabpanel" aria-labelledby="tab-register" onSubmit={handleRegisterSubmit} noValidate>
+            <form
+              id="panel-register"
+              role="tabpanel"
+              aria-labelledby="tab-register"
+              onSubmit={handleRegisterSubmit}
+              noValidate
+            >
               <h1 className="auth-title">{t('auth.titleRegister')}</h1>
               <p className="auth-subtitle">{t('auth.subtitleRegister')}</p>
 
@@ -362,8 +381,13 @@ export function AuthPage({ initialMode = 'login' }) {
                       <li className={passwordCriteria.minLength ? 'valid' : ''}>
                         {passwordCriteria.minLength ? '✓' : '○'} 8+ characters
                       </li>
-                      <li className={passwordCriteria.hasUpper && passwordCriteria.hasLower ? 'valid' : ''}>
-                        {passwordCriteria.hasUpper && passwordCriteria.hasLower ? '✓' : '○'} Upper & lower case
+                      <li
+                        className={
+                          passwordCriteria.hasUpper && passwordCriteria.hasLower ? 'valid' : ''
+                        }
+                      >
+                        {passwordCriteria.hasUpper && passwordCriteria.hasLower ? '✓' : '○'} Upper &
+                        lower case
                       </li>
                       <li className={passwordCriteria.hasDigit ? 'valid' : ''}>
                         {passwordCriteria.hasDigit ? '✓' : '○'} At least 1 number
@@ -380,7 +404,9 @@ export function AuthPage({ initialMode = 'login' }) {
                     type="button"
                     className="toggle-password-btn"
                     onClick={() => setShowRegConfirmPassword(!showRegConfirmPassword)}
-                    aria-label={showRegConfirmPassword ? t('auth.hidePassword') : t('auth.showPassword')}
+                    aria-label={
+                      showRegConfirmPassword ? t('auth.hidePassword') : t('auth.showPassword')
+                    }
                   >
                     {showRegConfirmPassword ? 'Hide 👁' : 'Show 👁'}
                   </button>
@@ -402,7 +428,9 @@ export function AuthPage({ initialMode = 'login' }) {
               <button
                 className="primary-button auth-submit-btn"
                 type="submit"
-                disabled={submitting || !regEmail || !regPassword || !regDisplayName || !passwordsMatch}
+                disabled={
+                  submitting || !regEmail || !regPassword || !regDisplayName || !passwordsMatch
+                }
               >
                 {submitting ? t('auth.submitting') : t('auth.submitRegister')} <span>→</span>
               </button>

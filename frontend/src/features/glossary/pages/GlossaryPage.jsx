@@ -35,7 +35,9 @@ export default function GlossaryPage() {
   // Categories
   const categories = useMemo(() => {
     const set = new Set()
-    terms.forEach((t) => { if (t.category) set.add(t.category) })
+    terms.forEach((t) => {
+      if (t.category) set.add(t.category)
+    })
     return ['ALL', ...Array.from(set).sort()]
   }, [terms])
 
@@ -44,7 +46,8 @@ export default function GlossaryPage() {
     const q = query.toLowerCase().trim()
     return terms.filter((item) => {
       const matchCat = selectedCategory === 'ALL' || item.category === selectedCategory
-      const matchQuery = !q ||
+      const matchQuery =
+        !q ||
         item.term.toLowerCase().includes(q) ||
         (item.shortDefinition && item.shortDefinition.toLowerCase().includes(q)) ||
         (item.detailedExplainer && item.detailedExplainer.toLowerCase().includes(q))
@@ -62,11 +65,21 @@ export default function GlossaryPage() {
       {/* Header card */}
       <div className="card hub-header reveal">
         <div className="section-label">FINANCIAL DICTIONARY · ONE-LINE DEFINITIONS</div>
-        <h1 style={{ fontSize: 'clamp(28px, 4vw, 42px)', letterSpacing: '-1.5px', margin: '8px 0' }}>
+        <h1
+          style={{ fontSize: 'clamp(28px, 4vw, 42px)', letterSpacing: '-1.5px', margin: '8px 0' }}
+        >
           Jargon Buster Glossary
         </h1>
-        <p style={{ color: 'var(--ink-muted)', fontSize: '15px', maxWidth: '640px', lineHeight: 1.6 }}>
-          No more getting overwhelmed by complicated banking jargon. Quick, friendly definitions for the terms that matter to your money in India.
+        <p
+          style={{
+            color: 'var(--ink-muted)',
+            fontSize: '15px',
+            maxWidth: '640px',
+            lineHeight: 1.6,
+          }}
+        >
+          No more getting overwhelmed by complicated banking jargon. Quick, friendly definitions for
+          the terms that matter to your money in India.
         </p>
 
         {/* Search */}
@@ -114,19 +127,13 @@ export default function GlossaryPage() {
             <article key={item.term} className="card glossary-term-card hover-lift">
               <div className="glossary-card-top">
                 <h2 className="glossary-term-name">{item.term}</h2>
-                {item.category && (
-                  <span className="category-badge">{item.category}</span>
-                )}
+                {item.category && <span className="category-badge">{item.category}</span>}
               </div>
 
-              <p className="glossary-short-def">
-                {item.shortDefinition}
-              </p>
+              <p className="glossary-short-def">{item.shortDefinition}</p>
 
               {item.detailedExplainer && (
-                <p className="glossary-detailed-exp">
-                  {item.detailedExplainer}
-                </p>
+                <p className="glossary-detailed-exp">{item.detailedExplainer}</p>
               )}
 
               {item.relatedUrl && (

@@ -5,7 +5,12 @@
 import { useCalculator } from '../../../shared/hooks/useCalculator'
 import { useScrollReveal } from '../../../shared/hooks/useScrollReveal'
 import {
-  ProjectionChart, HowItWorks, TipsCard, CalculatorLayout, CalcPageHeader, ResultCard
+  ProjectionChart,
+  HowItWorks,
+  TipsCard,
+  CalculatorLayout,
+  CalcPageHeader,
+  ResultCard,
 } from '../../../shared/components/ui/index'
 import { LearnBeforeYouCalculate } from '../../../components/shared/LearnBeforeYouCalculate'
 import { useLoanForm } from '../hooks/useLoanForm'
@@ -59,11 +64,9 @@ export default function LoanPage({ setApiOnline }) {
             />
             {calc.result?.schedule && (
               <ProjectionChart
-                points={
-                  calc.result.schedule
-                    .filter((_, i) => i % 12 === 11)
-                    .map((p) => ({ year: Math.ceil(p.month / 12), value: p.principalBalance }))
-                }
+                points={calc.result.schedule
+                  .filter((_, i) => i % 12 === 11)
+                  .map((p) => ({ year: Math.ceil(p.month / 12), value: p.principalBalance }))}
                 title="Remaining balance over time"
               />
             )}

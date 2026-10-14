@@ -5,7 +5,12 @@
 import { useCalculator } from '../../../shared/hooks/useCalculator'
 import { useScrollReveal } from '../../../shared/hooks/useScrollReveal'
 import {
-  ProjectionChart, HowItWorks, TipsCard, CalculatorLayout, CalcPageHeader, ResultCard
+  ProjectionChart,
+  HowItWorks,
+  TipsCard,
+  CalculatorLayout,
+  CalcPageHeader,
+  ResultCard,
 } from '../../../shared/components/ui/index'
 import { LearnBeforeYouCalculate } from '../../../components/shared/LearnBeforeYouCalculate'
 import { useSipForm } from '../hooks/useSipForm'
@@ -61,7 +66,10 @@ export default function SipPage({ setApiOnline }) {
             />
             {calc.result?.yearlyProjections && (
               <ProjectionChart
-                points={calc.result.yearlyProjections.map((y) => ({ year: y.year, value: y.corpus }))}
+                points={calc.result.yearlyProjections.map((y) => ({
+                  year: y.year,
+                  value: y.corpus,
+                }))}
                 title="Yearly SIP growth"
               />
             )}

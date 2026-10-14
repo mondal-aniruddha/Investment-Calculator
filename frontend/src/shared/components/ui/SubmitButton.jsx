@@ -6,7 +6,11 @@ export function SubmitButton({ loading, label = 'Calculate' }) {
     <button className="btn btn-primary" disabled={loading} type="submit">
       <span>{loading ? 'Calculating…' : label}</span>
       {!loading && <span aria-hidden="true">→</span>}
-      {loading && <span className="spin" aria-hidden="true">↻</span>}
+      {loading && (
+        <span className="spin" aria-hidden="true">
+          ↻
+        </span>
+      )}
     </button>
   )
 }

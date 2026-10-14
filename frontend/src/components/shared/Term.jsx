@@ -62,7 +62,9 @@ export function Term({ term, children }) {
         aria-label={`Definition of ${term}`}
       >
         {displayText}
-        <span className="term-info-dot" aria-hidden="true">?</span>
+        <span className="term-info-dot" aria-hidden="true">
+          ?
+        </span>
       </button>
 
       {isOpen && (
@@ -73,12 +75,9 @@ export function Term({ term, children }) {
               Glossary ↗
             </Link>
           </span>
-          <span className="term-tooltip-body">
-            {definition || 'Loading definition...'}
-          </span>
+          <span className="term-tooltip-body">{definition || 'Loading definition...'}</span>
         </span>
       )}
     </span>
   )
 }
-

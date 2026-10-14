@@ -1,7 +1,17 @@
 /**
  * NumberField — number input with a unit suffix
  */
-export function NumberField({ label, value, suffix, onChange, id, min = 0, max, step = 0.1, required }) {
+export function NumberField({
+  label,
+  value,
+  suffix,
+  onChange,
+  id,
+  min = 0,
+  max,
+  step = 0.1,
+  required,
+}) {
   const fieldId = id || `num-${label?.replace(/\s+/g, '-').toLowerCase()}`
   return (
     <label htmlFor={fieldId}>

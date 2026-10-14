@@ -5,7 +5,12 @@
 import { useCalculator } from '../../../shared/hooks/useCalculator'
 import { useScrollReveal } from '../../../shared/hooks/useScrollReveal'
 import {
-  ProjectionChart, HowItWorks, TipsCard, CalculatorLayout, CalcPageHeader, ResultCard
+  ProjectionChart,
+  HowItWorks,
+  TipsCard,
+  CalculatorLayout,
+  CalcPageHeader,
+  ResultCard,
 } from '../../../shared/components/ui/index'
 import { LearnBeforeYouCalculate } from '../../../components/shared/LearnBeforeYouCalculate'
 import { useMutualFundForm } from '../hooks/useMutualFundForm'

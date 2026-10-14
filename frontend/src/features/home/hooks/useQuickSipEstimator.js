@@ -7,7 +7,11 @@ export function useQuickSipEstimator(initialMonthly = 10000, initialYears = 10, 
   const [years, setYears] = useState(initialYears)
   const [rate, setRate] = useState(initialRate)
 
-  const { totalInvested, maturityCorpus, estimatedReturns } = calculateQuickSip(monthly, years, rate)
+  const { totalInvested, maturityCorpus, estimatedReturns } = calculateQuickSip(
+    monthly,
+    years,
+    rate
+  )
 
   const animatedMaturity = useCountUp(maturityCorpus)
   const animatedInvested = useCountUp(totalInvested)

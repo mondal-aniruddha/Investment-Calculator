@@ -142,9 +142,11 @@ export async function request(path, options = {}) {
       if (!response.ok) {
         let friendlyMessage = payload.message || payload.error
         if (response.status === 429) {
-          friendlyMessage = friendlyMessage || 'Too many requests. Please wait a moment and try again.'
+          friendlyMessage =
+            friendlyMessage || 'Too many requests. Please wait a moment and try again.'
         } else if (response.status === 503) {
-          friendlyMessage = friendlyMessage || 'Service is temporarily unavailable. Please try again shortly.'
+          friendlyMessage =
+            friendlyMessage || 'Service is temporarily unavailable. Please try again shortly.'
         } else if (response.status === 401) {
           friendlyMessage = friendlyMessage || 'Your session has expired. Please sign in again.'
         } else if (response.status === 403) {
@@ -155,7 +157,9 @@ export async function request(path, options = {}) {
 
         throw new ApiError({
           status: response.status,
-          code: payload.code || (response.status === 429 ? 'RATE_LIMIT_EXCEEDED' : `HTTP_${response.status}`),
+          code:
+            payload.code ||
+            (response.status === 429 ? 'RATE_LIMIT_EXCEEDED' : `HTTP_${response.status}`),
           message: friendlyMessage,
           fieldErrors: payload.fieldErrors || [],
           correlationId: payload.correlationId || correlationId,
@@ -205,8 +209,10 @@ export async function request(path, options = {}) {
  */
 export const httpClient = {
   get: (path, options) => request(path, { ...options, method: 'GET' }),
-  post: (path, body, options) => request(path, { ...options, method: 'POST', body: JSON.stringify(body) }),
-  put: (path, body, options) => request(path, { ...options, method: 'PUT', body: JSON.stringify(body) }),
+  post: (path, body, options) =>
+    request(path, { ...options, method: 'POST', body: JSON.stringify(body) }),
+  put: (path, body, options) =>
+    request(path, { ...options, method: 'PUT', body: JSON.stringify(body) }),
   del: (path, options) => request(path, { ...options, method: 'DELETE' }),
   request,
   getApiUrl,

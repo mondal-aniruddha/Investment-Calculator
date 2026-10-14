@@ -9,28 +9,34 @@ export const INITIAL_NET_WORTH = {
 export function useNetWorthForm(onCalculate, setFieldError) {
   const [form, setForm] = useState(INITIAL_NET_WORTH)
 
-  const update = useCallback((key) => (e) => {
-    setForm((prev) => ({ ...prev, [key]: e.target.value }))
-  }, [])
+  const update = useCallback(
+    (key) => (e) => {
+      setForm((prev) => ({ ...prev, [key]: e.target.value }))
+    },
+    []
+  )
 
-  const handleSubmit = useCallback((e) => {
-    if (e && e.preventDefault) e.preventDefault()
-    try {
-      const body = {
-        assets: JSON.parse(form.assets),
-        liabilities: JSON.parse(form.liabilities),
-        history: JSON.parse(form.history),
+  const handleSubmit = useCallback(
+    (e) => {
+      if (e && e.preventDefault) e.preventDefault()
+      try {
+        const body = {
+          assets: JSON.parse(form.assets),
+          liabilities: JSON.parse(form.liabilities),
+          history: JSON.parse(form.history),
+        }
+        if (onCalculate) {
+          onCalculate('/api/v1/net-worth/calculate', {
+            method: 'POST',
+            body: JSON.stringify(body),
+          })
+        }
+      } catch {
+        setFieldError?.('networth', 'Invalid JSON syntax in assets, liabilities, or history.')
       }
-      if (onCalculate) {
-        onCalculate('/api/v1/net-worth/calculate', {
-          method: 'POST',
-          body: JSON.stringify(body),
-        })
-      }
-    } catch {
-      setFieldError?.('networth', 'Invalid JSON syntax in assets, liabilities, or history.')
-    }
-  }, [form, onCalculate, setFieldError])
+    },
+    [form, onCalculate, setFieldError]
+  )
 
   return { form, update, handleSubmit, setForm }
 }

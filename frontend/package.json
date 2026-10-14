@@ -9,7 +9,10 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:unit": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "lint": "eslint src",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\""
   },
   "dependencies": {
     "@tanstack/react-query": "^5.104.2",
@@ -24,6 +27,9 @@
   "devDependencies": {
     "@playwright/test": "^1.55.0",
     "@vitejs/plugin-react": "^5.0.2",
+    "eslint": "^10.12.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "prettier": "^3.9.10",
     "vite": "^7.1.7",
     "vitest": "^5.0.4"
   }

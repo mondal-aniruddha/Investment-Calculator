@@ -7,18 +7,54 @@ import { useTranslation } from 'react-i18next'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
 const GLOSSARY = [
-  { term: 'SIP',   def: 'A Systematic Investment Plan invests a fixed amount at regular intervals (monthly). Compounding works best when contributions are consistent over long horizons.' },
-  { term: 'XIRR',  def: 'Annualised return for irregular cash flows on different dates. More accurate than CAGR when investments are not made in a single lump sum.' },
-  { term: 'CAGR',  def: 'Compound Annual Growth Rate — the rate at which an investment grows from a single starting value to its ending value over a period of years.' },
-  { term: 'LTCG',  def: 'Long-Term Capital Gains from selling an asset after the applicable holding period (e.g., 12 months for listed equity, 24 months for real estate).' },
-  { term: '80C',   def: 'An Indian income-tax deduction up to ₹1.5 lakh per year covering EPF, PPF, ELSS, life insurance premiums, principal repayment of home loan, and more.' },
-  { term: 'CIBIL', def: 'A credit score (300–900) issued by TransUnion CIBIL. Lenders use it to assess repayment history. A score above 750 typically gets the best loan rates.' },
-  { term: 'EMI',   def: 'Equated Monthly Instalment — a fixed monthly payment covering both principal and interest on a loan under the reducing-balance method.' },
-  { term: 'SWP',   def: 'Systematic Withdrawal Plan — withdrawing a fixed amount from a mutual fund each month. The remaining corpus continues to grow at the fund\'s return rate.' },
-  { term: 'PPF',   def: 'Public Provident Fund — a government-backed savings scheme with a 15-year lock-in, 7.1% p.a. interest (compounded annually), and tax-free returns.' },
-  { term: 'EPF',   def: 'Employee Provident Fund — a mandatory employer-employee contribution scheme (currently 8.25% p.a. interest) for retirement savings.' },
-  { term: 'NPS',   def: 'National Pension System — a market-linked retirement scheme regulated by PFRDA. An additional ₹50,000 deduction is available under Section 80CCD(1B).' },
-  { term: 'TDS',   def: 'Tax Deducted at Source — tax deducted by the payer before remitting income. For FD interest above ₹40,000 p.a., TDS is deducted at 10%.' },
+  {
+    term: 'SIP',
+    def: 'A Systematic Investment Plan invests a fixed amount at regular intervals (monthly). Compounding works best when contributions are consistent over long horizons.',
+  },
+  {
+    term: 'XIRR',
+    def: 'Annualised return for irregular cash flows on different dates. More accurate than CAGR when investments are not made in a single lump sum.',
+  },
+  {
+    term: 'CAGR',
+    def: 'Compound Annual Growth Rate — the rate at which an investment grows from a single starting value to its ending value over a period of years.',
+  },
+  {
+    term: 'LTCG',
+    def: 'Long-Term Capital Gains from selling an asset after the applicable holding period (e.g., 12 months for listed equity, 24 months for real estate).',
+  },
+  {
+    term: '80C',
+    def: 'An Indian income-tax deduction up to ₹1.5 lakh per year covering EPF, PPF, ELSS, life insurance premiums, principal repayment of home loan, and more.',
+  },
+  {
+    term: 'CIBIL',
+    def: 'A credit score (300–900) issued by TransUnion CIBIL. Lenders use it to assess repayment history. A score above 750 typically gets the best loan rates.',
+  },
+  {
+    term: 'EMI',
+    def: 'Equated Monthly Instalment — a fixed monthly payment covering both principal and interest on a loan under the reducing-balance method.',
+  },
+  {
+    term: 'SWP',
+    def: "Systematic Withdrawal Plan — withdrawing a fixed amount from a mutual fund each month. The remaining corpus continues to grow at the fund's return rate.",
+  },
+  {
+    term: 'PPF',
+    def: 'Public Provident Fund — a government-backed savings scheme with a 15-year lock-in, 7.1% p.a. interest (compounded annually), and tax-free returns.',
+  },
+  {
+    term: 'EPF',
+    def: 'Employee Provident Fund — a mandatory employer-employee contribution scheme (currently 8.25% p.a. interest) for retirement savings.',
+  },
+  {
+    term: 'NPS',
+    def: 'National Pension System — a market-linked retirement scheme regulated by PFRDA. An additional ₹50,000 deduction is available under Section 80CCD(1B).',
+  },
+  {
+    term: 'TDS',
+    def: 'Tax Deducted at Source — tax deducted by the payer before remitting income. For FD interest above ₹40,000 p.a., TDS is deducted at 10%.',
+  },
 ]
 
 const ARTICLES = [
@@ -43,8 +79,8 @@ const ARTICLES = [
 export default function EducationPage() {
   const { t } = useTranslation()
   const [query, setQuery] = useState('')
-  const [tab, setTab]     = useState('glossary')
-  const revealRef         = useScrollReveal()
+  const [tab, setTab] = useState('glossary')
+  const revealRef = useScrollReveal()
 
   const filtered = GLOSSARY.filter(({ term, def }) =>
     `${term} ${def}`.toLowerCase().includes(query.toLowerCase())
@@ -55,7 +91,9 @@ export default function EducationPage() {
       {/* ── Header card ── */}
       <div className="card hub-header reveal">
         <div className="section-label">LEARN</div>
-        <h1 style={{ fontSize: 'clamp(26px, 4vw, 40px)', letterSpacing: '-1.5px', margin: '6px 0' }}>
+        <h1
+          style={{ fontSize: 'clamp(26px, 4vw, 40px)', letterSpacing: '-1.5px', margin: '6px 0' }}
+        >
           {t('education.title', 'Financial education hub')}
         </h1>
         <p style={{ color: 'var(--ink-muted)', fontSize: '14px', margin: '0 0 16px' }}>

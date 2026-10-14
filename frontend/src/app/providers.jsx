@@ -22,9 +22,7 @@ export function AppProviders({ children }) {
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <ToastProvider>
-            <AuthProvider>
-              {children}
-            </AuthProvider>
+            <AuthProvider>{children}</AuthProvider>
           </ToastProvider>
         </BrowserRouter>
       </QueryClientProvider>

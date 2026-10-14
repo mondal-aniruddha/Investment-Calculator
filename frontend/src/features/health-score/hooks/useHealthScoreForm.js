@@ -12,20 +12,26 @@ export const INITIAL_HEALTH_SCORE = {
 export function useHealthScoreForm(onCalculate, initialValues = INITIAL_HEALTH_SCORE) {
   const [form, setForm] = useState(initialValues)
 
-  const update = useCallback((key) => (e) => {
-    const val = e.target.type === 'number' ? Number(e.target.value) : e.target.value
-    setForm((prev) => ({ ...prev, [key]: val }))
-  }, [])
+  const update = useCallback(
+    (key) => (e) => {
+      const val = e.target.type === 'number' ? Number(e.target.value) : e.target.value
+      setForm((prev) => ({ ...prev, [key]: val }))
+    },
+    []
+  )
 
-  const handleSubmit = useCallback((e) => {
-    if (e && e.preventDefault) e.preventDefault()
-    if (onCalculate) {
-      onCalculate('/api/v1/health-score/calculate', {
-        method: 'POST',
-        body: JSON.stringify(form),
-      })
-    }
-  }, [form, onCalculate])
+  const handleSubmit = useCallback(
+    (e) => {
+      if (e && e.preventDefault) e.preventDefault()
+      if (onCalculate) {
+        onCalculate('/api/v1/health-score/calculate', {
+          method: 'POST',
+          body: JSON.stringify(form),
+        })
+      }
+    },
+    [form, onCalculate]
+  )
 
   return { form, update, handleSubmit, setForm }
 }

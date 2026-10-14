@@ -12,20 +12,16 @@ import { MetalSkeletonCard } from '../../../shared/components/ui/index'
 import { useMetalsQuery } from '../hooks/useMetalsQuery'
 
 function StatusBadge({ status, t }) {
-  if (status === 'LIVE')   return <span className="badge badge-success">● {t('metals.statusLive')}</span>
-  if (status === 'CACHED') return <span className="badge badge-info">● {t('metals.statusCached')}</span>
+  if (status === 'LIVE')
+    return <span className="badge badge-success">● {t('metals.statusLive')}</span>
+  if (status === 'CACHED')
+    return <span className="badge badge-info">● {t('metals.statusCached')}</span>
   return <span className="badge badge-warning">▲ {t('metals.statusStale')}</span>
 }
 
 export function LiveMetalPrices() {
   const { t } = useTranslation()
-  const {
-    data,
-    isLoading,
-    isFetching,
-    isError,
-    refetch,
-  } = useMetalsQuery()
+  const { data, isLoading, isFetching, isError, refetch } = useMetalsQuery()
 
   const unavailable = isError && !data
 
@@ -33,11 +29,11 @@ export function LiveMetalPrices() {
   // (same semantic as the old component which set cacheStatus: 'STALE' on error)
   const effectiveCacheStatus = isError && data ? 'STALE' : data?.cacheStatus
 
-  const metalsList   = data?.metals || []
-  const gold         = metalsList.find((m) => m.metalCode === 'XAU')
-  const silver       = metalsList.find((m) => m.metalCode === 'XAG')
-  const platinum     = metalsList.find((m) => m.metalCode === 'XPT')
-  const palladium    = metalsList.find((m) => m.metalCode === 'XPD')
+  const metalsList = data?.metals || []
+  const gold = metalsList.find((m) => m.metalCode === 'XAU')
+  const silver = metalsList.find((m) => m.metalCode === 'XAG')
+  const platinum = metalsList.find((m) => m.metalCode === 'XPT')
+  const palladium = metalsList.find((m) => m.metalCode === 'XPD')
   const asOfTimestamp = gold?.sourceTimestamp || data?.fetchedAt
 
   return (
@@ -46,7 +42,15 @@ export function LiveMetalPrices() {
         <div className="metals-title-group">
           <div className="section-label">{t('metals.eyebrow')}</div>
           <h2>{t('metals.title')}</h2>
-          <small className="metals-retail-note" style={{ color: 'var(--ink-muted)', display: 'block', marginTop: '2px', fontSize: '0.78rem' }}>
+          <small
+            className="metals-retail-note"
+            style={{
+              color: 'var(--ink-muted)',
+              display: 'block',
+              marginTop: '2px',
+              fontSize: '0.78rem',
+            }}
+          >
             {t('home.metals.note', "Indicative reference prices, not a jeweller's retail rate.")}
           </small>
         </div>
@@ -63,7 +67,9 @@ export function LiveMetalPrices() {
             disabled={isLoading || isFetching}
             aria-label={t('metals.refresh')}
           >
-            <span className={isFetching ? 'spin' : ''} aria-hidden="true">↻</span>
+            <span className={isFetching ? 'spin' : ''} aria-hidden="true">
+              ↻
+            </span>
             {isFetching ? t('metals.refreshing') : t('metals.refresh')}
           </button>
         </div>
@@ -71,7 +77,9 @@ export function LiveMetalPrices() {
 
       {isLoading && !data && (
         <div className="metals-grid" aria-busy="true" aria-label="Loading metal prices">
-          {[1, 2, 3, 4].map((i) => <MetalSkeletonCard key={i} />)}
+          {[1, 2, 3, 4].map((i) => (
+            <MetalSkeletonCard key={i} />
+          ))}
         </div>
       )}
 
@@ -81,7 +89,11 @@ export function LiveMetalPrices() {
           <small style={{ color: 'var(--ink-faint)', display: 'block', marginTop: '4px' }}>
             {t('home.metals.note', "Indicative reference prices, not a jeweller's retail rate.")}
           </small>
-          <button className="btn btn-secondary" onClick={() => refetch()} style={{ marginTop: '12px' }}>
+          <button
+            className="btn btn-secondary"
+            onClick={() => refetch()}
+            style={{ marginTop: '12px' }}
+          >
             {t('metals.retry')}
           </button>
         </div>
@@ -90,13 +102,15 @@ export function LiveMetalPrices() {
       {data && (
         <>
           <div className="metals-grid">
-            {gold      && <MetalTile metal={gold}      className="gold-card" t={t} />}
-            {silver    && <MetalTile metal={silver}    t={t} />}
-            {platinum  && <MetalTile metal={platinum}  t={t} />}
+            {gold && <MetalTile metal={gold} className="gold-card" t={t} />}
+            {silver && <MetalTile metal={silver} t={t} />}
+            {platinum && <MetalTile metal={platinum} t={t} />}
             {palladium && <MetalTile metal={palladium} t={t} />}
           </div>
           <div className="metals-footer">
-            <span className="metals-source">{t('metals.source')}: {data.source || 'metals.dev'}</span>
+            <span className="metals-source">
+              {t('metals.source')}: {data.source || 'metals.dev'}
+            </span>
             <span className="metals-disclaimer">{data.disclaimer || t('metals.disclaimer')}</span>
           </div>
         </>
@@ -115,7 +129,8 @@ function MetalTile({ metal, className = '', t }) {
         </div>
         <h3 className="metal-name">{metal.displayName}</h3>
         <div className="metal-price-primary">
-          {formatINRDecimal(metal.pricePerGramInr)} <span className="unit">{t('metals.perGram')}</span>
+          {formatINRDecimal(metal.pricePerGramInr)}{' '}
+          <span className="unit">{t('metals.perGram')}</span>
         </div>
         {metal.pricePer10GramsInr && (
           <div className="metal-price-secondary">

@@ -25,9 +25,15 @@ describe('httpClient.js', () => {
     mockStore = {}
     globalThis.sessionStorage = {
       getItem: vi.fn((k) => mockStore[k] || null),
-      setItem: vi.fn((k, v) => { mockStore[k] = String(v) }),
-      removeItem: vi.fn((k) => { delete mockStore[k] }),
-      clear: vi.fn(() => { mockStore = {} }),
+      setItem: vi.fn((k, v) => {
+        mockStore[k] = String(v)
+      }),
+      removeItem: vi.fn((k) => {
+        delete mockStore[k]
+      }),
+      clear: vi.fn(() => {
+        mockStore = {}
+      }),
     }
     vi.restoreAllMocks()
   })

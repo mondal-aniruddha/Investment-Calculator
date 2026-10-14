@@ -15,20 +15,26 @@ export const INITIAL_MONTE_CARLO = {
 export function useMonteCarloForm(onCalculate, initialValues = INITIAL_MONTE_CARLO) {
   const [form, setForm] = useState(initialValues)
 
-  const update = useCallback((key) => (e) => {
-    const val = Number(e.target.value)
-    setForm((prev) => ({ ...prev, [key]: val }))
-  }, [])
+  const update = useCallback(
+    (key) => (e) => {
+      const val = Number(e.target.value)
+      setForm((prev) => ({ ...prev, [key]: val }))
+    },
+    []
+  )
 
-  const handleSubmit = useCallback((e) => {
-    if (e && e.preventDefault) e.preventDefault()
-    if (onCalculate) {
-      onCalculate('/api/v1/simulations/monte-carlo', {
-        method: 'POST',
-        body: JSON.stringify(form),
-      })
-    }
-  }, [form, onCalculate])
+  const handleSubmit = useCallback(
+    (e) => {
+      if (e && e.preventDefault) e.preventDefault()
+      if (onCalculate) {
+        onCalculate('/api/v1/simulations/monte-carlo', {
+          method: 'POST',
+          body: JSON.stringify(form),
+        })
+      }
+    },
+    [form, onCalculate]
+  )
 
   return { form, update, handleSubmit, setForm }
 }

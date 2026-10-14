@@ -16,7 +16,7 @@ const rawApiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? ''
 
 export const API_BASE_URL = rawApiBaseUrl.replace(/\/$/, '')
 
-export const APP_ENV = (import.meta.env.VITE_APP_ENV ?? import.meta.env.MODE ?? 'development')
+export const APP_ENV = import.meta.env.VITE_APP_ENV ?? import.meta.env.MODE ?? 'development'
 
 export const APP_VERSION = import.meta.env.VITE_APP_VERSION ?? '2.0.0'
 

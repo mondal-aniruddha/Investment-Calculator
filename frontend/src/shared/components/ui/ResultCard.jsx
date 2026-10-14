@@ -9,7 +9,7 @@ import { EmptyState } from './EmptyState'
 
 export function ResultCard({ result, primary, invested, returns, title, loading }) {
   const [insight, setInsight] = useState(null)
-  const [busy, setBusy]       = useState(false)
+  const [busy, setBusy] = useState(false)
 
   if (loading) {
     return (
@@ -60,7 +60,7 @@ export function ResultCard({ result, primary, invested, returns, title, loading 
         return
       }
       const blob = await response.blob()
-      const url  = URL.createObjectURL(blob)
+      const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = url
       link.download = `infinance-${format}`
@@ -94,13 +94,32 @@ export function ResultCard({ result, primary, invested, returns, title, loading 
       </div>
 
       <div className="result-actions">
-        <button className="btn-ghost" onClick={explain} disabled={busy} aria-label="Get AI explanation of these results">
-          {busy ? <><span className="spin">↻</span> Explaining…</> : '✦ Explain my results'}
+        <button
+          className="btn-ghost"
+          onClick={explain}
+          disabled={busy}
+          aria-label="Get AI explanation of these results"
+        >
+          {busy ? (
+            <>
+              <span className="spin">↻</span> Explaining…
+            </>
+          ) : (
+            '✦ Explain my results'
+          )}
         </button>
-        <button className="btn-ghost" onClick={() => download('pdf')} aria-label="Download PDF report">
+        <button
+          className="btn-ghost"
+          onClick={() => download('pdf')}
+          aria-label="Download PDF report"
+        >
           ↓ PDF
         </button>
-        <button className="btn-ghost" onClick={() => download('excel')} aria-label="Download Excel report">
+        <button
+          className="btn-ghost"
+          onClick={() => download('excel')}
+          aria-label="Download Excel report"
+        >
           ↓ Excel
         </button>
       </div>

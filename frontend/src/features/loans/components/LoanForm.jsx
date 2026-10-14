@@ -1,5 +1,8 @@
 import {
-  MoneyField, NumberField, SubmitButton, ErrorBox
+  MoneyField,
+  NumberField,
+  SubmitButton,
+  ErrorBox,
 } from '../../../shared/components/ui/index'
 
 export function LoanForm({ form, update, handleSubmit, loading, error, formErrors = {} }) {
@@ -13,7 +16,10 @@ export function LoanForm({ form, update, handleSubmit, loading, error, formError
         required
       />
       {formErrors.principal && (
-        <span className="field-error-text" style={{ color: 'var(--error, #ef4444)', fontSize: '12px' }}>
+        <span
+          className="field-error-text"
+          style={{ color: 'var(--error, #ef4444)', fontSize: '12px' }}
+        >
           {formErrors.principal}
         </span>
       )}
@@ -24,14 +30,17 @@ export function LoanForm({ form, update, handleSubmit, loading, error, formError
           value={form.tenureYears}
           suffix="years"
           onChange={update('tenureYears')}
-          min={1} max={30}
+          min={1}
+          max={30}
         />
         <NumberField
           label="Interest rate"
           value={form.annualInterestRate}
           suffix="% p.a."
           onChange={update('annualInterestRate')}
-          min={1} max={30} step={0.05}
+          min={1}
+          max={30}
+          step={0.05}
         />
       </div>
 

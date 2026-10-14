@@ -64,7 +64,11 @@ export function AccountPage() {
   }
 
   const handleDeleteAccount = async () => {
-    if (!window.confirm('Are you sure you want to permanently delete your account and all saved scenarios?')) {
+    if (
+      !window.confirm(
+        'Are you sure you want to permanently delete your account and all saved scenarios?'
+      )
+    ) {
       return
     }
     try {
@@ -82,7 +86,11 @@ export function AccountPage() {
   }
 
   const formattedDate = user?.createdAt
-    ? new Date(user.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+    ? new Date(user.createdAt).toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      })
     : 'Recently'
 
   return (
@@ -130,11 +138,7 @@ export function AccountPage() {
             </label>
             <label>
               Phone number
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
+              <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
             </label>
           </div>
           <button className="primary-button" type="submit" disabled={updating}>
@@ -150,7 +154,11 @@ export function AccountPage() {
             <div className="section-label">SAVED SCENARIOS</div>
             <h2>Your financial models</h2>
           </div>
-          <button className="secondary-button refresh-btn" onClick={fetchScenarios} disabled={loadingScenarios}>
+          <button
+            className="secondary-button refresh-btn"
+            onClick={fetchScenarios}
+            disabled={loadingScenarios}
+          >
             {loadingScenarios ? 'Loading...' : 'Refresh'}
           </button>
         </div>
@@ -194,7 +202,10 @@ export function AccountPage() {
       <div className="card danger-zone-card">
         <div>
           <h3>Delete account</h3>
-          <p>Permanently remove your account and all associated saved scenarios. This cannot be undone.</p>
+          <p>
+            Permanently remove your account and all associated saved scenarios. This cannot be
+            undone.
+          </p>
         </div>
         <button className="danger-button" onClick={handleDeleteAccount}>
           Delete account

@@ -5,15 +5,7 @@ import { SEO } from '../../../components/shared/SEO'
 import { useScrollReveal } from '../../../shared/hooks/useScrollReveal'
 import { DataState } from '../../../components/shared/DataState'
 
-const CATEGORIES = [
-  'ALL',
-  'Basics',
-  'Investing',
-  'Tax',
-  'Credit',
-  'Insurance',
-  'Retirement',
-]
+const CATEGORIES = ['ALL', 'Basics', 'Investing', 'Tax', 'Credit', 'Insurance', 'Retirement']
 
 export default function LearnHubPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -35,7 +27,9 @@ export default function LearnHubPage() {
         setLoading(false)
       })
       .catch((err) => {
-        setError(err?.message || 'Could not load articles from backend. Please verify backend is running.')
+        setError(
+          err?.message || 'Could not load articles from backend. Please verify backend is running.'
+        )
         setLoading(false)
       })
   }, [selectedCategory, query])
@@ -64,11 +58,21 @@ export default function LearnHubPage() {
       {/* Hero Header */}
       <div className="card hub-header reveal">
         <div className="section-label">LEARNING DESTINATION · JARGON-FREE</div>
-        <h1 style={{ fontSize: 'clamp(28px, 4vw, 42px)', letterSpacing: '-1.5px', margin: '8px 0' }}>
+        <h1
+          style={{ fontSize: 'clamp(28px, 4vw, 42px)', letterSpacing: '-1.5px', margin: '8px 0' }}
+        >
           Money Made Simple, Not Preachy.
         </h1>
-        <p style={{ color: 'var(--ink-muted)', fontSize: '15px', maxWidth: '640px', lineHeight: 1.6 }}>
-          Practical, friendly financial education for your 20s and early 30s. Real Indian rupee examples, zero confusing acronyms, and direct links to interactive calculators.
+        <p
+          style={{
+            color: 'var(--ink-muted)',
+            fontSize: '15px',
+            maxWidth: '640px',
+            lineHeight: 1.6,
+          }}
+        >
+          Practical, friendly financial education for your 20s and early 30s. Real Indian rupee
+          examples, zero confusing acronyms, and direct links to interactive calculators.
         </p>
 
         {/* Search input */}
@@ -115,7 +119,10 @@ export default function LearnHubPage() {
             <article key={art.slug} className="card article-card hover-lift">
               <div className="article-card-meta">
                 <span className="category-badge">{art.category}</span>
-                <span className="read-time-badge" aria-label={`Reading time: ${art.readingTimeMinutes} minutes`}>
+                <span
+                  className="read-time-badge"
+                  aria-label={`Reading time: ${art.readingTimeMinutes} minutes`}
+                >
                   ⏱ {art.readingTimeMinutes} min read
                 </span>
               </div>
@@ -124,9 +131,7 @@ export default function LearnHubPage() {
                 <Link to={`/learn/${art.slug}`}>{art.title}</Link>
               </h2>
 
-              <p className="article-card-excerpt">
-                {art.excerpt}
-              </p>
+              <p className="article-card-excerpt">{art.excerpt}</p>
 
               <div className="article-card-footer">
                 <Link to={`/learn/${art.slug}`} className="read-more-link">
@@ -158,8 +163,12 @@ export default function LearnHubPage() {
             </p>
           </div>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <Link to="/roadmap" className="btn btn-primary">Start Roadmap ↗</Link>
-            <Link to="/glossary" className="btn btn-secondary">Financial Glossary</Link>
+            <Link to="/roadmap" className="btn btn-primary">
+              Start Roadmap ↗
+            </Link>
+            <Link to="/glossary" className="btn btn-secondary">
+              Financial Glossary
+            </Link>
           </div>
         </div>
       </div>

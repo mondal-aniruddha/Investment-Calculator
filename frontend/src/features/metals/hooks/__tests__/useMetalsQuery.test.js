@@ -5,10 +5,7 @@
  * than mocking the full network stack, which is covered by E2E tests.
  */
 import { describe, it, expect } from 'vitest'
-import {
-  METALS_QUERY_KEY,
-  METALS_REFETCH_INTERVAL_MS,
-} from '../useMetalsQuery'
+import { METALS_QUERY_KEY, METALS_REFETCH_INTERVAL_MS } from '../useMetalsQuery'
 
 describe('useMetalsQuery — configuration', () => {
   it('exports the correct query key tuple', () => {

@@ -15,7 +15,9 @@ export function LearnBeforeYouCalculate({ slug, title, summary, icon = '📖' })
 
   return (
     <aside className="learn-before-calc-banner" aria-label="Learn about this calculator">
-      <span className="lbc-icon" aria-hidden="true">{icon}</span>
+      <span className="lbc-icon" aria-hidden="true">
+        {icon}
+      </span>
       <div className="lbc-content">
         <p className="lbc-title">{title}</p>
         <p className="lbc-summary">{summary}</p>
@@ -26,4 +28,3 @@ export function LearnBeforeYouCalculate({ slug, title, summary, icon = '📖' })
     </aside>
   )
 }
-
