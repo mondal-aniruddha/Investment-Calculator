@@ -10,22 +10,6 @@
 
 ```
 Investment-Calculator/
-├── frontend/               React 19 + Vite 7 app
-│   ├── src/
-│   │   ├── styles/         index.css · animations.css · components.css
-│   │   ├── layouts/        AppShell (sticky nav + footer + orbs)
-│   │   ├── components/
-│   │   │   ├── ui/         Button, Card, Input, ResultCard, Charts, etc.
-│   │   │   └── shared/     LiveMetalPrices, ProtectedRoute, ReminderCard
-│   │   ├── pages/          One file per page/route
-│   │   ├── hooks/          useCalculator, useTheme, useScrollReveal
-│   │   ├── services/       api.js (JWT-aware fetch wrapper)
-│   │   ├── utils/          format.js (formatINR, formatINRDecimal, etc.)
-│   │   └── context/        AuthContext, ToastContext
-│   ├── package.json
-│   ├── vite.config.js
-│   └── netlify.toml
-│
 ├── backend/                Spring Boot 4.1.1 · Java 21
 │   ├── src/main/java/com/infinance/
 │   │   ├── investing/      SIP + lumpsum engine
@@ -48,14 +32,23 @@ Investment-Calculator/
 │   │   └── common/         Security, CORS, exceptions, money utils
 │   └── src/main/resources/
 │       ├── application.yml
-│       ├── application-dev.yml    (H2 in-memory)
-│       ├── application-prod.yml   (MySQL)
-│       ├── application-assumptions.yml  (externalized rates)
-│       └── db/migration/          Flyway V1–V5
+│       ├── application-dev.yml
+│       ├── application-prod.yml
+│       └── db/migration/
 │
-├── docs/                   ER diagram, API reference
-├── docker-compose.yml      Full-stack local setup
-└── README.md               This file
+├── frontend/               ONLY frontend (React 19 + Vite 7)
+│   ├── e2e/                Playwright test specs
+│   ├── public/             Static assets, icons, manifest
+│   ├── src/                Components, layouts, pages, hooks, utils
+│   ├── package.json        "infinance-frontend" v2.0.0
+│   ├── vite.config.js
+│   ├── playwright.config.js
+│   └── netlify.toml
+│
+├── docs/                   AUDIT.md, ARCHITECTURE.md, API.md, project-details
+├── tools/api-clients/      Postman & Bruno API test collections
+├── deploy/                 docker/, k8s/, docker-compose.yml, env templates
+└── README.md
 ```
 
 ---

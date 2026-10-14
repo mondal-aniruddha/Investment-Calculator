@@ -1,8 +1,39 @@
+# Node & Frontend dependencies and bundles
 node_modules/
+frontend/node_modules/
 dist/
+frontend/dist/
 
+# Java / Maven build artifacts
 backend/target/
+.jqwik-database
+backend/.jqwik-database
+*.jqwik-database
 
-# Playwright test results & reports
+# Playwright & test reports
 test-results/
 playwright-report/
+frontend/test-results/
+frontend/playwright-report/
+
+# Environment configurations
+.env
+.env.*
+!.env.example
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# IDE & Editor artifacts
+.idea/
+*.iml
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db

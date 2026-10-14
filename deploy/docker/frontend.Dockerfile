@@ -6,7 +6,8 @@ WORKDIR /app
 # Copy dependency manifests first for layer caching
 COPY frontend/package.json frontend/package-lock.json* ./
 
-RUN npm ci --omit=dev
+# Install full dependencies (including Vite in devDependencies required for build)
+RUN npm ci
 
 # Copy full frontend source
 COPY frontend/ .
@@ -24,7 +25,7 @@ FROM nginx:1.27-alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # Nginx config for SPA routing
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+COPY deploy/docker/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

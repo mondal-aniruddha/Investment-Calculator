@@ -24,8 +24,8 @@ services:
   # ── Spring Boot backend ────────────────────────────────────────────────────
   backend:
     build:
-      context: ./backend
-      dockerfile: ../docker/backend.Dockerfile
+      context: ..
+      dockerfile: deploy/docker/backend.Dockerfile
     container_name: infinance-backend
     restart: unless-stopped
     depends_on:
@@ -53,8 +53,8 @@ services:
   # ── Vite/React frontend ────────────────────────────────────────────────────
   frontend:
     build:
-      context: ./frontend
-      dockerfile: ../docker/frontend.Dockerfile
+      context: ..
+      dockerfile: deploy/docker/frontend.Dockerfile
       args:
         VITE_API_BASE_URL: http://localhost:8080
     container_name: infinance-frontend
