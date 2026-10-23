@@ -19,7 +19,7 @@ export function SipForm({ form, update, handleSubmit, loading, error, formErrors
       {formErrors.monthlyInvestment && (
         <span
           className="field-error-text"
-          style={{ color: 'var(--error, #ef4444)', fontSize: '12px' }}
+          style={{ color: 'var(--error, #b83a3a)', fontSize: '12px' }}
         >
           {formErrors.monthlyInvestment}
         </span>

@@ -62,15 +62,15 @@ export function AuthPage({ initialMode = 'login' }) {
     switch (strengthScore) {
       case 0:
       case 1:
-        return { text: t('auth.strengthWeak'), color: '#e05353', width: '25%' }
+        return { text: t('auth.strengthWeak'), color: 'var(--strength-weak, #b83a3a)', width: '25%' }
       case 2:
-        return { text: t('auth.strengthFair'), color: '#e69500', width: '50%' }
+        return { text: t('auth.strengthFair'), color: 'var(--strength-fair, #b85d18)', width: '50%' }
       case 3:
-        return { text: t('auth.strengthGood'), color: '#7ea439', width: '75%' }
+        return { text: t('auth.strengthGood'), color: 'var(--strength-good, #2e7d32)', width: '75%' }
       case 4:
-        return { text: t('auth.strengthStrong'), color: '#2e8b57', width: '100%' }
+        return { text: t('auth.strengthStrong'), color: 'var(--strength-strong, #1b5e20)', width: '100%' }
       default:
-        return { text: t('auth.strengthWeak'), color: '#e05353', width: '25%' }
+        return { text: t('auth.strengthWeak'), color: 'var(--strength-weak, #b83a3a)', width: '25%' }
     }
   }, [regPassword, strengthScore, t])
 

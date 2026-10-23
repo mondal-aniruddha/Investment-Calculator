@@ -95,8 +95,8 @@ export function DataState({
         style={{
           margin: '20px 0',
           padding: '24px',
-          borderLeft: '4px solid var(--error, #ef4444)',
-          background: 'var(--bg-surface, #ffffff)',
+          borderLeft: '4px solid var(--error, #b83a3a)',
+          background: 'var(--bg-surface, #EDF1F4)',
           textAlign: 'center',
         }}
       >
@@ -106,7 +106,7 @@ export function DataState({
         <h3 style={{ margin: '0 0 8px', fontSize: '18px' }}>
           {t('errors.loadFailedTitle', 'Failed to load content')}
         </h3>
-        <p style={{ color: 'var(--ink-muted, #64748b)', margin: '0 0 16px', fontSize: '14px' }}>
+        <p style={{ color: 'var(--ink-muted, #6b4f6a)', margin: '0 0 16px', fontSize: '14px' }}>
           {errorText}
         </p>
 
@@ -115,7 +115,7 @@ export function DataState({
             style={{
               fontSize: '11px',
               fontFamily: 'var(--font-mono, monospace)',
-              color: 'var(--ink-muted, #64748b)',
+              color: 'var(--ink-muted, #6b4f6a)',
               margin: '0 0 16px',
             }}
           >
@@ -145,7 +145,7 @@ export function DataState({
           textAlign: 'center',
           padding: '48px 24px',
           margin: '20px 0',
-          background: 'var(--bg-surface, #ffffff)',
+          background: 'var(--bg-surface, #EDF1F4)',
         }}
       >
         <span
@@ -157,7 +157,7 @@ export function DataState({
         <h3 style={{ margin: '0 0 8px', fontSize: '18px' }}>
           {emptyMessage || t('errors.emptyTitle', 'No records found')}
         </h3>
-        <p style={{ color: 'var(--ink-muted, #64748b)', margin: 0, fontSize: '14px' }}>
+        <p style={{ color: 'var(--ink-muted, #6b4f6a)', margin: 0, fontSize: '14px' }}>
           {emptySubtitle ||
             t(
               'errors.emptySubtitle',

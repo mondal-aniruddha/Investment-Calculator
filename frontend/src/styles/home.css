@@ -1,7 +1,7 @@
 /* ==========================================================================
    InFinance Landing Page Styles — home.css
    Sober, restrained, premium aesthetics.
-   Token-compliant: warm off-white, forest green, soft sage, rounded cards.
+   Token-compliant: Ice silver, Deep aubergine, Marigold palette.
    Full prefers-reduced-motion support.
    ========================================================================== */
 
@@ -86,8 +86,8 @@
   gap: 8px;
   align-self: flex-start;
   padding: 6px 14px;
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--accent);
+  color: #3A0F34;
   border: 1px solid var(--line);
   border-radius: var(--radius-pill);
   font-size: 0.75rem;
@@ -98,8 +98,8 @@
 }
 
 :root.dark .hero-badge-pill {
-  background: rgba(35, 75, 60, 0.3);
-  color: var(--accent-light);
+  background: color-mix(in srgb, var(--accent) 18%, var(--bg-card));
+  color: var(--accent);
   border-color: var(--line);
 }
 
@@ -137,8 +137,8 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: var(--accent);
-  color: #ffffff;
+  background: var(--ink);
+  color: var(--bg);
   padding: 13px 26px;
   font-size: 0.98rem;
   font-weight: 600;
@@ -150,13 +150,13 @@
     transform 200ms var(--ease-out),
     box-shadow 200ms var(--ease-out),
     background 200ms var(--ease-out);
-  box-shadow: 0 4px 16px rgba(35, 75, 60, 0.22);
+  box-shadow: 0 4px 16px rgba(58, 15, 52, 0.2);
 }
 
 .hero-cta-btn-primary:hover {
-  background: #19382c;
+  background: color-mix(in srgb, var(--ink) 85%, #000);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(35, 75, 60, 0.28);
+  box-shadow: 0 8px 24px rgba(58, 15, 52, 0.28);
 }
 
 .hero-cta-btn-primary:focus-visible {
@@ -165,15 +165,15 @@
 }
 
 :root.dark .hero-cta-btn-primary {
-  background: var(--accent-light);
-  color: #121e1a;
-  box-shadow: 0 4px 20px rgba(208, 228, 157, 0.2);
+  background: var(--accent);
+  color: #3A0F34;
+  box-shadow: 0 4px 20px rgba(234, 170, 0, 0.25);
 }
 
 :root.dark .hero-cta-btn-primary:hover {
-  background: #e2f4b8;
+  background: color-mix(in srgb, var(--accent) 88%, #fff);
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(208, 228, 157, 0.3);
+  box-shadow: 0 8px 28px rgba(234, 170, 0, 0.35);
 }
 
 .hero-cta-btn-secondary {
@@ -235,14 +235,14 @@
   letter-spacing: 0.05em;
   padding: 4px 10px;
   border-radius: var(--radius-pill);
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--accent);
+  color: #3A0F34;
   border: 1px solid var(--line);
 }
 
 :root.dark .chart-card-badge {
-  background: rgba(35, 75, 60, 0.35);
-  color: var(--accent-light);
+  background: color-mix(in srgb, var(--accent) 18%, var(--bg-card));
+  color: var(--accent);
 }
 
 .chart-card-title {
@@ -326,13 +326,13 @@
 }
 
 .legend-dot.opt {
-  background: #71a34b;
+  background: var(--ink);
 }
 .legend-dot.exp {
   background: var(--accent);
 }
 .legend-dot.con {
-  background: #e1a378;
+  background: var(--ink-muted);
 }
 
 /* --------------------------------------------------------------------------
@@ -361,7 +361,7 @@
   font-size: 0.82rem;
   font-weight: 500;
   color: var(--ink);
-  box-shadow: 0 1px 4px rgba(24, 62, 43, 0.04);
+  box-shadow: 0 1px 4px rgba(58, 15, 52, 0.04);
   transition:
     transform 180ms var(--ease-out),
     border-color 180ms;
@@ -373,13 +373,13 @@
 }
 
 .trust-pill-icon {
-  color: var(--accent);
+  color: var(--ink);
   font-size: 0.95rem;
   line-height: 1;
 }
 
 :root.dark .trust-pill-icon {
-  color: var(--accent-light);
+  color: var(--accent);
 }
 
 /* --------------------------------------------------------------------------
@@ -398,15 +398,15 @@
 .section-eyebrow {
   display: inline-block;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--ink);
   margin-bottom: 8px;
 }
 
 :root.dark .section-eyebrow {
-  color: var(--accent-light);
+  color: var(--accent);
 }
 
 .section-heading-h2 {
@@ -476,8 +476,8 @@
   width: 44px;
   height: 44px;
   border-radius: var(--radius-md);
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--accent);
+  color: #3A0F34;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -486,8 +486,8 @@
 }
 
 :root.dark .calc-icon-bubble {
-  background: rgba(35, 75, 60, 0.4);
-  color: var(--accent-light);
+  background: color-mix(in srgb, var(--accent) 20%, var(--bg-card));
+  color: var(--accent);
 }
 
 .calc-card-item:hover .calc-icon-bubble {
@@ -511,8 +511,8 @@
 
 .calc-card-link-cta {
   font-size: 0.88rem;
-  font-weight: 600;
-  color: var(--accent);
+  font-weight: 700;
+  color: var(--ink);
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -520,7 +520,7 @@
 }
 
 :root.dark .calc-card-link-cta {
-  color: var(--accent-light);
+  color: var(--accent);
 }
 
 .calc-card-arrow {
@@ -585,16 +585,16 @@
   font-family: var(--font-mono);
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--accent);
-  background: var(--accent-soft);
+  color: #3A0F34;
+  background: var(--accent);
   padding: 3px 10px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--line);
 }
 
 :root.dark .slider-val-badge {
-  background: rgba(35, 75, 60, 0.4);
-  color: var(--accent-light);
+  background: color-mix(in srgb, var(--accent) 20%, var(--bg-card));
+  color: var(--accent);
 }
 
 .range-slider-input {
@@ -621,15 +621,15 @@
   height: 20px;
   border-radius: 50%;
   background: var(--accent);
-  border: 2px solid #ffffff;
+  border: 2px solid var(--bg-card);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
   cursor: pointer;
   transition: transform 160ms var(--ease-out);
 }
 
 :root.dark .range-slider-input::-webkit-slider-thumb {
-  background: var(--accent-light);
-  border-color: #121e1a;
+  background: var(--accent);
+  border-color: var(--bg);
 }
 
 .range-slider-input::-webkit-slider-thumb:hover {
@@ -720,8 +720,8 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: var(--accent);
-  color: #ffffff;
+  background: var(--ink);
+  color: var(--bg);
   padding: 11px 20px;
   border-radius: var(--radius-pill);
   font-size: 0.88rem;
@@ -733,13 +733,13 @@
 }
 
 .teaser-full-plan-link:hover {
-  background: #19382c;
+  background: color-mix(in srgb, var(--ink) 85%, #000);
   transform: translateY(-2px);
 }
 
 :root.dark .teaser-full-plan-link {
-  background: var(--accent-light);
-  color: #121e1a;
+  background: var(--accent);
+  color: #3A0F34;
 }
 
 /* --------------------------------------------------------------------------
@@ -783,8 +783,8 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--accent);
+  color: #3A0F34;
   font-family: var(--font-mono);
   font-size: 0.9rem;
   font-weight: 700;
@@ -794,8 +794,8 @@
 }
 
 :root.dark .step-num-bubble {
-  background: rgba(35, 75, 60, 0.4);
-  color: var(--accent-light);
+  background: var(--accent);
+  color: #3A0F34;
 }
 
 .how-step-tile h3 {
@@ -851,8 +851,8 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-md);
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--accent);
+  color: #3A0F34;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -861,8 +861,8 @@
 }
 
 :root.dark .why-tile-icon {
-  background: rgba(35, 75, 60, 0.4);
-  color: var(--accent-light);
+  background: color-mix(in srgb, var(--accent) 20%, var(--bg-card));
+  color: var(--accent);
 }
 
 .why-tile-content h3 {
@@ -940,8 +940,8 @@
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--accent);
-  background: var(--accent-soft);
+  color: #3A0F34;
+  background: var(--accent);
   padding: 4px 10px;
   border-radius: var(--radius-pill);
   align-self: flex-start;
@@ -949,8 +949,8 @@
 }
 
 :root.dark .article-category-tag {
-  background: rgba(35, 75, 60, 0.4);
-  color: var(--accent-light);
+  background: var(--accent);
+  color: #3A0F34;
 }
 
 .article-headline {
@@ -971,20 +971,20 @@
 
 .article-read-link {
   font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--accent);
+  font-weight: 700;
+  color: var(--ink);
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 
 :root.dark .article-read-link {
-  color: var(--accent-light);
+  color: var(--accent);
 }
 
 .roadmap-cta-banner {
-  background: linear-gradient(135deg, var(--accent) 0%, #152d24 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #3A0F34 0%, #270a23 100%);
+  color: var(--bg);
   border-radius: var(--radius-xl);
   padding: clamp(24px, 4vw, 36px);
   display: flex;
@@ -996,7 +996,7 @@
 }
 
 :root.dark .roadmap-cta-banner {
-  background: linear-gradient(135deg, #1e3a30 0%, #12211c 100%);
+  background: linear-gradient(135deg, #4A1B43 0%, #3A0F34 100%);
   border: 1px solid var(--line);
 }
 
@@ -1014,8 +1014,8 @@
 }
 
 .roadmap-cta-btn {
-  background: var(--accent-light);
-  color: #121e1a;
+  background: var(--accent);
+  color: #3A0F34;
   padding: 12px 24px;
   border-radius: var(--radius-pill);
   font-size: 0.92rem;
@@ -1031,7 +1031,7 @@
 }
 
 .roadmap-cta-btn:hover {
-  background: #e0f2ba;
+  background: color-mix(in srgb, var(--accent) 88%, #fff);
   transform: translateY(-2px);
 }
 
