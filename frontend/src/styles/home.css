@@ -87,7 +87,7 @@
   align-self: flex-start;
   padding: 6px 14px;
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   border: 1px solid var(--line);
   border-radius: var(--radius-pill);
   font-size: 0.75rem;
@@ -166,7 +166,7 @@
 
 :root.dark .hero-cta-btn-primary {
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   box-shadow: 0 4px 20px rgba(234, 170, 0, 0.25);
 }
 
@@ -236,7 +236,7 @@
   padding: 4px 10px;
   border-radius: var(--radius-pill);
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   border: 1px solid var(--line);
 }
 
@@ -477,7 +477,7 @@
   height: 44px;
   border-radius: var(--radius-md);
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -585,7 +585,7 @@
   font-family: var(--font-mono);
   font-size: 0.95rem;
   font-weight: 600;
-  color: #3A0F34;
+  color: #3a0f34;
   background: var(--accent);
   padding: 3px 10px;
   border-radius: var(--radius-sm);
@@ -739,7 +739,7 @@
 
 :root.dark .teaser-full-plan-link {
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
 }
 
 /* --------------------------------------------------------------------------
@@ -784,7 +784,7 @@
   height: 36px;
   border-radius: 50%;
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   font-family: var(--font-mono);
   font-size: 0.9rem;
   font-weight: 700;
@@ -795,7 +795,7 @@
 
 :root.dark .step-num-bubble {
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
 }
 
 .how-step-tile h3 {
@@ -852,7 +852,7 @@
   height: 40px;
   border-radius: var(--radius-md);
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -940,7 +940,7 @@
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #3A0F34;
+  color: #3a0f34;
   background: var(--accent);
   padding: 4px 10px;
   border-radius: var(--radius-pill);
@@ -950,7 +950,7 @@
 
 :root.dark .article-category-tag {
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
 }
 
 .article-headline {
@@ -983,7 +983,7 @@
 }
 
 .roadmap-cta-banner {
-  background: linear-gradient(135deg, #3A0F34 0%, #270a23 100%);
+  background: linear-gradient(135deg, #3a0f34 0%, #270a23 100%);
   color: var(--bg);
   border-radius: var(--radius-xl);
   padding: clamp(24px, 4vw, 36px);
@@ -996,7 +996,7 @@
 }
 
 :root.dark .roadmap-cta-banner {
-  background: linear-gradient(135deg, #4A1B43 0%, #3A0F34 100%);
+  background: linear-gradient(135deg, #4a1b43 0%, #3a0f34 100%);
   border: 1px solid var(--line);
 }
 
@@ -1015,7 +1015,7 @@
 
 .roadmap-cta-btn {
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   padding: 12px 24px;
   border-radius: var(--radius-pill);
   font-size: 0.92rem;

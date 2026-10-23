@@ -43,7 +43,7 @@
 }
 .brand-mark {
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -101,7 +101,7 @@
 }
 .nav-links a[aria-current='page'],
 .nav-links button[aria-current='page'] {
-  color: #3A0F34;
+  color: #3a0f34;
   font-weight: 700;
   background: var(--accent);
 }
@@ -231,7 +231,7 @@
 .mobile-menu a[aria-current='page'],
 .mobile-menu button[aria-current='page'] {
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   font-weight: 700;
 }
 .mobile-menu-divider {
@@ -363,7 +363,7 @@
 }
 .sign-in-nav-btn {
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   border: none;
   border-radius: var(--radius-sm);
   padding: 8px 16px;
@@ -506,7 +506,7 @@
 }
 .hero-cta-primary {
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   border: none;
   border-radius: var(--radius-sm);
   padding: 15px 28px;
@@ -638,7 +638,7 @@
   width: 36px;
   height: 36px;
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -824,11 +824,7 @@
   gap: 5px;
 }
 .bar {
-  background: linear-gradient(
-    to top,
-    var(--accent),
-    color-mix(in srgb, var(--accent) 70%, #fff)
-  );
+  background: linear-gradient(to top, var(--accent), color-mix(in srgb, var(--accent) 70%, #fff));
   border-radius: 3px 3px 0 0;
   width: 100%;
   min-height: 6px;
@@ -873,7 +869,7 @@
 .step.active {
   background: var(--accent);
   border-color: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
 }
 .step.done {
   background: var(--accent-soft);
@@ -1453,7 +1449,7 @@ input[type='range'] {
 
 .pill-btn.active {
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   border-color: var(--accent);
   font-weight: 600;
 }
@@ -2208,7 +2204,7 @@ input[type='range'] {
   align-items: center;
   gap: 4px;
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   font-size: 12.5px;
   font-weight: 600;
   padding: 7px 14px;
@@ -2252,7 +2248,7 @@ input[type='range'] {
   }
 }
 .auth-brand-panel {
-  background: linear-gradient(135deg, #3A0F34, #270a23);
+  background: linear-gradient(135deg, #3a0f34, #270a23);
   color: var(--bg);
   border-radius: 16px;
   padding: clamp(2rem, 5vw, 3.5rem);
@@ -2268,7 +2264,7 @@ input[type='range'] {
 }
 .brand-mark-lg {
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
   border-radius: 50%;
   width: 42px;
   height: 42px;

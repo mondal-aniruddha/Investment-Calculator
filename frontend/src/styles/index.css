@@ -15,12 +15,12 @@
    -------------------------------------------------------------------------- */
 :root {
   /* Brand palette */
-  --bg: #DDE3E8;
-  --bg-card: #EDF1F4;
-  --bg-card-hover: #E6EBEF;
+  --bg: #dde3e8;
+  --bg-card: #edf1f4;
+  --bg-card-hover: #e6ebef;
   --bg-surface: var(--bg-card);
   --bg-subtle: var(--bg);
-  --ink: #3A0F34;
+  --ink: #3a0f34;
   --ink-muted: #6b4f6a;
   --ink-faint: #836e85;
   --line: #c5ccd3;
@@ -28,9 +28,9 @@
   --border-default: var(--line);
 
   /* Accent & highlights */
-  --accent: #EAAA00;
+  --accent: #eaaa00;
   --accent-light: #f3c44e;
-  --accent-mid: #3A0F34;
+  --accent-mid: #3a0f34;
   --accent-soft: rgba(234, 170, 0, 0.15);
   --accent-muted: #6b4f6a;
 
@@ -98,21 +98,21 @@
    Dark mode overrides
    -------------------------------------------------------------------------- */
 :root.dark {
-  --bg: #3A0F34;
-  --bg-card: #4A1B43;
-  --bg-card-hover: #55254D;
+  --bg: #3a0f34;
+  --bg-card: #4a1b43;
+  --bg-card-hover: #55254d;
   --bg-surface: var(--bg-card);
   --bg-subtle: var(--bg);
-  --ink: #DDE3E8;
+  --ink: #dde3e8;
   --ink-muted: #aca3b2;
   --ink-faint: #9c8ea0;
   --line: #5a2552;
   --line-subtle: #4e1e46;
   --border-default: var(--line);
 
-  --accent: #EAAA00;
+  --accent: #eaaa00;
   --accent-light: #fcd34d;
-  --accent-mid: #EAAA00;
+  --accent-mid: #eaaa00;
   --accent-soft: rgba(234, 170, 0, 0.2);
   --accent-muted: #c5a34a;
 
@@ -406,7 +406,7 @@ textarea:focus {
 }
 :root.dark .btn-primary {
   background: var(--accent);
-  color: #3A0F34;
+  color: #3a0f34;
 }
 :root.dark .btn-primary:hover:not(:disabled) {
   background: color-mix(in srgb, var(--accent) 88%, #fff);
