@@ -277,12 +277,12 @@ export default function HomePage() {
             >
               <defs>
                 <linearGradient id="optGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#71a34b" stopOpacity="0.28" />
-                  <stop offset="100%" stopColor="#71a34b" stopOpacity="0.02" />
+                  <stop offset="0%" stopColor="var(--ink)" stopOpacity="0.18" />
+                  <stop offset="100%" stopColor="var(--ink)" stopOpacity="0.02" />
                 </linearGradient>
                 <linearGradient id="expGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#234b3c" stopOpacity="0.22" />
-                  <stop offset="100%" stopColor="#234b3c" stopOpacity="0.01" />
+                  <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.25" />
+                  <stop offset="100%" stopColor="var(--accent)" stopOpacity="0.02" />
                 </linearGradient>
               </defs>
 
@@ -343,7 +343,7 @@ export default function HomePage() {
               <path
                 className="svg-fade-band"
                 d="M 40 190 Q 200 178 390 120"
-                stroke="#e1a378"
+                stroke="var(--ink-muted)"
                 strokeWidth="2"
                 strokeDasharray="4 2"
                 fill="none"
@@ -353,7 +353,7 @@ export default function HomePage() {
               <path
                 className="svg-fade-band"
                 d="M 40 190 Q 230 140 390 30"
-                stroke="#71a34b"
+                stroke="var(--ink)"
                 strokeWidth="2"
                 fill="none"
               />
@@ -369,9 +369,9 @@ export default function HomePage() {
               />
 
               {/* Data Marker Dots */}
-              <circle cx="390" cy="30" r="4" fill="#71a34b" className="svg-fade-band" />
+              <circle cx="390" cy="30" r="4" fill="var(--ink)" className="svg-fade-band" />
               <circle cx="390" cy="65" r="5" fill="var(--accent)" className="svg-fade-band" />
-              <circle cx="390" cy="120" r="4" fill="#e1a378" className="svg-fade-band" />
+              <circle cx="390" cy="120" r="4" fill="var(--ink-muted)" className="svg-fade-band" />
               <circle cx="390" cy="148" r="3.5" fill="var(--ink-faint)" className="svg-fade-band" />
 
               {/* Axis Labels */}

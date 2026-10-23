@@ -3,7 +3,7 @@
   "short_name": "InFinance",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f5f4ef",
-  "theme_color": "#234b3c",
+  "background_color": "#DDE3E8",
+  "theme_color": "#3A0F34",
   "description": "Indian personal finance planning tools"
 }

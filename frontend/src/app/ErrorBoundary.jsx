@@ -56,9 +56,9 @@ export class ErrorBoundary extends Component {
             className="card"
             style={{
               padding: '32px 24px',
-              border: '1px solid var(--border-default, #e2e8f0)',
+              border: '1px solid var(--border-default, #c5ccd3)',
               borderRadius: '16px',
-              background: 'var(--bg-surface, #ffffff)',
+              background: 'var(--bg-surface, #EDF1F4)',
             }}
           >
             <div style={{ fontSize: '40px', marginBottom: '16px' }} aria-hidden="true">
@@ -69,7 +69,7 @@ export class ErrorBoundary extends Component {
             </h2>
             <p
               style={{
-                color: 'var(--ink-muted, #64748b)',
+                color: 'var(--ink-muted, #6b4f6a)',
                 fontSize: '14px',
                 marginBottom: '20px',
                 lineHeight: 1.5,
@@ -83,7 +83,7 @@ export class ErrorBoundary extends Component {
               <div
                 style={{
                   fontSize: '12px',
-                  color: 'var(--ink-muted, #64748b)',
+                  color: 'var(--ink-muted, #6b4f6a)',
                   marginBottom: '16px',
                   fontFamily: 'var(--font-mono, monospace)',
                 }}
@@ -119,7 +119,7 @@ export class ErrorBoundary extends Component {
 
             {process.env.NODE_ENV !== 'production' && this.state.error && (
               <details style={{ marginTop: '24px', textAlign: 'left', fontSize: '12px' }}>
-                <summary style={{ cursor: 'pointer', color: 'var(--error, #ef4444)' }}>
+                <summary style={{ cursor: 'pointer', color: 'var(--error, #b83a3a)' }}>
                   Error Details (Development Only)
                 </summary>
                 <pre
@@ -127,7 +127,7 @@ export class ErrorBoundary extends Component {
                     overflowX: 'auto',
                     padding: '12px',
                     borderRadius: '8px',
-                    background: 'var(--bg-subtle, #f8fafc)',
+                    background: 'var(--bg-subtle, #DDE3E8)',
                     marginTop: '8px',
                     whiteSpace: 'pre-wrap',
                   }}

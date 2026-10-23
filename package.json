@@ -1,0 +1,15 @@
+{
+  "name": "infinance-calculator",
+  "private": true,
+  "description": "Root workspace shim — all source lives in frontend/",
+  "scripts": {
+    "install": "npm install --prefix frontend",
+    "dev": "npm run dev --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "preview": "npm run preview --prefix frontend",
+    "lint": "npm run lint --prefix frontend",
+    "test": "npm run test --prefix frontend",
+    "format:check": "npm run format:check --prefix frontend",
+    "format:write": "npm run format:write --prefix frontend"
+  }
+}

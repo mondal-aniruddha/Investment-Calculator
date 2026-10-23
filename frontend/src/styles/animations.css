@@ -30,7 +30,7 @@
   height: clamp(300px, 45vw, 600px);
   top: -10%;
   left: -8%;
-  background: radial-gradient(circle, hsla(96, 60%, 80%, 0.35) 0%, transparent 70%);
+  background: var(--orb1);
   animation-delay: 0s;
   animation:
     orbFadeIn 2s var(--ease-out) 0s forwards,
@@ -42,7 +42,7 @@
   height: clamp(250px, 40vw, 520px);
   top: 20%;
   right: -12%;
-  background: radial-gradient(circle, hsla(167, 45%, 75%, 0.28) 0%, transparent 70%);
+  background: var(--orb2);
   animation:
     orbFadeIn 2s var(--ease-out) 0.4s forwards,
     floatB 45s ease-in-out 2.4s infinite;
@@ -53,20 +53,20 @@
   height: clamp(200px, 35vw, 450px);
   bottom: 5%;
   left: 30%;
-  background: radial-gradient(circle, hsla(44, 75%, 88%, 0.22) 0%, transparent 65%);
+  background: var(--orb3);
   animation:
     orbFadeIn 2s var(--ease-out) 0.8s forwards,
     floatC 52s ease-in-out 2.8s infinite;
 }
 
 :root.dark .orb-1 {
-  background: radial-gradient(circle, hsla(145, 45%, 25%, 0.45) 0%, transparent 70%);
+  background: var(--orb1);
 }
 :root.dark .orb-2 {
-  background: radial-gradient(circle, hsla(167, 40%, 20%, 0.38) 0%, transparent 70%);
+  background: var(--orb2);
 }
 :root.dark .orb-3 {
-  background: radial-gradient(circle, hsla(44, 50%, 18%, 0.28) 0%, transparent 65%);
+  background: var(--orb3);
 }
 
 @keyframes orbFadeIn {
@@ -255,8 +255,8 @@
 .tab-indicator {
   position: absolute;
   bottom: 0;
-  height: 2px;
-  background: var(--accent-mid);
+  height: 3px;
+  background: var(--accent);
   border-radius: var(--radius-pill);
   transition:
     left var(--dur-base) var(--ease-out),
