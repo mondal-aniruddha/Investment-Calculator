@@ -146,12 +146,13 @@ The `correlationId` is also mirrored in the HTTP response headers as `X-Correlat
 | `GET` | `/api/v1/content/learn/articles/{slug}` | Public | Fetch a specific article by unique slug |
 | `GET` | `/api/v1/content/glossary/terms` | Public | Retrieve curated financial glossary definitions |
 
-### 4.12 Finance Queries & Site Owner Contact (`/api/v1/queries`, `/api/v1/config/owner-contact`, `/api/v1/admin/queries`)
+### 4.12 Finance Queries & Site Owner Contact (`/api/v1/queries`, `/api/v1/config/owner-contact`, `/api/v1/config/team`, `/api/v1/admin/queries`)
 
 | Method | Endpoint | Access | Description |
 | :--- | :--- | :--- | :--- |
 | `POST` | `/api/v1/queries` | Public (Rate-limited: 5/hr/IP) | Submit a personal finance query with honeypot bot-protection |
-| `GET` | `/api/v1/config/owner-contact` | Public | Retrieve configured site owner identity and direct contact channels |
+| `GET` | `/api/v1/config/owner-contact` | Public | Retrieve configured site owner identity and direct contact channels (legacy) |
+| `GET` | `/api/v1/config/team` | Public | Retrieve full team list with roles, bios, WhatsApp, and emails |
 | `GET` | `/api/v1/admin/queries` | Admin | List submitted finance queries (filterable by status) |
 | `PATCH` | `/api/v1/admin/queries/{id}/status` | Admin | Update status of a query (`PENDING`, `ANSWERED`, `ARCHIVED`, `SPAM`) |
 

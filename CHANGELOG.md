@@ -5,6 +5,21 @@ All notable changes to the InFinance Calculator project will be documented in th
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.1] — 2026-10-24
+
+### Meet the Founders & Multi-Contact Consultation Module
+
+#### Added
+- **Meet the Founders Section:** Added founder and co-founder profiles to `/ask-query` displaying roles, short biographies, initials avatars, and direct contact options.
+- **Team Configuration API (`GET /api/v1/config/team`):** Dynamic team member endpoint serving ordered team lists with full support for environment variable configuration (`INFINANCE_TEAM_n_*` and `VITE_TEAM_n_*`).
+- **Co-founder Contact Integration:** Included Kuhika Das (Co-founder) across Ask a Query page cards, query success state, and footer contact block.
+- **WhatsApp Direct Action:** Integrated direct `https://wa.me/` WhatsApp chat links with pre-filled query messages, replacing legacy `tel:` call links.
+- **Assigned Founder Selection:** Added optional consultation routing selector (`assignedTo`) allowing users to direct queries to either founder or both.
+- **Multilingual Support (EN/HI/BN):** Complete English, Hindi, and Bengali localization for the Meet the Founders section and team profiles.
+- **Unit, Integration & E2E Tests:** Added Spring Boot MockMvc test suite for `GET /api/v1/config/team` and expanded Playwright E2E tests for the founders section.
+
+---
+
 ## [2.2.0] — 2026-10-24
 
 ### Ask a Finance Query & Direct Consultation Module

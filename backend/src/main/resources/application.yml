@@ -46,9 +46,26 @@ infinance:
     secret: ${INFINANCE_JWT_SECRET:}
     expiration: ${INFINANCE_JWT_EXPIRATION:86400}
   owner:
-    name: ${INFINANCE_OWNER_NAME:Aniruddha Mondal}
-    whatsapp: ${INFINANCE_OWNER_WHATSAPP:+91 8013292565}
-    email: ${INFINANCE_OWNER_EMAIL:aniruddha0266@gmail.com}
+    name: "${INFINANCE_OWNER_NAME:Aniruddha Mondal}"
+    whatsapp: "${INFINANCE_OWNER_WHATSAPP:+91 8013292565}"
+    email: "${INFINANCE_OWNER_EMAIL:aniruddha0266@gmail.com}"
+  team:
+    - id: "${INFINANCE_TEAM_0_ID:aniruddha}"
+      name: "${INFINANCE_TEAM_0_NAME:Aniruddha Mondal}"
+      role: "${INFINANCE_TEAM_0_ROLE:Founder & Lead Developer}"
+      short-bio: "${INFINANCE_TEAM_0_SHORT_BIO:Aniruddha is a Kolkata-based Java full-stack engineer with around five years of experience building Spring Boot microservices and React interfaces for financial-services platforms. He built InFinance to make SIP, tax, loan and retirement planning simple, transparent and easy to understand for Indian investors. He is also pursuing a PGDM in Data Science & Business Analytics.}"
+      whatsapp: "${INFINANCE_TEAM_0_WHATSAPP:+91 8013292565}"
+      email: "${INFINANCE_TEAM_0_EMAIL:aniruddha0266@gmail.com}"
+      initials: "${INFINANCE_TEAM_0_INITIALS:AM}"
+    - id: "${INFINANCE_TEAM_1_ID:kuhika}"
+      name: "${INFINANCE_TEAM_1_NAME:Kuhika Das}"
+      # <CO_FOUNDER_ROLE> — set INFINANCE_TEAM_1_ROLE env var with Kuhika's actual role
+      role: "${INFINANCE_TEAM_1_ROLE:Co-founder}"
+      # <CO_FOUNDER_BIO> — set INFINANCE_TEAM_1_SHORT_BIO env var with Kuhika's actual bio (~50 words)
+      short-bio: "${INFINANCE_TEAM_1_SHORT_BIO:<CO_FOUNDER_BIO - Replace via INFINANCE_TEAM_1_SHORT_BIO env var.>}"
+      whatsapp: "${INFINANCE_TEAM_1_WHATSAPP:+91 7667889389}"
+      email: "${INFINANCE_TEAM_1_EMAIL:kuhika.das@gmail.com}"
+      initials: "${INFINANCE_TEAM_1_INITIALS:KD}"
   queries:
     notify-enabled: ${INFINANCE_QUERIES_NOTIFY_ENABLED:false}
     recipient-email: ${INFINANCE_QUERIES_RECIPIENT_EMAIL:aniruddha0266@gmail.com}

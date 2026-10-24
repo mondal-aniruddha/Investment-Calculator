@@ -10,6 +10,12 @@ import i18n from '../i18n'
 import { useTheme } from '../hooks/useTheme'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
+import {
+  DEFAULT_TEAM,
+  formatWhatsAppHref,
+  formatWhatsAppDisplay,
+  formatMailtoHref,
+} from '../shared/config/owner'
 
 // Nav entries: [path, i18n key, label fallback]
 const NAV_ITEMS = [
@@ -276,6 +282,36 @@ export function AppShell({ children, apiOnline }) {
               <p className="footer-disclaimer" style={{ marginTop: '4px' }}>
                 © 2026 InFinance · India · INR (₹) · 100% Stateless &amp; Privacy-First
               </p>
+
+              {/* ── Founders contact block ── */}
+              <div className="footer-founders-contact" aria-label="Contact the founders">
+                {DEFAULT_TEAM.map((member) => (
+                  <span key={member.id} className="footer-founder-row">
+                    <strong>{member.name}</strong>
+                    {' — '}
+                    <a
+                      href={formatWhatsAppHref(
+                        member.whatsapp,
+                        `Hi ${member.name.split(' ')[0]}, I have a finance query from InFinance.`
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Chat with ${member.name} on WhatsApp (opens in a new tab)`}
+                      className="footer-founder-link"
+                    >
+                      WhatsApp {formatWhatsAppDisplay(member.whatsapp)}
+                    </a>
+                    {' · '}
+                    <a
+                      href={formatMailtoHref(member.email, 'InFinance Consultation')}
+                      aria-label={`Email ${member.name}`}
+                      className="footer-founder-link"
+                    >
+                      {member.email}
+                    </a>
+                  </span>
+                ))}
+              </div>
             </div>
 
             <div className="footer-links">

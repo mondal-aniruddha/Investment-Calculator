@@ -454,6 +454,36 @@
   }
 }
 
+/* Footer — founders contact block */
+.footer-founders-contact {
+  margin-top: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer-founder-row {
+  font-size: 12px;
+  color: var(--ink-muted);
+}
+
+.footer-founder-link {
+  color: var(--ink-muted);
+  text-decoration: none;
+  transition: color var(--dur-fast, 150ms) ease;
+}
+
+.footer-founder-link:hover {
+  color: var(--accent-mid);
+  text-decoration: underline;
+}
+
+.footer-founder-link:focus-visible {
+  outline: 2px solid var(--accent-mid);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 /* --------------------------------------------------------------------------
    App shell / main content area
    -------------------------------------------------------------------------- */
