@@ -242,7 +242,7 @@
       "name": "Finance Queries",
       "item": [
         {
-          "name": "Get owner contact details",
+          "name": "Get owner contact details (legacy)",
           "request": {
             "method": "GET",
             "header": [],
@@ -250,6 +250,18 @@
               "raw": "{{baseUrl}}/api/v1/config/owner-contact",
               "host": ["{{baseUrl}}"],
               "path": ["api", "v1", "config", "owner-contact"]
+            }
+          }
+        },
+        {
+          "name": "Get team members",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/config/team",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "config", "team"]
             }
           }
         },

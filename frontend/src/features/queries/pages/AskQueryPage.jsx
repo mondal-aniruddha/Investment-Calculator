@@ -1,20 +1,23 @@
 /**
  * AskQueryPage.jsx — "Ask a Finance Query" interactive page.
  * Allows visitors to write and submit personal finance queries.
- * Displays site owner identity (Aniruddha Mondal) and direct contact details.
+ * Displays site team identity (Aniruddha Mondal + Kuhika Das) and direct contact details.
  */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import {
   DEFAULT_OWNER_CONFIG,
+  DEFAULT_TEAM,
   formatWhatsAppHref,
   formatWhatsAppDisplay,
   formatMailtoHref,
 } from '../../../shared/config/owner'
-import { submitFinanceQuery, fetchOwnerContact } from '../services/queryService'
+import { submitFinanceQuery, fetchOwnerContact, fetchTeam } from '../services/queryService'
 import '../../../styles/queries.css'
+
+// ── Icons ─────────────────────────────────────────────────────────────────────
 
 function WhatsAppIcon({ size = 20 }) {
   return (
@@ -31,6 +34,83 @@ function WhatsAppIcon({ size = 20 }) {
   )
 }
 
+function MailIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+      <polyline points="22,6 12,13 2,6" />
+    </svg>
+  )
+}
+
+// ── Reusable founder card ──────────────────────────────────────────────────────
+
+function FounderCard({ member, waMessage, successSubject, successRefId, isSuccessCard }) {
+  const { t } = useTranslation()
+
+  const waText = isSuccessCard
+    ? successSubject && successSubject.trim()
+      ? `Hi ${member.name.split(' ')[0]}, I have a finance query regarding "${successSubject.trim()}" (Ref: ${successRefId}) from InFinance.`
+      : `Hi ${member.name.split(' ')[0]}, I have a finance query (Ref: ${successRefId}) from InFinance.`
+    : waMessage || `Hi ${member.name.split(' ')[0]}, I have a finance query from InFinance.`
+
+  return (
+    <article className="founder-card" aria-label={`${member.name} — ${member.role}`}>
+      <div className="founder-card-header">
+        <div className="owner-avatar-bubble" aria-hidden="true">
+          {member.initials || member.name.charAt(0)}
+        </div>
+        <div>
+          <h3 className="founder-name">{member.name}</h3>
+          <div className="owner-role-tag">{member.role}</div>
+        </div>
+      </div>
+
+      {member.shortBio && <p className="founder-bio">{member.shortBio}</p>}
+
+      <div className="founder-contacts">
+        <a
+          href={formatWhatsAppHref(member.whatsapp, waText)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="owner-whatsapp-btn"
+          aria-label={t('queries.founders.whatsappAriaLabel', {
+            name: member.name,
+            defaultValue: `Chat with ${member.name} on WhatsApp (opens in a new tab)`,
+          })}
+        >
+          <WhatsAppIcon />
+          <span>
+            {t('queries.founders.chatOn', 'Chat on WhatsApp')}&nbsp;
+            <strong>{formatWhatsAppDisplay(member.whatsapp)}</strong>
+          </span>
+        </a>
+
+        <a
+          href={formatMailtoHref(member.email, 'InFinance Consultation Query')}
+          className="owner-contact-pill"
+          aria-label={`Email ${member.name} at ${member.email}`}
+        >
+          <MailIcon />
+          <span>{member.email}</span>
+        </a>
+      </div>
+    </article>
+  )
+}
+
+// ── Category keys ─────────────────────────────────────────────────────────────
+
 const CATEGORY_KEYS = [
   'SIP_MUTUAL_FUNDS',
   'LUMPSUM',
@@ -42,11 +122,16 @@ const CATEGORY_KEYS = [
   'OTHER',
 ]
 
+// ── Page ──────────────────────────────────────────────────────────────────────
+
 export default function AskQueryPage() {
   const { t } = useTranslation()
+  const foundersRef = useRef(null)
 
   // Owner contact details state (fetched from backend with fallback)
   const [owner, setOwner] = useState(DEFAULT_OWNER_CONFIG)
+  // Full team list
+  const [team, setTeam] = useState(DEFAULT_TEAM)
 
   // Form field state
   const [formData, setFormData] = useState({
@@ -57,6 +142,7 @@ export default function AskQueryPage() {
     subject: '',
     message: '',
     preferredContact: 'EMAIL',
+    assignedTo: 'ANYONE',
     consent: false,
     honeypot: '',
   })
@@ -68,18 +154,25 @@ export default function AskQueryPage() {
   const [successData, setSuccessData] = useState(null)
   const [copiedRef, setCopiedRef] = useState(false)
 
-  // Fetch owner details on mount
+  // Fetch owner + team on mount
   useEffect(() => {
     let mounted = true
     fetchOwnerContact().then((details) => {
-      if (mounted && details) {
-        setOwner(details)
-      }
+      if (mounted && details) setOwner(details)
+    })
+    fetchTeam().then((members) => {
+      if (mounted && Array.isArray(members) && members.length > 0) setTeam(members)
     })
     return () => {
       mounted = false
     }
   }, [])
+
+  // Scroll to co-founder card
+  const scrollToFounders = (e) => {
+    e.preventDefault()
+    foundersRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 
   // Live field change handler
   const handleChange = (e) => {
@@ -174,6 +267,7 @@ export default function AskQueryPage() {
         subject: submittedSubject,
         message: formData.message.trim(),
         preferredContact: formData.preferredContact,
+        assignedTo: formData.assignedTo,
         consent: formData.consent,
         honeypot: formData.honeypot || null,
       }
@@ -193,6 +287,7 @@ export default function AskQueryPage() {
         subject: '',
         message: '',
         preferredContact: 'EMAIL',
+        assignedTo: 'ANYONE',
         consent: false,
         honeypot: '',
       })
@@ -234,6 +329,9 @@ export default function AskQueryPage() {
     }
   }
 
+  // Co-founder (second team member) for the shortcut link
+  const coFounder = team.length > 1 ? team[1] : null
+
   return (
     <div className="queries-page">
       <Helmet>
@@ -262,8 +360,8 @@ export default function AskQueryPage() {
         </p>
       </header>
 
-      {/* ── Owner Identity Section (Top) ── */}
-      <section className="owner-card-top" aria-label="Site owner information">
+      {/* ── Owner Identity Section (Top) — quick-contact for founder ── */}
+      <section className="owner-card-top" aria-label="Site founder quick contact">
         <div className="owner-card-grid">
           <div className="owner-profile-meta">
             <div className="owner-avatar-bubble" aria-hidden="true">
@@ -272,7 +370,7 @@ export default function AskQueryPage() {
             <div>
               <h2 className="owner-name-title">{owner.name}</h2>
               <div className="owner-role-tag">
-                {t('queries.ownerCard.nameLabel', 'Site Owner & Creator')}
+                {t('queries.ownerCard.nameLabel', 'Founder & Lead Developer')}
               </div>
             </div>
           </div>
@@ -296,11 +394,11 @@ export default function AskQueryPage() {
               target="_blank"
               rel="noopener noreferrer"
               className="owner-whatsapp-btn"
-              aria-label="Chat with Aniruddha on WhatsApp (opens in a new tab)"
+              aria-label="Chat with Aniruddha Mondal on WhatsApp (opens in a new tab)"
             >
               <WhatsAppIcon />
               <span>
-                Chat on WhatsApp &nbsp;
+                Chat on WhatsApp&nbsp;
                 <strong>{formatWhatsAppDisplay(owner.whatsapp)}</strong>
               </span>
             </a>
@@ -310,23 +408,49 @@ export default function AskQueryPage() {
               className="owner-contact-pill"
               aria-label={`Email ${owner.email}`}
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
+              <MailIcon />
               <span>{owner.email}</span>
             </a>
           </div>
+
+          {/* Shortcut to co-founder */}
+          {coFounder && (
+            <p className="owner-cofounder-shortcut">
+              {t('queries.ownerCard.orCoFounder', 'Or reach our co-founder')}{' '}
+              <a
+                href="#meet-founders"
+                onClick={scrollToFounders}
+                className="owner-cofounder-link"
+                aria-label={`Scroll to ${coFounder.name}'s contact card`}
+              >
+                {coFounder.name} ↓
+              </a>
+            </p>
+          )}
+        </div>
+      </section>
+
+      {/* ── Meet the Founders ── */}
+      <section
+        id="meet-founders"
+        ref={foundersRef}
+        className="founders-section"
+        aria-labelledby="founders-title"
+      >
+        <h2 id="founders-title" className="founders-title">
+          {t('queries.founders.sectionTitle', 'Meet the Founders')}
+        </h2>
+        <p className="founders-disclaimer-note">
+          {t(
+            'queries.founders.disclaimerNote',
+            'We share general educational information and are not SEBI-registered investment advisers.'
+          )}
+        </p>
+
+        <div className="founders-grid">
+          {team.map((member) => (
+            <FounderCard key={member.id} member={member} />
+          ))}
         </div>
       </section>
 
@@ -369,49 +493,17 @@ export default function AskQueryPage() {
                 'Need immediate assistance? Feel free to reach out directly:'
               )}
             </p>
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <a
-                href={formatWhatsAppHref(
-                  owner.whatsapp,
-                  successData.subject && successData.subject.trim()
-                    ? `Hi Aniruddha, I have a finance query regarding "${successData.subject.trim()}" (Ref: ${successData.referenceId}) from InFinance.`
-                    : `Hi Aniruddha, I have a finance query (Ref: ${successData.referenceId}) from InFinance.`
-                )}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="owner-whatsapp-btn"
-                aria-label="Chat with Aniruddha on WhatsApp (opens in a new tab)"
-              >
-                <WhatsAppIcon />
-                <span>
-                  Chat on WhatsApp &nbsp;
-                  <strong>{formatWhatsAppDisplay(owner.whatsapp)}</strong>
-                </span>
-              </a>
-              <a
-                href={formatMailtoHref(
-                  owner.email,
-                  `Follow-up on Query ${successData.referenceId}`
-                )}
-                className="owner-contact-pill"
-                aria-label={`Email ${owner.email}`}
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
-                <span>{owner.email}</span>
-              </a>
+            {/* Both founders' contact buttons in success state */}
+            <div className="success-team-contacts">
+              {team.map((member) => (
+                <FounderCard
+                  key={member.id}
+                  member={member}
+                  isSuccessCard
+                  successSubject={successData.subject}
+                  successRefId={successData.referenceId}
+                />
+              ))}
             </div>
           </div>
 
@@ -676,7 +768,24 @@ export default function AskQueryPage() {
               </div>
             </div>
 
-            {/* Row 6: Consent Checkbox */}
+            {/* Row 6: Who should answer? */}
+            <div className="form-group-item">
+              <label htmlFor="field-assignedTo">
+                <span>{t('queries.form.assignedTo', 'Who should answer?')}</span>
+              </label>
+              <select
+                id="field-assignedTo"
+                name="assignedTo"
+                value={formData.assignedTo}
+                onChange={handleChange}
+              >
+                <option value="ANYONE">{t('queries.form.assignedAnyone', 'Anyone')}</option>
+                <option value="ANIRUDDHA">Aniruddha Mondal</option>
+                {coFounder && <option value="KUHIKA">{coFounder.name}</option>}
+              </select>
+            </div>
+
+            {/* Row 7: Consent Checkbox */}
             <div className="consent-checkbox-item">
               <input
                 type="checkbox"

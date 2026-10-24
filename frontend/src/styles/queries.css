@@ -605,7 +605,9 @@
 
   .owner-card-top,
   .query-form-wrapper,
-  .query-success-card {
+  .query-success-card,
+  .founders-section,
+  .founder-card {
     border: 1px solid #ccc !important;
     box-shadow: none !important;
     background: #fff !important;
@@ -613,7 +615,143 @@
   }
 
   .queries-title,
-  .owner-name-title {
+  .owner-name-title,
+  .founders-title,
+  .founder-name {
     color: #000 !important;
   }
+}
+
+/* ── Owner card — co-founder shortcut link ───────────────────────────────── */
+.owner-cofounder-shortcut {
+  width: 100%;
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-top: var(--space-2);
+}
+
+.owner-cofounder-link {
+  color: var(--accent-mid);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--dur-fast, 150ms) ease;
+}
+
+.owner-cofounder-link:hover {
+  text-decoration: underline;
+}
+
+.owner-cofounder-link:focus-visible {
+  outline: 2px solid var(--accent-mid);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ── "Meet the Founders" section ─────────────────────────────────────────── */
+.founders-section {
+  margin-bottom: var(--space-10);
+  scroll-margin-top: 80px; /* clears sticky navbar on anchor scroll */
+}
+
+.founders-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: var(--space-2);
+}
+
+.founders-disclaimer-note {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-bottom: var(--space-6);
+  font-style: italic;
+}
+
+/* Responsive two-column grid, stacks on ≤640 px */
+.founders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-6);
+}
+
+/* ── Individual founder card ─────────────────────────────────────────────── */
+.founder-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg, 14px);
+  padding: var(--space-6);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  transition: box-shadow var(--dur-fast, 150ms) ease;
+}
+
+.founder-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-light));
+}
+
+.founder-card:focus-within {
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.founder-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.founder-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+
+.founder-bio {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink-muted);
+  margin: 0;
+  flex-grow: 1;
+}
+
+.founder-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  margin-top: auto;
+}
+
+/* Ensure 44 px touch target on WhatsApp and email buttons */
+.founder-contacts .owner-whatsapp-btn,
+.founder-contacts .owner-contact-pill {
+  min-height: 44px;
+}
+
+/* ── Success state — both founders ──────────────────────────────────────── */
+.success-team-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+
+.success-team-contacts .founder-card {
+  text-align: left;
+  padding: var(--space-4);
+  box-shadow: none;
+}
+
+.success-team-contacts .founder-card::before {
+  display: none;
 }

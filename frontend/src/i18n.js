@@ -286,10 +286,18 @@ const resources = {
           'Have questions about SIP, mutual funds, taxes, loans, or retirement? Send your question directly to the site owner.',
         ownerCard: {
           title: 'Direct Consultation & Contact',
-          nameLabel: 'Site Owner & Creator',
+          nameLabel: 'Founder & Lead Developer',
           whatsappLabel: 'WhatsApp',
           emailLabel: 'Email',
           callPrompt: 'Prefer a quick chat? Message me on WhatsApp or email me directly.',
+          orCoFounder: 'Or reach our co-founder',
+        },
+        founders: {
+          sectionTitle: 'Meet the Founders',
+          disclaimerNote:
+            'We share general educational information and are not SEBI-registered investment advisers.',
+          chatOn: 'Chat on WhatsApp',
+          whatsappAriaLabel: 'Chat with {{name}} on WhatsApp (opens in a new tab)',
         },
         form: {
           fullName: 'Full Name',
@@ -320,6 +328,8 @@ const resources = {
           contactEmail: 'Email',
           contactWhatsApp: 'WhatsApp',
           contactEither: 'Either',
+          assignedTo: 'Who should answer?',
+          assignedAnyone: 'Anyone',
           consent:
             'I agree to be contacted about this query and understand this is general educational information, not professional financial advice.',
           submit: 'Submit Query',
@@ -660,11 +670,19 @@ const resources = {
           'क्या आपके पास SIP, म्यूचुअल फंड, टैक्स, लोन या रिटायरमेंट से जुड़े सवाल हैं? सीधे वेबसाइट संचालक से पूछें।',
         ownerCard: {
           title: 'सीधा परामर्श और संपर्क',
-          nameLabel: 'साइट स्वामी और निर्माता',
+          nameLabel: 'संस्थापक और मुख्य डेवलपर',
           whatsappLabel: 'व्हाट्सएप',
           emailLabel: 'ईमेल',
           callPrompt:
             'तुरंत बातचीत करना चाहते हैं? मुझे व्हाट्सएप पर संदेश भेजें या सीधे ईमेल करें।',
+          orCoFounder: 'या हमारे सह-संस्थापक से संपर्क करें',
+        },
+        founders: {
+          sectionTitle: 'संस्थापकों से मिलें',
+          disclaimerNote:
+            'हम सामान्य शैक्षिक जानकारी साझा करते हैं और SEBI-पंजीकृत निवेश सलाहकार नहीं हैं।',
+          chatOn: 'व्हाट्सएप पर चैट करें',
+          whatsappAriaLabel: '{{name}} से व्हाट्सएप पर चैट करें (नए टैब में खुलेगा)',
         },
         form: {
           fullName: 'पूरा नाम',
@@ -695,6 +713,8 @@ const resources = {
           contactEmail: 'ईमेल',
           contactWhatsApp: 'व्हाट्सएप',
           contactEither: 'कोई भी',
+          assignedTo: 'किसे जवाब देना चाहिए?',
+          assignedAnyone: 'कोई भी',
           consent:
             'मैं इस प्रश्न के बारे में संपर्क किए जाने पर सहमत हूँ और समझता हूँ कि यह सामान्य शैक्षिक जानकारी है, कोई पेशेवर वित्तीय सलाह नहीं।',
           submit: 'प्रश्न सबमिट करें',
@@ -1034,10 +1054,18 @@ const resources = {
           'SIP, মিউচুয়াল ফান্ড, ট্যাক্স, ঋণ বা অবসর নিয়ে কোনো প্রশ্ন আছে? সরাসরি সাইটের মালিকের সাথে যোগাযোগ করুন।',
         ownerCard: {
           title: 'সরাসরি পরামর্শ ও যোগাযোগ',
-          nameLabel: 'সাইটের মালিক ও নির্মাতা',
+          nameLabel: 'প্রতিষ্ঠাতা ও প্রধান ডেভেলপার',
           whatsappLabel: 'হোয়াটসঅ্যাপ',
           emailLabel: 'ইমেল',
           callPrompt: 'দ্রুত কথা বলতে চান? আমাকে হোয়াটসঅ্যাপে বার্তা পাঠান বা সরাসরি ইমেল করুন।',
+          orCoFounder: 'অথবা আমাদের সহ-প্রতিষ্ঠাতার সাথে যোগাযোগ করুন',
+        },
+        founders: {
+          sectionTitle: 'প্রতিষ্ঠাতাদের সাথে পরিচয় হোন',
+          disclaimerNote:
+            'আমরা সাধারণ শিক্ষামূলক তথ্য ভাগ করি এবং SEBI-নন্দিত বিনিয়োগ পরামর্শদাতা নই।',
+          chatOn: 'হোয়াটসঅ্যাপে চ্যাট করুন',
+          whatsappAriaLabel: '{{name}}-এর সাথে হোয়াটসঅ্যাপে চ্যাট করুন (নতুন ট্যাবে খুলবে)',
         },
         form: {
           fullName: 'পুরো নাম',
@@ -1068,6 +1096,8 @@ const resources = {
           contactEmail: 'ইমেল',
           contactWhatsApp: 'হোয়াটসঅ্যাপ',
           contactEither: 'যেকোনোটি',
+          assignedTo: 'কাকে উত্তর দিতে হবে?',
+          assignedAnyone: 'যেকোনো ব্যক্তি',
           consent:
             'আমি এই প্রশ্নের বিষয়ে যোগাযোগ করতে সম্মত এবং বুঝতে পারছি যে এটি সাধারণ শিক্ষামূলক তথ্য, পেশাদার আর্থিক পরামর্শ নয়।',
           submit: 'প্রশ্ন জমা দিন',
