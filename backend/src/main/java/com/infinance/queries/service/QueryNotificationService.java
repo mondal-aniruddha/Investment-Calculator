@@ -45,6 +45,7 @@ public class QueryNotificationService {
                     + "Name: " + query.getName() + "\n"
                     + "Email: " + query.getEmail() + "\n"
                     + "Category: " + (query.getCategory() != null ? query.getCategory().getDisplayName() : "") + "\n"
+                    + (query.getWhatsapp() != null ? "WhatsApp: " + query.getWhatsapp() + "\n" : "")
                     + "Preferred Contact: " + query.getPreferredContact() + "\n"
                     + "Subject: " + query.getSubject() + "\n\n"
                     + "Message:\n" + query.getMessage() + "\n");

@@ -15,7 +15,7 @@ public record CreateQueryRequest(
         String email,
 
         @Pattern(regexp = "^$|^(\\+91[\\-\\s]?)?[6-9]\\d{9}$", message = "Please enter a valid 10-digit Indian mobile number")
-        String phone,
+        String whatsapp,
 
         @NotNull(message = "Query category is required")
         QueryCategory category,

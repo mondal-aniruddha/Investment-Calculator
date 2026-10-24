@@ -51,7 +51,7 @@ public class FinanceQueryService {
         String sanitizedName = sanitize(request.name());
         String sanitizedSubject = sanitize(request.subject());
         String sanitizedMessage = sanitize(request.message());
-        String cleanPhone = (request.phone() != null && !request.phone().isBlank()) ? request.phone().trim() : null;
+        String cleanWhatsapp = (request.whatsapp() != null && !request.whatsapp().isBlank()) ? request.whatsapp().trim() : null;
 
         // 3. Hash client IP (do not store raw IP)
         String ipHash = hashIp(clientIp);
@@ -64,7 +64,7 @@ public class FinanceQueryService {
                 referenceId,
                 sanitizedName,
                 request.email().trim().toLowerCase(Locale.ROOT),
-                cleanPhone,
+                cleanWhatsapp,
                 request.category(),
                 sanitizedSubject,
                 sanitizedMessage,
@@ -74,7 +74,7 @@ public class FinanceQueryService {
 
         FinanceQuery saved = repository.save(query);
 
-        // Security requirement: never log message body or phone number
+        // Security requirement: never log message body or contact number
         log.info("Saved new finance query referenceId={} category={}", referenceId, request.category());
 
         // 6. Optional email notification

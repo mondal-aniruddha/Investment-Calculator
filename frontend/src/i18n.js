@@ -287,17 +287,17 @@ const resources = {
         ownerCard: {
           title: 'Direct Consultation & Contact',
           nameLabel: 'Site Owner & Creator',
-          phoneLabel: 'Phone / WhatsApp',
+          whatsappLabel: 'WhatsApp',
           emailLabel: 'Email',
-          callPrompt: 'Prefer to talk? Call or message me directly.',
+          callPrompt: 'Prefer a quick chat? Message me on WhatsApp or email me directly.',
         },
         form: {
           fullName: 'Full Name',
           fullNamePlaceholder: 'e.g. Rahul Sharma',
           email: 'Email Address',
           emailPlaceholder: 'e.g. rahul@example.com',
-          phone: 'Phone Number (Optional)',
-          phonePlaceholder: 'e.g. +91 9876543210',
+          whatsapp: 'WhatsApp Number (Optional)',
+          whatsappPlaceholder: 'e.g. +91 80132 92565',
           category: 'Query Category',
           categorySelect: 'Select a category...',
           categories: {
@@ -318,7 +318,7 @@ const resources = {
           charCount: '{{count}} / 2000 characters (min 20)',
           preferredContact: 'Preferred Contact Method',
           contactEmail: 'Email',
-          contactPhone: 'Phone',
+          contactWhatsApp: 'WhatsApp',
           contactEither: 'Either',
           consent:
             'I agree to be contacted about this query and understand this is general educational information, not professional financial advice.',
@@ -336,7 +336,7 @@ const resources = {
         errors: {
           nameRequired: 'Full name is required (2–80 characters).',
           emailInvalid: 'Please enter a valid email address.',
-          phoneInvalid: 'Please enter a valid 10-digit Indian mobile number (+91 optional).',
+          whatsappInvalid: 'Please enter a valid 10-digit Indian mobile number (+91 optional).',
           categoryRequired: 'Please select a query category.',
           subjectRequired: 'Subject is required (5–120 characters).',
           messageRequired: 'Query message must be between 20 and 2000 characters.',
@@ -661,17 +661,18 @@ const resources = {
         ownerCard: {
           title: 'सीधा परामर्श और संपर्क',
           nameLabel: 'साइट स्वामी और निर्माता',
-          phoneLabel: 'फ़ोन / व्हाट्सएप',
+          whatsappLabel: 'व्हाट्सएप',
           emailLabel: 'ईमेल',
-          callPrompt: 'बात करना पसंद करते हैं? मुझे सीधे कॉल या संदेश भेजें।',
+          callPrompt:
+            'तुरंत बातचीत करना चाहते हैं? मुझे व्हाट्सएप पर संदेश भेजें या सीधे ईमेल करें।',
         },
         form: {
           fullName: 'पूरा नाम',
           fullNamePlaceholder: 'उदा. राहुल शर्मा',
           email: 'ईमेल पता',
           emailPlaceholder: 'उदा. rahul@example.com',
-          phone: 'फ़ोन नंबर (वैकल्पिक)',
-          phonePlaceholder: 'उदा. +91 9876543210',
+          whatsapp: 'व्हाट्सएप नंबर (वैकल्पिक)',
+          whatsappPlaceholder: 'उदा. +91 80132 92565',
           category: 'प्रश्न श्रेणी',
           categorySelect: 'एक श्रेणी चुनें...',
           categories: {
@@ -692,7 +693,7 @@ const resources = {
           charCount: '{{count}} / 2000 वर्ण (न्यूनतम 20)',
           preferredContact: 'संपर्क का पसंदीदा माध्यम',
           contactEmail: 'ईमेल',
-          contactPhone: 'फ़ोन',
+          contactWhatsApp: 'व्हाट्सएप',
           contactEither: 'कोई भी',
           consent:
             'मैं इस प्रश्न के बारे में संपर्क किए जाने पर सहमत हूँ और समझता हूँ कि यह सामान्य शैक्षिक जानकारी है, कोई पेशेवर वित्तीय सलाह नहीं।',
@@ -710,7 +711,7 @@ const resources = {
         errors: {
           nameRequired: 'पूरा नाम आवश्यक है (2–80 वर्ण)।',
           emailInvalid: 'कृपया एक मान्य ईमेल पता दर्ज करें।',
-          phoneInvalid: 'कृपया एक मान्य 10-अंकीय भारतीय मोबाइल नंबर दर्ज करें।',
+          whatsappInvalid: 'कृपया एक मान्य 10-अंकीय भारतीय मोबाइल नंबर दर्ज करें।',
           categoryRequired: 'कृपया एक श्रेणी चुनें।',
           subjectRequired: 'विषय आवश्यक है (5–120 वर्ण)।',
           messageRequired: 'संदेश 20 से 2000 वर्णों के बीच होना चाहिए।',
@@ -1034,17 +1035,17 @@ const resources = {
         ownerCard: {
           title: 'সরাসরি পরামর্শ ও যোগাযোগ',
           nameLabel: 'সাইটের মালিক ও নির্মাতা',
-          phoneLabel: 'ফোন / হোয়াটসঅ্যাপ',
+          whatsappLabel: 'হোয়াটসঅ্যাপ',
           emailLabel: 'ইমেল',
-          callPrompt: 'কথা বলতে চান? সরাসরি কল করুন বা বার্তা পাঠান।',
+          callPrompt: 'দ্রুত কথা বলতে চান? আমাকে হোয়াটসঅ্যাপে বার্তা পাঠান বা সরাসরি ইমেল করুন।',
         },
         form: {
           fullName: 'পুরো নাম',
           fullNamePlaceholder: 'উদা. রাহুল শর্মা',
           email: 'ইমেল ঠিকানা',
           emailPlaceholder: 'উদা. rahul@example.com',
-          phone: 'ফোন নম্বর (ঐচ্ছিক)',
-          phonePlaceholder: 'উদা. +91 9876543210',
+          whatsapp: 'হোয়াটসঅ্যাপ নম্বর (ঐচ্ছিক)',
+          whatsappPlaceholder: 'উদা. +91 80132 92565',
           category: 'প্রশ্নের বিভাগ',
           categorySelect: 'একটি বিভাগ নির্বাচন করুন...',
           categories: {
@@ -1065,7 +1066,7 @@ const resources = {
           charCount: '{{count}} / ২০০০ অক্ষর (নূন্যতম ২০)',
           preferredContact: 'যোগাযোগের পছন্দের মাধ্যম',
           contactEmail: 'ইমেল',
-          contactPhone: 'ফোন',
+          contactWhatsApp: 'হোয়াটসঅ্যাপ',
           contactEither: 'যেকোনোটি',
           consent:
             'আমি এই প্রশ্নের বিষয়ে যোগাযোগ করতে সম্মত এবং বুঝতে পারছি যে এটি সাধারণ শিক্ষামূলক তথ্য, পেশাদার আর্থিক পরামর্শ নয়।',
@@ -1083,7 +1084,7 @@ const resources = {
         errors: {
           nameRequired: 'পুরো নাম আবশ্যক (২–৮০ অক্ষর)।',
           emailInvalid: 'অনুগ্রহ করে একটি বৈধ ইমেল ঠিকানা লিখুন।',
-          phoneInvalid: 'অনুগ্রহ করে একটি বৈধ ১০-সংখ্যার ভারতীয় মোবাইল নম্বর লিখুন।',
+          whatsappInvalid: 'অনুগ্রহ করে একটি বৈধ ১০-সংখ্যার ভারতীয় মোবাইল নম্বর লিখুন।',
           categoryRequired: 'অনুগ্রহ করে একটি বিভাগ নির্বাচন করুন।',
           subjectRequired: 'বিষয় আবশ্যক (৫–১২০ অক্ষর)।',
           messageRequired: 'বার্তাটি ২০ থেকে ২০০০ অক্ষরের মধ্যে হতে হবে।',
