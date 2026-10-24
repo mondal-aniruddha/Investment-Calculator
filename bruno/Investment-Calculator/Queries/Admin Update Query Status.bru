@@ -1,0 +1,26 @@
+meta {
+  name: Admin Update Query Status
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/api/v1/admin/queries/{{queryId}}/status
+  body: json
+  auth: basic
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth:basic {
+  username: admin
+  password: change-me
+}
+
+body:json {
+  {
+    "status": "IN_PROGRESS"
+  }
+}

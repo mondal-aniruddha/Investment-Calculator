@@ -15,6 +15,7 @@ import { useToast } from '../context/ToastContext'
 const NAV_ITEMS = [
   ['/learn', 'nav.learn', 'Learn Hub'],
   ['/roadmap', 'nav.roadmap', 'Roadmap'],
+  ['/ask-query', 'nav.queries', 'Ask a Query'],
   ['/sip', 'nav.sip', 'SIP Planner'],
   ['/loan', 'nav.loan', 'Loan & EMI'],
   ['/fixed', 'nav.fixed', 'Fixed Income'],
@@ -282,6 +283,7 @@ export function AppShell({ children, apiOnline }) {
                 <Link to="/learn">Learn Hub</Link>
                 <Link to="/roadmap">Roadmap</Link>
                 <Link to="/glossary">Glossary</Link>
+                <Link to="/ask-query">Ask a Query</Link>
                 <Link to="/sip">SIP Planner</Link>
                 <Link to="/loan">Loan &amp; EMI</Link>
               </div>

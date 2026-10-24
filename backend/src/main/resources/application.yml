@@ -45,3 +45,10 @@ infinance:
   jwt:
     secret: ${INFINANCE_JWT_SECRET:}
     expiration: ${INFINANCE_JWT_EXPIRATION:86400}
+  owner:
+    name: ${INFINANCE_OWNER_NAME:Aniruddha Mondal}
+    phone: ${INFINANCE_OWNER_PHONE:+91 98765 43210}
+    email: ${INFINANCE_OWNER_EMAIL:aniruddha.mondal@example.com}
+  queries:
+    notify-enabled: ${INFINANCE_QUERIES_NOTIFY_ENABLED:false}
+    recipient-email: ${INFINANCE_QUERIES_RECIPIENT_EMAIL:aniruddha.mondal@example.com}

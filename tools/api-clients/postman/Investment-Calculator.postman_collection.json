@@ -237,6 +237,96 @@
           }
         }
       ]
+    },
+    {
+      "name": "Finance Queries",
+      "item": [
+        {
+          "name": "Get owner contact details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/config/owner-contact",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "config", "owner-contact"]
+            }
+          }
+        },
+        {
+          "name": "Submit finance query (Public)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rahul Sharma\",\n  \"email\": \"rahul@example.com\",\n  \"phone\": \"+91 9876543210\",\n  \"category\": \"SIP_MUTUAL_FUNDS\",\n  \"subject\": \"Choosing Index Funds for 15-year SIP\",\n  \"message\": \"I am planning a 15-year horizon for my child education. Should I choose Nifty 50 or Parag Parikh Flexi Cap?\",\n  \"preferredContact\": \"EMAIL\",\n  \"consent\": true,\n  \"honeypot\": \"\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/queries",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "queries"]
+            }
+          }
+        },
+        {
+          "name": "List queries (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic YWRtaW46Y2hhbmdlLW1l"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/queries?page=0&size=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "admin", "queries"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update query status (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic YWRtaW46Y2hhbmdlLW1l"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"IN_PROGRESS\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/admin/queries/{{queryId}}/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "v1", "admin", "queries", "{{queryId}}", "status"]
+            }
+          }
+        }
+      ]
     }
   ]
 }

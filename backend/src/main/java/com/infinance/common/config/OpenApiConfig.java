@@ -88,7 +88,8 @@ public class OpenApiConfig {
                         ApiConstants.AUTH + "/**",
                         ApiConstants.SCENARIOS + "/**",
                         ApiConstants.CONFIG + "/**",
-                        ApiConstants.ADMIN + "/**"
+                        ApiConstants.ADMIN + "/**",
+                        ApiConstants.QUERIES + "/**"
                 )
                 .build();
     }

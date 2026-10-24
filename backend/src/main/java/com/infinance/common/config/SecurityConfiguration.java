@@ -46,6 +46,8 @@ public class SecurityConfiguration {
                                 ApiConstants.MARKET + "/**",
                                 ApiConstants.LEARN + "/**",
                                 ApiConstants.GLOSSARY + "/**",
+                                ApiConstants.QUERIES + "/**",
+                                ApiConstants.CONFIG + "/owner-contact",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",

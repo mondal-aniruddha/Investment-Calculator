@@ -1,0 +1,29 @@
+meta {
+  name: Submit Finance Query
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/v1/queries
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Rahul Sharma",
+    "email": "rahul@example.com",
+    "phone": "+91 9876543210",
+    "category": "SIP_MUTUAL_FUNDS",
+    "subject": "Choosing Index Funds for 15-year SIP",
+    "message": "I am planning a 15-year horizon for my child education. Should I choose Nifty 50 or Parag Parikh Flexi Cap?",
+    "preferredContact": "EMAIL",
+    "consent": true,
+    "honeypot": ""
+  }
+}

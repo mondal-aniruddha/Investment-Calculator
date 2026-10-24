@@ -110,14 +110,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleFinancialInputException(InvalidFinancialInputException ex) {
         String correlationId = MDC.get("correlationId");
         log.warn("[correlationId={}] Business financial input error: {}", correlationId, ex.getMessage());
+        int status = "SPAM_DETECTED".equals(ex.getErrorCode()) ? HttpStatus.BAD_REQUEST.value() : UNPROCESSABLE_ENTITY_STATUS;
         ErrorResponse response = ErrorResponse.of(
-                UNPROCESSABLE_ENTITY_STATUS,
+                status,
                 ex.getErrorCode(),
                 ex.getMessage(),
                 List.of(),
                 correlationId
         );
-        return ResponseEntity.status(UNPROCESSABLE_ENTITY_STATUS).body(response);
+        return ResponseEntity.status(status).body(response);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
