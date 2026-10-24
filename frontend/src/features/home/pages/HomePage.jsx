@@ -247,6 +247,15 @@ export default function HomePage() {
               <button
                 type="button"
                 className="hero-cta-btn-secondary"
+                onClick={() => navigate('/ask-query')}
+              >
+                <span>{t('home.hero.ctaAskQuery', 'Ask a Finance Query')}</span>
+                <span aria-hidden="true">✉</span>
+              </button>
+
+              <button
+                type="button"
+                className="hero-cta-btn-secondary"
                 onClick={() => navigate('/learn')}
               >
                 <span>{t('home.hero.ctaSecondary', 'Explore the Learn Hub')}</span>
@@ -533,6 +542,63 @@ export default function HomePage() {
               </div>
             </Link>
           ))}
+        </div>
+
+        {/* Ask a Query consultation card */}
+        <div
+          className="home-ask-query-banner"
+          style={{
+            marginTop: 'var(--space-6)',
+            padding: 'var(--space-6)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--line)',
+            borderRadius: '12px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 'var(--space-4)',
+          }}
+        >
+          <div style={{ maxWidth: '640px' }}>
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '11px',
+                fontFamily: 'var(--font-mono)',
+                fontWeight: 600,
+                color: 'var(--ink-muted)',
+                marginBottom: '6px',
+              }}
+            >
+              <span>✉</span>
+              <span>PERSONAL FINANCE CONSULTATION</span>
+            </div>
+            <h3
+              style={{
+                fontSize: '18px',
+                fontWeight: 700,
+                color: 'var(--ink)',
+                marginBottom: '4px',
+              }}
+            >
+              Have a specific money scenario or question?
+            </h3>
+            <p style={{ fontSize: '14px', color: 'var(--ink-muted)', margin: 0 }}>
+              Write directly to Aniruddha Mondal (Site Owner &amp; Creator) about SIP, retirement,
+              tax deductions, or loans on our Ask a Query desk.
+            </p>
+          </div>
+          <Link
+            to="/ask-query"
+            className="hero-cta-btn-primary"
+            style={{ padding: '10px 22px', fontSize: '14px', textDecoration: 'none' }}
+          >
+            <span>Ask a Finance Query</span>
+            <span aria-hidden="true">→</span>
+          </Link>
         </div>
       </section>
 

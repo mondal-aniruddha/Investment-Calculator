@@ -75,8 +75,13 @@ export const ENDPOINTS = {
   CONFIG: {
     ASSUMPTIONS: '/api/v1/config/assumptions',
     REFRESH_STATUS: '/api/v1/config/refresh-status',
+    OWNER_CONTACT: '/api/v1/config/owner-contact',
   },
   INSIGHTS: {
     EXPLAIN: '/api/v1/insights/explain',
+  },
+  QUERIES: {
+    SUBMIT: '/api/v1/queries',
+    ADMIN_LIST: '/api/v1/admin/queries',
   },
 }

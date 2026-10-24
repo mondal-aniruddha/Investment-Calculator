@@ -34,4 +34,5 @@ public final class ApiConstants {
     public static final String CONFIG = API_V1 + "/config";
     public static final String ADMIN = API_V1 + "/admin";
     public static final String INSIGHTS = API_V1 + "/insights";
+    public static final String QUERIES = API_V1 + "/queries";
 }

@@ -5,6 +5,30 @@ All notable changes to the InFinance Calculator project will be documented in th
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] — 2026-10-24
+
+### Ask a Finance Query & Direct Consultation Module
+
+#### Added
+- **Ask a Finance Query Page (`/ask-query`):** Interactive, accessible consultation query submission form featuring live character counters, client validation, honeypot bot trap, category selector, preferred contact method, and consent acknowledgement.
+- **Site Owner Direct Contact:** Configurable direct contact callouts ("Prefer to talk? Call or message me directly.") displaying site owner identity (`Aniruddha Mondal`), with click-to-call `tel:` and click-to-email `mailto:` links across the form header, success state, and footer.
+- **Backend Queries Module (`com.infinance.queries`):**
+  - `POST /api/v1/queries`: Public query submission endpoint with XSS sanitization, IP hashing (SHA-256 with monthly rotating salt), and unique human-readable tracking reference IDs (`FQ-YYYY-XXXXXX`).
+  - `GET /api/v1/config/owner-contact`: Public endpoint serving configured site owner name, phone, email, and working hours.
+  - `GET /api/v1/admin/queries` & `PATCH /api/v1/admin/queries/{id}/status`: Admin-secured management endpoints (HTTP Basic / JWT Admin).
+  - Optional query notification service via Spring Mail (`QueryNotificationService`), enabled via `infinance.queries.notify-enabled=true`.
+- **Database Schema Migration:** Added Flyway migration `V7__finance_queries.sql` creating the `finance_queries` table with optimized indexes on `reference_id`, `status`, and `created_at`.
+- **Security & Protection:** Added `QueryRateLimitFilter` enforcing per-IP rate limits (5 queries per hour per IP) returning standard RFC 7807 429 Problem Details with `Retry-After` header.
+- **Multilingual Support (i18n):** Complete English (en), Hindi (hi), and Bengali (bn) translations for the query form, confirmation, error states, and navigation links.
+- **API Tooling:** Postman collection ("Finance Queries") and Bruno `.bru` requests for public submission, owner contact, and admin query management.
+- **End-to-End & Unit Tests:** MockMvc controller tests (`FinanceQueryControllerTest`), service unit tests (`FinanceQueryServiceTest`), and Playwright e2e test suite (`e2e/queries.spec.js`).
+
+#### Changed
+- **Home Page Navigation & Discoverability:** Added primary hero CTA button and "Need Personalized Guidance?" consultation feature card linking directly to `/ask-query`.
+- **App Navigation:** Added "Ask a Query" navigation links to top desktop navbar, mobile drawer, and footer links.
+
+---
+
 ## [2.1.0] — 2026-10-14
 
 ### Clean Architecture Refactoring & Modernization (Phases 0–8)

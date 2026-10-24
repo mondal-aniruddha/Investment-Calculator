@@ -14,6 +14,7 @@ import ArticleDetailPage from '../features/learn/pages/ArticleDetailPage'
 import GlossaryPage from '../features/glossary/pages/GlossaryPage'
 import RoadmapPage from '../pages/RoadmapPage'
 import PrivacyPage from '../pages/PrivacyPage'
+import AskQueryPage from '../pages/AskQueryPage'
 import { AuthPage } from '../features/auth/pages/AuthPage'
 import { AccountPage } from '../features/auth/pages/AccountPage'
 
@@ -24,6 +25,7 @@ export function AppRoutes({ setApiOnline }) {
     <Routes>
       {/* ── Public pages ── */}
       <Route path="/" element={<HomePage setApiOnline={setApiOnline} />} />
+      <Route path="/ask-query" element={<AskQueryPage setApiOnline={setApiOnline} />} />
       <Route path="/learn" element={<LearnHubPage />} />
       <Route path="/learn/:slug" element={<ArticleDetailPage />} />
       <Route path="/glossary" element={<GlossaryPage />} />

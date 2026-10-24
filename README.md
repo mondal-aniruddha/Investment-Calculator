@@ -54,6 +54,7 @@ Investment-Calculator/
 │   │   ├── goals/                 # Multi-goal priority planning engine
 │   │   ├── networth/              # Balance sheet asset/liability engine
 │   │   ├── metals/                # Live gold, silver & platinum rates
+│   │   ├── queries/               # Personal finance queries submission, rate limiting & owner contact
 │   │   ├── reports/               # PDF and Excel export services
 │   │   ├── auth/                  # JWT authentication, user accounts, saved scenarios
 │   │   ├── configengine/          # Database-backed macro-economic assumptions
@@ -62,7 +63,7 @@ Investment-Calculator/
 │       ├── application.yml        # Base configuration
 │       ├── application-dev.yml    # Development profile
 │       ├── application-prod.yml   # Production profile
-│       └── db/migration/          # Flyway schema migrations (V1..V6)
+│       └── db/migration/          # Flyway schema migrations (V1..V7)
 │
 ├── frontend/                      # Canonical Frontend (React 19 + Vite 7)
 │   ├── src/
@@ -80,6 +81,7 @@ Investment-Calculator/
 │   │   │   ├── mutual-funds/      # SWP, CAGR, XIRR tools
 │   │   │   ├── net-worth/         # Net worth calculator
 │   │   │   ├── planning/          # Financial planning roadmap
+│   │   │   ├── queries/           # Ask a Finance Query page, form & owner contact
 │   │   │   ├── retirement/        # Retirement & Monte Carlo forms
 │   │   │   ├── sip/               # SIP & lumpsum calculators
 │   │   │   └── tax/               # Tax comparison & optimizer
@@ -161,6 +163,11 @@ kubectl apply -f deploy/k8s/ingress.yaml
 | `JWT_SECRET` | *(dev fallback)* | Base64-encoded HMAC secret (required in prod) |
 | `CORS_ALLOWED_ORIGINS` | `http://localhost:5173,...` | Comma-separated list of allowed frontend origins |
 | `METALS_DEV_API_KEY` | *(empty)* | Optional API key for live metal rates |
+| `INFINANCE_OWNER_NAME` | `Aniruddha Mondal` | Site owner display name |
+| `INFINANCE_OWNER_PHONE` | `<YOUR_PHONE_NUMBER>` | Direct contact phone number of owner |
+| `INFINANCE_OWNER_EMAIL` | `<YOUR_EMAIL>` | Direct contact email address of owner |
+| `INFINANCE_QUERIES_NOTIFY_ENABLED` | `false` | Enable email notifications on query submission |
+| `INFINANCE_QUERIES_RECIPIENT_EMAIL` | *(empty)* | Recipient email address for query notifications |
 
 ### Frontend Configuration
 
@@ -168,6 +175,9 @@ kubectl apply -f deploy/k8s/ingress.yaml
 | :--- | :--- | :--- |
 | `VITE_API_BASE_URL` | `http://localhost:8080` | URL of the backend REST API |
 | `VITE_METALS_API_ENABLED` | `true` | Feature flag to enable/disable metal price polling |
+| `VITE_OWNER_NAME` | `Aniruddha Mondal` | Fallback display name of site owner |
+| `VITE_OWNER_PHONE` | `<YOUR_PHONE_NUMBER>` | Fallback direct contact phone number |
+| `VITE_OWNER_EMAIL` | `<YOUR_EMAIL>` | Fallback direct contact email address |
 
 ---
 
