@@ -26,7 +26,7 @@ public class FinanceQuery {
     private String email;
 
     @Column(length = 32)
-    private String phone;
+    private String whatsapp;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 50, nullable = false)
@@ -58,14 +58,14 @@ public class FinanceQuery {
     protected FinanceQuery() {
     }
 
-    public FinanceQuery(String referenceId, String name, String email, String phone,
+    public FinanceQuery(String referenceId, String name, String email, String whatsapp,
                         QueryCategory category, String subject, String message,
                         PreferredContactMethod preferredContact, String clientIpHash) {
         this.id = UUID.randomUUID().toString();
         this.referenceId = referenceId;
         this.name = name;
         this.email = email;
-        this.phone = phone;
+        this.whatsapp = whatsapp;
         this.category = category;
         this.subject = subject;
         this.message = message;
@@ -102,12 +102,12 @@ public class FinanceQuery {
         this.updatedAt = Instant.now();
     }
 
-    public String getPhone() {
-        return phone;
+    public String getWhatsapp() {
+        return whatsapp;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setWhatsapp(String whatsapp) {
+        this.whatsapp = whatsapp;
         this.updatedAt = Instant.now();
     }
 

@@ -155,6 +155,39 @@
   color: var(--accent-mid);
 }
 
+.owner-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 18px;
+  border-radius: 9px;
+  background-color: #25D366;
+  color: #ffffff !important;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--dur-fast, 150ms) ease;
+  box-shadow: 0 2px 10px rgba(37, 211, 102, 0.28);
+}
+
+.owner-whatsapp-btn:hover {
+  background-color: #20bd5a;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.42);
+}
+
+.owner-whatsapp-btn:focus-visible {
+  outline: 3px solid #25D366;
+  outline-offset: 2px;
+}
+
+.owner-whatsapp-btn svg {
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
 /* ── Main Form Card ──────────────────────────────────────────────────────── */
 .query-form-wrapper {
   background: var(--bg-card);

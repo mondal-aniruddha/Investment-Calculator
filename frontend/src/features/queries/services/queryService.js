@@ -11,7 +11,7 @@ export async function fetchOwnerContact() {
     const data = await httpClient.get(ENDPOINTS.CONFIG.OWNER_CONTACT)
     return {
       name: data.name || DEFAULT_OWNER_CONFIG.name,
-      phone: data.phone || DEFAULT_OWNER_CONFIG.phone,
+      whatsapp: data.whatsapp || DEFAULT_OWNER_CONFIG.whatsapp,
       email: data.email || DEFAULT_OWNER_CONFIG.email,
     }
   } catch {

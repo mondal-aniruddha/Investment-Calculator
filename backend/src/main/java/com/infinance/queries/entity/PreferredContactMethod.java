@@ -2,6 +2,6 @@ package com.infinance.queries.entity;
 
 public enum PreferredContactMethod {
     EMAIL,
-    PHONE,
+    WHATSAPP,
     EITHER
 }

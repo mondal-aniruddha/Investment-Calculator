@@ -77,7 +77,7 @@ class FinanceQueryServiceTest {
         assertThat(saved.getSubject()).isEqualTo("alert('xss')How to choose index funds?");
         assertThat(saved.getMessage()).isEqualTo("I want to start an SIP of 10000 per month for retirement.");
         assertThat(saved.getEmail()).isEqualTo("john@example.com");
-        assertThat(saved.getPhone()).isEqualTo("+91 9876543210");
+        assertThat(saved.getWhatsapp()).isEqualTo("+91 9876543210");
         assertThat(saved.getCategory()).isEqualTo(QueryCategory.SIP_MUTUAL_FUNDS);
         assertThat(saved.getStatus()).isEqualTo(QueryStatus.NEW);
         assertThat(saved.getClientIpHash()).isNotEqualTo("192.168.1.1");

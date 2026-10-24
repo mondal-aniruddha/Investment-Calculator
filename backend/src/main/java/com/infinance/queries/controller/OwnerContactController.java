@@ -27,7 +27,7 @@ public class OwnerContactController {
     public ResponseEntity<OwnerContactDto> getOwnerContact() {
         return ResponseEntity.ok(new OwnerContactDto(
                 properties.getName(),
-                properties.getPhone(),
+                properties.getWhatsapp(),
                 properties.getEmail()
         ));
     }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "infinance.queries")
 public class QueryNotificationProperties {
     private boolean notifyEnabled = false;
-    private String recipientEmail = "aniruddha.mondal@example.com";
+    private String recipientEmail = "aniruddha0266@gmail.com";
 
     public boolean isNotifyEnabled() {
         return notifyEnabled;

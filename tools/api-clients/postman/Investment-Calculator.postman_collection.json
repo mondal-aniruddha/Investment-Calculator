@@ -265,7 +265,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Rahul Sharma\",\n  \"email\": \"rahul@example.com\",\n  \"phone\": \"+91 9876543210\",\n  \"category\": \"SIP_MUTUAL_FUNDS\",\n  \"subject\": \"Choosing Index Funds for 15-year SIP\",\n  \"message\": \"I am planning a 15-year horizon for my child education. Should I choose Nifty 50 or Parag Parikh Flexi Cap?\",\n  \"preferredContact\": \"EMAIL\",\n  \"consent\": true,\n  \"honeypot\": \"\"\n}"
+              "raw": "{\n  \"name\": \"Rahul Sharma\",\n  \"email\": \"rahul@example.com\",\n  \"whatsapp\": \"+91 8013292565\",\n  \"category\": \"SIP_MUTUAL_FUNDS\",\n  \"subject\": \"Choosing Index Funds for 15-year SIP\",\n  \"message\": \"I am planning a 15-year horizon for my child education. Should I choose Nifty 50 or Parag Parikh Flexi Cap?\",\n  \"preferredContact\": \"WHATSAPP\",\n  \"consent\": true,\n  \"honeypot\": \"\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/v1/queries",

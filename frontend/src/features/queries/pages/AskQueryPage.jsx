@@ -7,9 +7,29 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
-import { DEFAULT_OWNER_CONFIG, formatTelHref, formatMailtoHref } from '../../../shared/config/owner'
+import {
+  DEFAULT_OWNER_CONFIG,
+  formatWhatsAppHref,
+  formatWhatsAppDisplay,
+  formatMailtoHref,
+} from '../../../shared/config/owner'
 import { submitFinanceQuery, fetchOwnerContact } from '../services/queryService'
 import '../../../styles/queries.css'
+
+function WhatsAppIcon({ size = 20 }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      style={{ flexShrink: 0 }}
+    >
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  )
+}
 
 const CATEGORY_KEYS = [
   'SIP_MUTUAL_FUNDS',
@@ -32,7 +52,7 @@ export default function AskQueryPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
+    whatsapp: '',
     category: '',
     subject: '',
     message: '',
@@ -91,12 +111,12 @@ export default function AskQueryPage() {
       errs.email = t('queries.errors.emailInvalid', 'Please enter a valid email address.')
     }
 
-    const trimmedPhone = formData.phone.trim()
-    if (trimmedPhone) {
+    const trimmedWhatsApp = formData.whatsapp.trim()
+    if (trimmedWhatsApp) {
       const phoneRegex = /^(\+91[\-\s]?)?[6-9]\d{9}$/
-      if (!phoneRegex.test(trimmedPhone)) {
-        errs.phone = t(
-          'queries.errors.phoneInvalid',
+      if (!phoneRegex.test(trimmedWhatsApp)) {
+        errs.whatsapp = t(
+          'queries.errors.whatsappInvalid',
           'Please enter a valid 10-digit Indian mobile number (+91 optional).'
         )
       }
@@ -144,13 +164,14 @@ export default function AskQueryPage() {
     }
 
     setSubmitting(true)
+    const submittedSubject = formData.subject.trim()
     try {
       const payload = {
         name: formData.name.trim(),
         email: formData.email.trim(),
-        phone: formData.phone.trim() || null,
+        whatsapp: formData.whatsapp.trim() || null,
         category: formData.category,
-        subject: formData.subject.trim(),
+        subject: submittedSubject,
         message: formData.message.trim(),
         preferredContact: formData.preferredContact,
         consent: formData.consent,
@@ -158,13 +179,16 @@ export default function AskQueryPage() {
       }
 
       const response = await submitFinanceQuery(payload)
-      setSuccessData(response)
+      setSuccessData({
+        ...response,
+        subject: submittedSubject,
+      })
       setErrors({})
       // Reset form
       setFormData({
         name: '',
         email: '',
-        phone: '',
+        whatsapp: '',
         category: '',
         subject: '',
         message: '',
@@ -256,30 +280,29 @@ export default function AskQueryPage() {
           <div className="owner-direct-callout">
             <span aria-hidden="true">💬</span>
             <span>
-              {t('queries.ownerCard.callPrompt', 'Prefer to talk? Call or message me directly.')}
+              {t(
+                'queries.ownerCard.callPrompt',
+                'Prefer a quick chat? Message me on WhatsApp or email me directly.'
+              )}
             </span>
           </div>
 
           <div className="owner-contacts-list">
             <a
-              href={formatTelHref(owner.phone)}
-              className="owner-contact-pill"
-              aria-label={`Call or WhatsApp ${owner.phone}`}
+              href={formatWhatsAppHref(
+                owner.whatsapp,
+                'Hi Aniruddha, I have a finance query from InFinance.'
+              )}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="owner-whatsapp-btn"
+              aria-label="Chat with Aniruddha on WhatsApp (opens in a new tab)"
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-              </svg>
-              <span>{owner.phone}</span>
+              <WhatsAppIcon />
+              <span>
+                Chat on WhatsApp &nbsp;
+                <strong>{formatWhatsAppDisplay(owner.whatsapp)}</strong>
+              </span>
             </a>
 
             <a
@@ -347,8 +370,23 @@ export default function AskQueryPage() {
               )}
             </p>
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <a href={formatTelHref(owner.phone)} className="owner-contact-pill">
-                📞 {owner.phone}
+              <a
+                href={formatWhatsAppHref(
+                  owner.whatsapp,
+                  successData.subject && successData.subject.trim()
+                    ? `Hi Aniruddha, I have a finance query regarding "${successData.subject.trim()}" (Ref: ${successData.referenceId}) from InFinance.`
+                    : `Hi Aniruddha, I have a finance query (Ref: ${successData.referenceId}) from InFinance.`
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="owner-whatsapp-btn"
+                aria-label="Chat with Aniruddha on WhatsApp (opens in a new tab)"
+              >
+                <WhatsAppIcon />
+                <span>
+                  Chat on WhatsApp &nbsp;
+                  <strong>{formatWhatsAppDisplay(owner.whatsapp)}</strong>
+                </span>
               </a>
               <a
                 href={formatMailtoHref(
@@ -356,8 +394,23 @@ export default function AskQueryPage() {
                   `Follow-up on Query ${successData.referenceId}`
                 )}
                 className="owner-contact-pill"
+                aria-label={`Email ${owner.email}`}
               >
-                ✉ {owner.email}
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                <span>{owner.email}</span>
               </a>
             </div>
           </div>
@@ -466,28 +519,28 @@ export default function AskQueryPage() {
               </div>
             </div>
 
-            {/* Row 2: Phone & Category */}
+            {/* Row 2: WhatsApp & Category */}
             <div className="form-grid-row">
               <div className="form-group-item">
-                <label htmlFor="field-phone">
-                  <span>{t('queries.form.phone', 'Phone Number (Optional)')}</span>
+                <label htmlFor="field-whatsapp">
+                  <span>{t('queries.form.whatsapp', 'WhatsApp Number (Optional)')}</span>
                 </label>
                 <input
                   type="tel"
-                  id="field-phone"
-                  name="phone"
-                  placeholder={t('queries.form.phonePlaceholder', 'e.g. +91 9876543210')}
-                  value={formData.phone}
+                  id="field-whatsapp"
+                  name="whatsapp"
+                  placeholder={t('queries.form.whatsappPlaceholder', 'e.g. +91 80132 92565')}
+                  value={formData.whatsapp}
                   onChange={handleChange}
-                  className={errors.phone ? 'has-error' : ''}
-                  aria-invalid={errors.phone ? 'true' : 'false'}
-                  aria-describedby={errors.phone ? 'error-phone' : undefined}
+                  className={errors.whatsapp ? 'has-error' : ''}
+                  aria-invalid={errors.whatsapp ? 'true' : 'false'}
+                  aria-describedby={errors.whatsapp ? 'error-whatsapp' : undefined}
                   maxLength={32}
                 />
-                {errors.phone && (
-                  <div className="inline-field-error" id="error-phone" role="alert">
+                {errors.whatsapp && (
+                  <div className="inline-field-error" id="error-whatsapp" role="alert">
                     <span aria-hidden="true">⚠</span>
-                    <span>{errors.phone}</span>
+                    <span>{errors.whatsapp}</span>
                   </div>
                 )}
               </div>
@@ -602,7 +655,7 @@ export default function AskQueryPage() {
                 <span>{t('queries.form.preferredContact', 'Preferred Contact Method')}</span>
               </label>
               <div className="preferred-contact-options" role="radiogroup">
-                {['EMAIL', 'PHONE', 'EITHER'].map((method) => (
+                {['EMAIL', 'WHATSAPP', 'EITHER'].map((method) => (
                   <label key={method} className="radio-pill-label">
                     <input
                       type="radio"
@@ -614,8 +667,8 @@ export default function AskQueryPage() {
                     <span>
                       {method === 'EMAIL'
                         ? t('queries.form.contactEmail', 'Email')
-                        : method === 'PHONE'
-                          ? t('queries.form.contactPhone', 'Phone')
+                        : method === 'WHATSAPP'
+                          ? t('queries.form.contactWhatsApp', 'WhatsApp')
                           : t('queries.form.contactEither', 'Either')}
                     </span>
                   </label>

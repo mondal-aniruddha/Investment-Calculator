@@ -156,9 +156,9 @@ class FinanceQueryControllerTest {
     void shouldGetOwnerContactPublicly() throws Exception {
         mockMvc.perform(get("/api/v1/config/owner-contact"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", notNullValue()))
-                .andExpect(jsonPath("$.phone", notNullValue()))
-                .andExpect(jsonPath("$.email", notNullValue()));
+                .andExpect(jsonPath("$.name", is("Aniruddha Mondal")))
+                .andExpect(jsonPath("$.whatsapp", is("+91 8013292565")))
+                .andExpect(jsonPath("$.email", is("aniruddha0266@gmail.com")));
     }
 
     @Test

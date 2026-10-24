@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "infinance.owner")
 public class OwnerContactProperties {
     private String name = "Aniruddha Mondal";
-    private String phone = "+91 98765 43210";
-    private String email = "aniruddha.mondal@example.com";
+    private String whatsapp = "+91 8013292565";
+    private String email = "aniruddha0266@gmail.com";
 
     public String getName() {
         return name;
@@ -18,12 +18,12 @@ public class OwnerContactProperties {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getWhatsapp() {
+        return whatsapp;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setWhatsapp(String whatsapp) {
+        this.whatsapp = whatsapp;
     }
 
     public String getEmail() {
