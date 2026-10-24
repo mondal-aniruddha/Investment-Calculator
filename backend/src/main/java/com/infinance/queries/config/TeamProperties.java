@@ -55,13 +55,15 @@ public class TeamProperties {
         TeamMemberProperties m = new TeamMemberProperties();
         m.setId("kuhika");
         m.setName("Kuhika Das");
-        // <CO_FOUNDER_ROLE> — replace the string below with Kuhika's actual role title
-        m.setRole("Co-founder");
-        // <CO_FOUNDER_BIO> — replace the string below with Kuhika's actual short bio (~50 words)
+        m.setRole("Co-founder & Process Engineer");
         m.setShortBio(
-            "<CO_FOUNDER_BIO: Replace this placeholder with Kuhika's short biography " +
-            "(~50 words). Do not invent qualifications, employers, or achievements. " +
-            "Update this default in application.yml via the INFINANCE_TEAM_1_SHORT_BIO env var.>"
+            "Kuhika is a Process Engineer with 4+ years of experience in the Oil & Gas industry, " +
+            "remotely monitoring and supporting plant assets. Specializing in digital twin creation, " +
+            "P&ID digitization, smart plant creation and chemical process modelling, Kuhika works closely " +
+            "with engineering and digital platform teams to provide functional support for Digital Twin " +
+            "initiatives and Industry 4.0 solutions. With a proven record of improving operational efficiency " +
+            "and operational excellence, Kuhika is passionate about using digital technologies and innovative " +
+            "engineering practices to optimize industrial systems and contribute to sustainable energy solutions."
         );
         m.setWhatsapp("+91 7667889389");
         m.setEmail("kuhika.das@gmail.com");

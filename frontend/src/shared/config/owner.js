@@ -17,21 +17,42 @@ export const DEFAULT_OWNER_CONFIG = {
   directContactLine: 'Prefer a quick chat? Message me on WhatsApp or email me directly.',
 }
 
-// ── Team members — ordered list (founder first) ───────────────────────────────
+// ── Co-founder default copy ──────────────────────────────────────────────────
+
+export const KUHIKA_DEFAULT_ROLE = 'Co-founder & Process Engineer'
+
+export const KUHIKA_DEFAULT_BIO =
+  'Kuhika is a Process Engineer with 4+ years of experience in the Oil & Gas industry, ' +
+  'remotely monitoring and supporting plant assets. Specializing in digital twin creation, ' +
+  'P&ID digitization, smart plant creation and chemical process modelling, Kuhika works closely ' +
+  'with engineering and digital platform teams to provide functional support for Digital Twin ' +
+  'initiatives and Industry 4.0 solutions. With a proven record of improving operational efficiency ' +
+  'and operational excellence, Kuhika is passionate about using digital technologies and innovative ' +
+  'engineering practices to optimize industrial systems and contribute to sustainable energy solutions.'
 
 /**
- * Default team members. These match the backend defaults in TeamProperties.java
- * and application.yml. Override via VITE_TEAM_n_* env vars.
+ * Sanitizes a biography string, guaranteeing that empty values or placeholder
+ * strings like "<CO_FOUNDER_BIO...>" fall back to the built-in default text.
  *
- * IMPORTANT — two placeholders must be replaced by the site owner:
- *   <CO_FOUNDER_ROLE>  → VITE_TEAM_1_ROLE env var (e.g. "Co-founder & Finance Content Lead")
- *   <CO_FOUNDER_BIO>   → VITE_TEAM_1_SHORT_BIO env var (~50 words, no invented credentials)
+ * @param {string} bio Raw biography string
+ * @param {string} fallback Default biography
+ * @returns {string}
  */
+export function sanitizeBio(bio, fallback = '') {
+  if (!bio || typeof bio !== 'string') return fallback
+  const trimmed = bio.trim()
+  if (!trimmed || trimmed.startsWith('<') || trimmed.toLowerCase().includes('placeholder')) {
+    return fallback
+  }
+  return trimmed
+}
+
+// ── Team members — ordered list (founder first) ───────────────────────────────
+
 export const DEFAULT_TEAM = [
   {
     id: 'aniruddha',
     name: import.meta.env.VITE_TEAM_0_NAME || 'Aniruddha Mondal',
-    // <FOUNDER_ROLE> — update VITE_TEAM_0_ROLE to override
     role: import.meta.env.VITE_TEAM_0_ROLE || 'Founder & Lead Developer',
     shortBio:
       import.meta.env.VITE_TEAM_0_SHORT_BIO ||
@@ -47,13 +68,8 @@ export const DEFAULT_TEAM = [
   {
     id: 'kuhika',
     name: import.meta.env.VITE_TEAM_1_NAME || 'Kuhika Das',
-    // <CO_FOUNDER_ROLE> — set VITE_TEAM_1_ROLE with Kuhika's actual role title
-    role: import.meta.env.VITE_TEAM_1_ROLE || 'Co-founder',
-    // <CO_FOUNDER_BIO> — set VITE_TEAM_1_SHORT_BIO with Kuhika's actual bio (~50 words)
-    shortBio:
-      import.meta.env.VITE_TEAM_1_SHORT_BIO ||
-      '<CO_FOUNDER_BIO: Replace this placeholder — set the VITE_TEAM_1_SHORT_BIO environment ' +
-        'variable with a short biography of ~50 words. Do not invent qualifications or employers.>',
+    role: import.meta.env.VITE_TEAM_1_ROLE || KUHIKA_DEFAULT_ROLE,
+    shortBio: sanitizeBio(import.meta.env.VITE_TEAM_1_SHORT_BIO, KUHIKA_DEFAULT_BIO),
     whatsapp: import.meta.env.VITE_TEAM_1_WHATSAPP || '+91 7667889389',
     email: import.meta.env.VITE_TEAM_1_EMAIL || 'kuhika.das@gmail.com',
     initials: import.meta.env.VITE_TEAM_1_INITIALS || 'KD',
@@ -63,16 +79,16 @@ export const DEFAULT_TEAM = [
 // ── WhatsApp helpers ──────────────────────────────────────────────────────────
 
 /**
- * Derive WhatsApp link and display text from a raw number.
- * Single source of truth — never repeat a number in components.
+ * Derive WhatsApp link and raw digits from a number string.
+ * Link uses the official wa.me format. Raw phone numbers are NOT displayed in UI.
  *
  * @param {string} rawNumber Raw WhatsApp number (e.g. "+91 8013292565" or "918013292565")
  * @param {string} [text]    Optional prefilled message text (will be URL-encoded)
- * @returns {{ digits: string, display: string, href: string }}
+ * @returns {{ digits: string, href: string }}
  */
 export function formatWhatsAppContact(rawNumber = DEFAULT_OWNER_CONFIG.whatsapp, text = '') {
   if (!rawNumber) {
-    return { digits: '', display: '', href: '' }
+    return { digits: '', href: '' }
   }
 
   // Extract digits only
@@ -80,27 +96,15 @@ export function formatWhatsAppContact(rawNumber = DEFAULT_OWNER_CONFIG.whatsapp,
   // Ensure country code: if 10 digits, prepend 91
   const digits = rawDigits.length === 10 ? `91${rawDigits}` : rawDigits
 
-  // Format display text: "+91 80132 92565"
-  let display = rawNumber
-  if (digits.startsWith('91') && digits.length === 12) {
-    display = `+91 ${digits.slice(2, 7)} ${digits.slice(7)}`
-  } else if (digits.length === 10) {
-    display = `+91 ${digits.slice(0, 5)} ${digits.slice(5)}`
-  }
-
   // Build wa.me href
   const encodedText = text ? `?text=${encodeURIComponent(text)}` : ''
   const href = digits ? `https://wa.me/${digits}${encodedText}` : ''
 
-  return { digits, display, href }
+  return { digits, href }
 }
 
 export function formatWhatsAppHref(rawNumber = DEFAULT_OWNER_CONFIG.whatsapp, text = '') {
   return formatWhatsAppContact(rawNumber, text).href
-}
-
-export function formatWhatsAppDisplay(rawNumber = DEFAULT_OWNER_CONFIG.whatsapp) {
-  return formatWhatsAppContact(rawNumber).display
 }
 
 export function formatMailtoHref(email = DEFAULT_OWNER_CONFIG.email, subject = '') {

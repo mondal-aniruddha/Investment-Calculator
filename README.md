@@ -164,9 +164,9 @@ kubectl apply -f deploy/k8s/ingress.yaml
 | `CORS_ALLOWED_ORIGINS` | `http://localhost:5173,...` | Comma-separated list of allowed frontend origins |
 | `METALS_DEV_API_KEY` | *(empty)* | Optional API key for live metal rates |
 | `INFINANCE_OWNER_NAME` | `Aniruddha Mondal` | Site owner display name |
-| `INFINANCE_OWNER_WHATSAPP` | `+91 8013292565` | Direct WhatsApp contact number of owner |
+| `INFINANCE_OWNER_WHATSAPP` | `+91 8013292565` | Direct WhatsApp contact number of owner (used for wa.me links) |
 | `INFINANCE_OWNER_EMAIL` | `aniruddha0266@gmail.com` | Direct contact email address of owner |
-| `INFINANCE_TEAM_n_*` | *(defaults in yml)* | Team members configuration (0 = founder, 1 = co-founder) |
+| `INFINANCE_TEAM_n_*` | *(built-in defaults in yml)* | Team members configuration (index 0 = founder, index 1 = co-founder). All bios and roles have built-in defaults; numbers are never rendered as visible text. |
 | `INFINANCE_QUERIES_NOTIFY_ENABLED` | `false` | Enable email notifications on query submission |
 | `INFINANCE_QUERIES_RECIPIENT_EMAIL` | `aniruddha0266@gmail.com` | Recipient email address for query notifications |
 
@@ -177,9 +177,9 @@ kubectl apply -f deploy/k8s/ingress.yaml
 | `VITE_API_BASE_URL` | `http://localhost:8080` | URL of the backend REST API |
 | `VITE_METALS_API_ENABLED` | `true` | Feature flag to enable/disable metal price polling |
 | `VITE_OWNER_NAME` | `Aniruddha Mondal` | Fallback display name of site owner |
-| `VITE_OWNER_WHATSAPP` | `+91 8013292565` | Fallback direct WhatsApp contact number |
+| `VITE_OWNER_WHATSAPP` | `+91 8013292565` | Fallback direct WhatsApp contact number (for wa.me links) |
 | `VITE_OWNER_EMAIL` | `aniruddha0266@gmail.com` | Fallback direct contact email address |
-| `VITE_TEAM_n_*` | *(defaults in owner.js)* | Fallback team members configuration |
+| `VITE_TEAM_n_*` | *(built-in defaults in owner.js)* | Fallback team members configuration. All bios and roles have built-in defaults; buttons display clean "Chat on WhatsApp" labels without visible numbers. |
 
 ---
 

@@ -288,6 +288,7 @@ const resources = {
           title: 'Direct Consultation & Contact',
           nameLabel: 'Founder & Lead Developer',
           whatsappLabel: 'WhatsApp',
+          chatOn: 'Chat on WhatsApp',
           emailLabel: 'Email',
           callPrompt: 'Prefer a quick chat? Message me on WhatsApp or email me directly.',
           orCoFounder: 'Or reach our co-founder',
@@ -298,6 +299,10 @@ const resources = {
             'We share general educational information and are not SEBI-registered investment advisers.',
           chatOn: 'Chat on WhatsApp',
           whatsappAriaLabel: 'Chat with {{name}} on WhatsApp (opens in a new tab)',
+          roles: {
+            aniruddha: 'Founder & Lead Developer',
+            kuhika: 'Co-founder & Process Engineer',
+          },
         },
         form: {
           fullName: 'Full Name',
@@ -305,7 +310,7 @@ const resources = {
           email: 'Email Address',
           emailPlaceholder: 'e.g. rahul@example.com',
           whatsapp: 'WhatsApp Number (Optional)',
-          whatsappPlaceholder: 'e.g. +91 80132 92565',
+          whatsappPlaceholder: 'e.g. +91 98765 43210',
           category: 'Query Category',
           categorySelect: 'Select a category...',
           categories: {
@@ -672,6 +677,7 @@ const resources = {
           title: 'सीधा परामर्श और संपर्क',
           nameLabel: 'संस्थापक और मुख्य डेवलपर',
           whatsappLabel: 'व्हाट्सएप',
+          chatOn: 'व्हाट्सएप पर चैट करें',
           emailLabel: 'ईमेल',
           callPrompt:
             'तुरंत बातचीत करना चाहते हैं? मुझे व्हाट्सएप पर संदेश भेजें या सीधे ईमेल करें।',
@@ -683,6 +689,10 @@ const resources = {
             'हम सामान्य शैक्षिक जानकारी साझा करते हैं और SEBI-पंजीकृत निवेश सलाहकार नहीं हैं।',
           chatOn: 'व्हाट्सएप पर चैट करें',
           whatsappAriaLabel: '{{name}} से व्हाट्सएप पर चैट करें (नए टैब में खुलेगा)',
+          roles: {
+            aniruddha: 'संस्थापक और मुख्य डेवलपर',
+            kuhika: 'सह-संस्थापक और प्रोसेस इंजीनियर',
+          },
         },
         form: {
           fullName: 'पूरा नाम',
@@ -690,7 +700,7 @@ const resources = {
           email: 'ईमेल पता',
           emailPlaceholder: 'उदा. rahul@example.com',
           whatsapp: 'व्हाट्सएप नंबर (वैकल्पिक)',
-          whatsappPlaceholder: 'उदा. +91 80132 92565',
+          whatsappPlaceholder: 'उदा. +91 98765 43210',
           category: 'प्रश्न श्रेणी',
           categorySelect: 'एक श्रेणी चुनें...',
           categories: {
@@ -1056,6 +1066,7 @@ const resources = {
           title: 'সরাসরি পরামর্শ ও যোগাযোগ',
           nameLabel: 'প্রতিষ্ঠাতা ও প্রধান ডেভেলপার',
           whatsappLabel: 'হোয়াটসঅ্যাপ',
+          chatOn: 'হোয়াটসঅ্যাপে চ্যাট করুন',
           emailLabel: 'ইমেল',
           callPrompt: 'দ্রুত কথা বলতে চান? আমাকে হোয়াটসঅ্যাপে বার্তা পাঠান বা সরাসরি ইমেল করুন।',
           orCoFounder: 'অথবা আমাদের সহ-প্রতিষ্ঠাতার সাথে যোগাযোগ করুন',
@@ -1066,6 +1077,10 @@ const resources = {
             'আমরা সাধারণ শিক্ষামূলক তথ্য ভাগ করি এবং SEBI-নন্দিত বিনিয়োগ পরামর্শদাতা নই।',
           chatOn: 'হোয়াটসঅ্যাপে চ্যাট করুন',
           whatsappAriaLabel: '{{name}}-এর সাথে হোয়াটসঅ্যাপে চ্যাট করুন (নতুন ট্যাবে খুলবে)',
+          roles: {
+            aniruddha: 'প্রতিষ্ঠাতা ও প্রধান ডেভেলপার',
+            kuhika: 'সহ-প্রতিষ্ঠাতা ও প্রসেস ইঞ্জিনিয়ার',
+          },
         },
         form: {
           fullName: 'পুরো নাম',
@@ -1073,7 +1088,7 @@ const resources = {
           email: 'ইমেল ঠিকানা',
           emailPlaceholder: 'উদা. rahul@example.com',
           whatsapp: 'হোয়াটসঅ্যাপ নম্বর (ঐচ্ছিক)',
-          whatsappPlaceholder: 'উদা. +91 80132 92565',
+          whatsappPlaceholder: 'উদা. +91 98765 43210',
           category: 'প্রশ্নের বিভাগ',
           categorySelect: 'একটি বিভাগ নির্বাচন করুন...',
           categories: {

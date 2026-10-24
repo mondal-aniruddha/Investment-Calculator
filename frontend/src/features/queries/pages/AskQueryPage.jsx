@@ -11,7 +11,6 @@ import {
   DEFAULT_OWNER_CONFIG,
   DEFAULT_TEAM,
   formatWhatsAppHref,
-  formatWhatsAppDisplay,
   formatMailtoHref,
 } from '../../../shared/config/owner'
 import { submitFinanceQuery, fetchOwnerContact, fetchTeam } from '../services/queryService'
@@ -64,15 +63,17 @@ function FounderCard({ member, waMessage, successSubject, successRefId, isSucces
       : `Hi ${member.name.split(' ')[0]}, I have a finance query (Ref: ${successRefId}) from InFinance.`
     : waMessage || `Hi ${member.name.split(' ')[0]}, I have a finance query from InFinance.`
 
+  const roleText = t(`queries.founders.roles.${member.id}`, member.role)
+
   return (
-    <article className="founder-card" aria-label={`${member.name} — ${member.role}`}>
+    <article className="founder-card" aria-label={`${member.name} — ${roleText}`}>
       <div className="founder-card-header">
         <div className="owner-avatar-bubble" aria-hidden="true">
           {member.initials || member.name.charAt(0)}
         </div>
         <div>
           <h3 className="founder-name">{member.name}</h3>
-          <div className="owner-role-tag">{member.role}</div>
+          <div className="owner-role-tag">{roleText}</div>
         </div>
       </div>
 
@@ -90,10 +91,7 @@ function FounderCard({ member, waMessage, successSubject, successRefId, isSucces
           })}
         >
           <WhatsAppIcon />
-          <span>
-            {t('queries.founders.chatOn', 'Chat on WhatsApp')}&nbsp;
-            <strong>{formatWhatsAppDisplay(member.whatsapp)}</strong>
-          </span>
+          <span>{t('queries.founders.chatOn', 'Chat on WhatsApp')}</span>
         </a>
 
         <a
@@ -397,10 +395,7 @@ export default function AskQueryPage() {
               aria-label="Chat with Aniruddha Mondal on WhatsApp (opens in a new tab)"
             >
               <WhatsAppIcon />
-              <span>
-                Chat on WhatsApp&nbsp;
-                <strong>{formatWhatsAppDisplay(owner.whatsapp)}</strong>
-              </span>
+              <span>{t('queries.ownerCard.chatOn', 'Chat on WhatsApp')}</span>
             </a>
 
             <a
@@ -621,7 +616,7 @@ export default function AskQueryPage() {
                   type="tel"
                   id="field-whatsapp"
                   name="whatsapp"
-                  placeholder={t('queries.form.whatsappPlaceholder', 'e.g. +91 80132 92565')}
+                  placeholder={t('queries.form.whatsappPlaceholder', 'e.g. +91 98765 43210')}
                   value={formData.whatsapp}
                   onChange={handleChange}
                   className={errors.whatsapp ? 'has-error' : ''}

@@ -11,12 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 - **Meet the Founders Section:** Added founder and co-founder profiles to `/ask-query` displaying roles, short biographies, initials avatars, and direct contact options.
+- **Co-founder Details & Verification:** Added authentic professional biography and role ("Co-founder & Process Engineer") for Kuhika Das, with automated fallback via `sanitizeBio` preventing placeholder strings.
 - **Team Configuration API (`GET /api/v1/config/team`):** Dynamic team member endpoint serving ordered team lists with full support for environment variable configuration (`INFINANCE_TEAM_n_*` and `VITE_TEAM_n_*`).
-- **Co-founder Contact Integration:** Included Kuhika Das (Co-founder) across Ask a Query page cards, query success state, and footer contact block.
-- **WhatsApp Direct Action:** Integrated direct `https://wa.me/` WhatsApp chat links with pre-filled query messages, replacing legacy `tel:` call links.
+- **Co-founder Contact Integration:** Included Kuhika Das across Ask a Query page cards, query success state, and footer contact block.
+- **WhatsApp Privacy & Usability:** Cleaned all WhatsApp action buttons to display "Chat on WhatsApp" without raw phone numbers in visible text, retaining pre-filled `https://wa.me/` direct messaging behavior and sanitized aria-labels.
 - **Assigned Founder Selection:** Added optional consultation routing selector (`assignedTo`) allowing users to direct queries to either founder or both.
 - **Multilingual Support (EN/HI/BN):** Complete English, Hindi, and Bengali localization for the Meet the Founders section and team profiles.
-- **Unit, Integration & E2E Tests:** Added Spring Boot MockMvc test suite for `GET /api/v1/config/team` and expanded Playwright E2E tests for the founders section.
+- **Unit, Integration & E2E Tests:** Added Spring Boot MockMvc test suite for `GET /api/v1/config/team` and expanded Playwright E2E tests asserting zero phone numbers in visible page text.
 
 ---
 
