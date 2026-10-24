@@ -10,12 +10,7 @@ import i18n from '../i18n'
 import { useTheme } from '../hooks/useTheme'
 import { useAuth } from '../context/AuthContext'
 import { useToast } from '../context/ToastContext'
-import {
-  DEFAULT_TEAM,
-  formatWhatsAppHref,
-  formatWhatsAppDisplay,
-  formatMailtoHref,
-} from '../shared/config/owner'
+import { DEFAULT_TEAM, formatWhatsAppHref, formatMailtoHref } from '../shared/config/owner'
 
 // Nav entries: [path, i18n key, label fallback]
 const NAV_ITEMS = [
@@ -299,7 +294,7 @@ export function AppShell({ children, apiOnline }) {
                       aria-label={`Chat with ${member.name} on WhatsApp (opens in a new tab)`}
                       className="footer-founder-link"
                     >
-                      WhatsApp {formatWhatsAppDisplay(member.whatsapp)}
+                      WhatsApp
                     </a>
                     {' · '}
                     <a

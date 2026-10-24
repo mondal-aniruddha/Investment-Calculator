@@ -57,7 +57,10 @@ class OwnerContactControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[1].id").value("kuhika"))
                 .andExpect(jsonPath("$[1].name").value("Kuhika Das"))
-                .andExpect(jsonPath("$[1].role").isNotEmpty())
+                .andExpect(jsonPath("$[1].role").value("Co-founder & Process Engineer"))
+                .andExpect(jsonPath("$[1].shortBio", startsWith("Kuhika is a Process Engineer")))
+                .andExpect(jsonPath("$[1].shortBio", not(containsString("placeholder"))))
+                .andExpect(jsonPath("$[1].shortBio", not(containsString("<"))))
                 .andExpect(jsonPath("$[1].whatsapp").isNotEmpty())
                 .andExpect(jsonPath("$[1].email").value("kuhika.das@gmail.com"))
                 .andExpect(jsonPath("$[1].initials").value("KD"));

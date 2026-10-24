@@ -1,6 +1,6 @@
 import httpClient from '../../../shared/api/httpClient'
 import { ENDPOINTS } from '../../../shared/api/endpoints'
-import { DEFAULT_OWNER_CONFIG, DEFAULT_TEAM } from '../../../shared/config/owner'
+import { DEFAULT_OWNER_CONFIG, DEFAULT_TEAM, sanitizeBio } from '../../../shared/config/owner'
 
 export async function submitFinanceQuery(payload) {
   return httpClient.post(ENDPOINTS.QUERIES.SUBMIT, payload)
@@ -35,7 +35,7 @@ export async function fetchTeam() {
         id: m.id || DEFAULT_TEAM[i]?.id || `member-${i}`,
         name: m.name || DEFAULT_TEAM[i]?.name || '',
         role: m.role || DEFAULT_TEAM[i]?.role || '',
-        shortBio: m.shortBio || DEFAULT_TEAM[i]?.shortBio || '',
+        shortBio: sanitizeBio(m.shortBio, DEFAULT_TEAM[i]?.shortBio || ''),
         whatsapp: m.whatsapp || DEFAULT_TEAM[i]?.whatsapp || '',
         email: m.email || DEFAULT_TEAM[i]?.email || '',
         initials: m.initials || DEFAULT_TEAM[i]?.initials || '',
