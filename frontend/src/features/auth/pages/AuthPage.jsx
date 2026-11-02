@@ -4,17 +4,28 @@ import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../../context/AuthContext'
 import { useToast } from '../../../context/ToastContext'
 import { evaluatePasswordCriteria, calculatePasswordStrengthScore } from '../utils/passwordStrength'
+import OtpInput from '../components/OtpInput'
+
+// E.164 regex for India (+91) — matches backend validation
+const PHONE_E164_REGEX = /^\+91[6-9]\d{9}$/
 
 export function AuthPage({ initialMode = 'login' }) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const location = useLocation()
-  const { login, register, isAuthenticated } = useAuth()
+  const { login, register, isAuthenticated, verifyRegistration, verifyTwoFactor, resendOtp } =
+    useAuth()
   const toast = useToast()
 
   const [mode, setMode] = useState(initialMode)
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+
+  // OTP challenge state — never stored to sessionStorage/localStorage
+  // shape: { mode: 'register'|'login', challengeId, maskedPhone, channel, resendAvailableAt }
+  const [otpStep, setOtpStep] = useState(null)
+  const [otpError, setOtpError] = useState('')
+  const [otpSubmitting, setOtpSubmitting] = useState(false)
 
   // Login form state
   const [loginIdentifier, setLoginIdentifier] = useState('')
@@ -25,11 +36,16 @@ export function AuthPage({ initialMode = 'login' }) {
   const [regEmail, setRegEmail] = useState('')
   const [regUsername, setRegUsername] = useState('')
   const [regDisplayName, setRegDisplayName] = useState('')
-  const [regPhone, setRegPhone] = useState('')
+  const [regPhoneLocal, setRegPhoneLocal] = useState('') // 10 digits without country code
+  const [regChannel, setRegChannel] = useState('SMS')
   const [regPassword, setRegPassword] = useState('')
   const [regConfirmPassword, setRegConfirmPassword] = useState('')
   const [showRegPassword, setShowRegPassword] = useState(false)
   const [showRegConfirmPassword, setShowRegConfirmPassword] = useState(false)
+
+  // Derive the full E.164 phone from local input
+  const regPhoneE164 = regPhoneLocal.trim() ? `+91${regPhoneLocal.trim()}` : ''
+  const phoneValid = !regPhoneLocal.trim() || PHONE_E164_REGEX.test(regPhoneE164)
 
   // Redirect if already authenticated
   useEffect(() => {
@@ -39,7 +55,7 @@ export function AuthPage({ initialMode = 'login' }) {
     }
   }, [isAuthenticated, navigate, location])
 
-  // Keep mode in sync with props or path
+  // Keep mode in sync with path
   useEffect(() => {
     if (location.pathname === '/register') {
       setMode('register')
@@ -96,15 +112,28 @@ export function AuthPage({ initialMode = 'login' }) {
 
   const passwordsMatch = regConfirmPassword === '' || regPassword === regConfirmPassword
 
+  // ─── Login submit ────────────────────────────────────────────────────────────
   const handleLoginSubmit = async (e) => {
     e.preventDefault()
     setErrorMessage('')
     setSubmitting(true)
     try {
-      await login({ email: loginIdentifier.trim(), password: loginPassword })
-      toast.success(t('auth.loginSuccess'))
-      const destination = location.state?.from?.pathname || '/'
-      navigate(destination, { replace: true })
+      const res = await login({ identifier: loginIdentifier.trim(), password: loginPassword })
+      if (res.twoFactorRequired) {
+        // Enter OTP step — do NOT navigate yet
+        setOtpStep({
+          mode: 'login',
+          challengeId: res.challengeId,
+          maskedPhone: res.maskedPhone,
+          channel: res.channel || 'SMS',
+          resendAvailableAt: res.resendAvailableAt,
+          backupCodesAvailable: res.backupCodesAvailable,
+        })
+      } else {
+        toast.success(t('auth.loginSuccess'))
+        const destination = location.state?.from?.pathname || '/'
+        navigate(destination, { replace: true })
+      }
     } catch (err) {
       setErrorMessage(err.message || 'Login failed. Please check your credentials.')
       toast.error(err.message || 'Login failed')
@@ -113,6 +142,7 @@ export function AuthPage({ initialMode = 'login' }) {
     }
   }
 
+  // ─── Register submit ─────────────────────────────────────────────────────────
   const handleRegisterSubmit = async (e) => {
     e.preventDefault()
     setErrorMessage('')
@@ -132,18 +162,42 @@ export function AuthPage({ initialMode = 'login' }) {
       return
     }
 
+    if (!regPhoneLocal.trim()) {
+      setErrorMessage(t('auth.phoneRequired'))
+      return
+    }
+
+    if (!phoneValid) {
+      setErrorMessage(t('auth.phoneE164Hint'))
+      return
+    }
+
     setSubmitting(true)
     try {
-      await register({
+      const res = await register({
         email: regEmail.trim(),
         password: regPassword,
         displayName: regDisplayName.trim(),
-        phone: regPhone.trim() || undefined,
+        phoneE164: regPhoneE164,
+        channel: regChannel,
         username: regUsername.trim() || undefined,
       })
-      toast.success(t('auth.accountCreated'))
-      const destination = location.state?.from?.pathname || '/'
-      navigate(destination, { replace: true })
+
+      if (res.verificationRequired) {
+        // Enter OTP step — do NOT navigate yet
+        setOtpStep({
+          mode: 'register',
+          challengeId: res.challengeId,
+          maskedPhone: res.maskedPhone,
+          channel: res.channel || regChannel,
+          resendAvailableAt: res.resendAvailableAt,
+        })
+      } else {
+        // Unexpected legacy path
+        toast.success(t('auth.accountCreated'))
+        const destination = location.state?.from?.pathname || '/'
+        navigate(destination, { replace: true })
+      }
     } catch (err) {
       setErrorMessage(err.message || 'Registration failed. Please check your details.')
       toast.error(err.message || 'Registration failed')
@@ -152,6 +206,104 @@ export function AuthPage({ initialMode = 'login' }) {
     }
   }
 
+  // ─── OTP submit (registration verify) ───────────────────────────────────────
+  const handleOtpSubmit = async (code) => {
+    setOtpError('')
+    setOtpSubmitting(true)
+    try {
+      if (otpStep.mode === 'register') {
+        await verifyRegistration(otpStep.challengeId, code)
+        toast.success(t('auth.accountCreated'))
+        const destination = location.state?.from?.pathname || '/'
+        navigate(destination, { replace: true })
+      } else {
+        await verifyTwoFactor(otpStep.challengeId, { code })
+        toast.success(t('auth.loginSuccess'))
+        const destination = location.state?.from?.pathname || '/'
+        navigate(destination, { replace: true })
+      }
+    } catch (err) {
+      // Never treat OTP failure as session loss (backend returns 422, not 401)
+      setOtpError(err.message || t('errors.generic'))
+    } finally {
+      setOtpSubmitting(false)
+    }
+  }
+
+  // ─── Backup code submit (2FA login only) ────────────────────────────────────
+  const handleBackupCode = async (backupCode) => {
+    setOtpError('')
+    setOtpSubmitting(true)
+    try {
+      await verifyTwoFactor(otpStep.challengeId, { backupCode })
+      toast.success(t('auth.loginSuccess'))
+      const destination = location.state?.from?.pathname || '/'
+      navigate(destination, { replace: true })
+    } catch (err) {
+      setOtpError(err.message || t('errors.generic'))
+    } finally {
+      setOtpSubmitting(false)
+    }
+  }
+
+  // ─── OTP resend ──────────────────────────────────────────────────────────────
+  const handleResend = async (channel) => {
+    const res = await resendOtp(otpStep.challengeId, channel)
+    setOtpStep((prev) => ({ ...prev, resendAvailableAt: res.resendAvailableAt }))
+    return res
+  }
+
+  // ─── OTP step back ───────────────────────────────────────────────────────────
+  const handleOtpBack = () => {
+    setOtpStep(null)
+    setOtpError('')
+  }
+
+  // ─── Render OTP step ─────────────────────────────────────────────────────────
+  if (otpStep) {
+    return (
+      <div className="auth-split-layout">
+        <div className="auth-brand-panel">
+          <div className="auth-brand-header">
+            <div className="brand-mark-lg">↗</div>
+            <h2>
+              in<span>finance</span>
+            </h2>
+          </div>
+          <p className="auth-brand-tagline">{t('auth.otpStep')}</p>
+          <div className="auth-feature-cards">
+            <div className="feature-item">
+              <span className="feature-icon">📱</span>
+              <div>
+                <strong>{t('auth.verifyPhone')}</strong>
+                <p>{t('auth.otpSentTo', { channel: otpStep.channel, phone: otpStep.maskedPhone })}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="auth-form-panel">
+          <div className="card auth-card">
+            <OtpInput
+              challengeId={otpStep.challengeId}
+              maskedPhone={otpStep.maskedPhone}
+              channel={otpStep.channel}
+              resendAvailableAt={otpStep.resendAvailableAt}
+              showBackupCodeOption={otpStep.mode === 'login' && otpStep.backupCodesAvailable}
+              isLoading={otpSubmitting}
+              error={otpError}
+              onSubmit={handleOtpSubmit}
+              onResend={handleResend}
+              onBackupCode={handleBackupCode}
+              onBack={handleOtpBack}
+            />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // ─── Render main auth form ───────────────────────────────────────────────────
   return (
     <div className="auth-split-layout">
       {/* Left Column: Brand & Security Highlights */}
@@ -351,16 +503,60 @@ export function AuthPage({ initialMode = 'login' }) {
                 </div>
               </div>
 
+              {/* Phone input — required, India only (+91) */}
               <div className="form-field">
-                <label htmlFor="reg-phone">{t('auth.phone')}</label>
-                <input
-                  id="reg-phone"
-                  type="tel"
-                  autoComplete="tel"
-                  placeholder="+91 98765 43210"
-                  value={regPhone}
-                  onChange={(e) => setRegPhone(e.target.value)}
-                />
+                <label htmlFor="reg-phone">
+                  {t('auth.phoneLabel')} <span className="required-mark">*</span>
+                </label>
+                <div className="phone-input-row">
+                  <span className="phone-country-code">+91</span>
+                  <input
+                    id="reg-phone"
+                    type="tel"
+                    inputMode="numeric"
+                    autoComplete="tel-national"
+                    required
+                    placeholder="9876543210"
+                    maxLength={10}
+                    value={regPhoneLocal}
+                    onChange={(e) => setRegPhoneLocal(e.target.value.replace(/\D/g, ''))}
+                    aria-describedby="phone-hint"
+                    aria-invalid={regPhoneLocal.trim() !== '' && !phoneValid}
+                  />
+                </div>
+                <span id="phone-hint" className="field-hint">
+                  {t('auth.phoneE164Hint')}
+                </span>
+                {regPhoneLocal.trim() !== '' && !phoneValid && (
+                  <span className="field-inline-error">{t('auth.phoneE164Hint')}</span>
+                )}
+              </div>
+
+              {/* OTP Channel selection */}
+              <div className="form-field">
+                <fieldset className="channel-fieldset">
+                  <legend>{t('auth.channelLabel')}</legend>
+                  <label className="channel-option">
+                    <input
+                      type="radio"
+                      name="channel"
+                      value="SMS"
+                      checked={regChannel === 'SMS'}
+                      onChange={() => setRegChannel('SMS')}
+                    />
+                    {t('auth.channelSms')}
+                  </label>
+                  <label className="channel-option">
+                    <input
+                      type="radio"
+                      name="channel"
+                      value="WHATSAPP"
+                      checked={regChannel === 'WHATSAPP'}
+                      onChange={() => setRegChannel('WHATSAPP')}
+                    />
+                    {t('auth.channelWhatsapp')}
+                  </label>
+                </fieldset>
               </div>
 
               <div className="form-field">
@@ -449,7 +645,13 @@ export function AuthPage({ initialMode = 'login' }) {
                 className="primary-button auth-submit-btn"
                 type="submit"
                 disabled={
-                  submitting || !regEmail || !regPassword || !regDisplayName || !passwordsMatch
+                  submitting ||
+                  !regEmail ||
+                  !regPassword ||
+                  !regDisplayName ||
+                  !passwordsMatch ||
+                  !regPhoneLocal.trim() ||
+                  !phoneValid
                 }
               >
                 {submitting ? t('auth.submitting') : t('auth.submitRegister')} <span>→</span>
