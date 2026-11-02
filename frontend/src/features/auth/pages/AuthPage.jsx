@@ -276,7 +276,9 @@ export function AuthPage({ initialMode = 'login' }) {
               <span className="feature-icon">📱</span>
               <div>
                 <strong>{t('auth.verifyPhone')}</strong>
-                <p>{t('auth.otpSentTo', { channel: otpStep.channel, phone: otpStep.maskedPhone })}</p>
+                <p>
+                  {t('auth.otpSentTo', { channel: otpStep.channel, phone: otpStep.maskedPhone })}
+                </p>
               </div>
             </div>
           </div>

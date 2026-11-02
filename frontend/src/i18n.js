@@ -282,7 +282,8 @@ const resources = {
         // OTP & 2FA keys
         phoneLabel: 'Mobile phone number',
         phoneRequired: 'A mobile number is required to secure your account.',
-        phoneE164Hint: 'Enter 10-digit Indian number (e.g. 9876543210). Country code +91 is added automatically.',
+        phoneE164Hint:
+          'Enter 10-digit Indian number (e.g. 9876543210). Country code +91 is added automatically.',
         channelLabel: 'Send OTP via',
         channelSms: 'SMS',
         channelWhatsapp: 'WhatsApp',
@@ -306,7 +307,8 @@ const resources = {
         twoFaToggleEnable: 'Enable 2FA',
         twoFaToggleDisable: 'Disable 2FA',
         backupCodesTitle: 'Backup codes',
-        backupCodesWarning: 'Store these codes safely. Each can only be used once. If you lose access to your phone, use one of these to sign in.',
+        backupCodesWarning:
+          'Store these codes safely. Each can only be used once. If you lose access to your phone, use one of these to sign in.',
         backupCodesCopy: 'Copy all',
         backupCodesDownload: 'Download .txt',
         backupCodesRegenerate: 'Regenerate backup codes',
@@ -706,7 +708,8 @@ const resources = {
         // OTP & 2FA keys
         phoneLabel: 'मोबाइल फ़ोन नंबर',
         phoneRequired: 'अपना खाता सुरक्षित करने के लिए मोबाइल नंबर आवश्यक है।',
-        phoneE164Hint: '10 अंकों का भारतीय नंबर दर्ज करें (जैसे 9876543210). देश कोड +91 स्वचालित रूप से जोड़ा जाएगा।',
+        phoneE164Hint:
+          '10 अंकों का भारतीय नंबर दर्ज करें (जैसे 9876543210). देश कोड +91 स्वचालित रूप से जोड़ा जाएगा।',
         channelLabel: 'OTP भेजें',
         channelSms: 'SMS',
         channelWhatsapp: 'WhatsApp',
@@ -730,7 +733,8 @@ const resources = {
         twoFaToggleEnable: '2FA सक्षम करें',
         twoFaToggleDisable: '2FA अक्षम करें',
         backupCodesTitle: 'बैकअप कोड',
-        backupCodesWarning: 'इन कोडों को सुरक्षित स्थान पर रखें। प्रत्येक का उपयोग केवल एक बार किया जा सकता है।',
+        backupCodesWarning:
+          'इन कोडों को सुरक्षित स्थान पर रखें। प्रत्येक का उपयोग केवल एक बार किया जा सकता है।',
         backupCodesCopy: 'सभी कॉपी करें',
         backupCodesDownload: '.txt डाउनलोड करें',
         backupCodesRegenerate: 'बैकअप कोड पुनः उत्पन्न करें',
@@ -1130,7 +1134,8 @@ const resources = {
         // OTP & 2FA keys
         phoneLabel: 'মোবাইল ফোন নম্বর',
         phoneRequired: 'আপনার অ্যাকাউন্ট সুরক্ষিত করতে মোবাইল নম্বর প্রয়োজন।',
-        phoneE164Hint: '১০ সংখ্যার ভারতীয় নম্বর লিখুন (যেমন 9876543210). দেশ কোড +91 স্বয়ংক্রিয়ভাবে যুক্ত হবে।',
+        phoneE164Hint:
+          '১০ সংখ্যার ভারতীয় নম্বর লিখুন (যেমন 9876543210). দেশ কোড +91 স্বয়ংক্রিয়ভাবে যুক্ত হবে।',
         channelLabel: 'OTP পাঠান',
         channelSms: 'SMS',
         channelWhatsapp: 'WhatsApp',
@@ -1154,7 +1159,8 @@ const resources = {
         twoFaToggleEnable: '2FA সক্রিয় করুন',
         twoFaToggleDisable: '2FA নিষ্ক্রিয় করুন',
         backupCodesTitle: 'ব্যাকআপ কোড',
-        backupCodesWarning: 'এই কোডগুলি নিরাপদ স্থানে সংরক্ষণ করুন। প্রতিটি মাত্র একবার ব্যবহার করা যাবে।',
+        backupCodesWarning:
+          'এই কোডগুলি নিরাপদ স্থানে সংরক্ষণ করুন। প্রতিটি মাত্র একবার ব্যবহার করা যাবে।',
         backupCodesCopy: 'সব কপি করুন',
         backupCodesDownload: '.txt ডাউনলোড করুন',
         backupCodesRegenerate: 'ব্যাকআপ কোড পুনরায় তৈরি করুন',

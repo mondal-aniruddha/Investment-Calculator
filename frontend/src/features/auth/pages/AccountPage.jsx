@@ -47,7 +47,12 @@ function BackupCodesDisplay({ codes, onClose }) {
   }
 
   return (
-    <div className="backup-codes-modal" role="dialog" aria-modal="true" aria-label={t('auth.backupCodesTitle')}>
+    <div
+      className="backup-codes-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label={t('auth.backupCodesTitle')}
+    >
       <h3>{t('auth.backupCodesTitle')}</h3>
       <p className="backup-codes-warning">{t('auth.backupCodesWarning')}</p>
       <ul className="backup-codes-list">
@@ -199,7 +204,7 @@ export function AccountPage() {
       setOtpChallenge((prev) => ({ ...prev, resendAvailableAt: res.resendAvailableAt }))
       return res
     },
-    [otpChallenge],
+    [otpChallenge]
   )
 
   // ── Enable 2FA ────────────────────────────────────────────────────────────────
@@ -370,9 +375,7 @@ export function AccountPage() {
                 id="confirm-password-field"
                 type="password"
                 autoComplete="current-password"
-                value={
-                  otpChallenge.purpose === 'disable2fa' ? disablePassword : regenPassword
-                }
+                value={otpChallenge.purpose === 'disable2fa' ? disablePassword : regenPassword}
                 onChange={(e) =>
                   otpChallenge.purpose === 'disable2fa'
                     ? setDisablePassword(e.target.value)
@@ -546,7 +549,9 @@ export function AccountPage() {
             </div>
 
             {!twoFaStatus.phoneVerified && (
-              <p className="security-hint">{t('auth.phoneUnverified')} — {t('auth.changePhone')}</p>
+              <p className="security-hint">
+                {t('auth.phoneUnverified')} — {t('auth.changePhone')}
+              </p>
             )}
           </div>
         ) : (
@@ -596,7 +601,11 @@ export function AccountPage() {
               <button type="submit" className="primary-button" disabled={phoneChanging}>
                 {phoneChanging ? t('auth.submitting') : t('auth.verifyPhone')}
               </button>
-              <button type="button" className="secondary-button" onClick={() => setShowPhoneChange(false)}>
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={() => setShowPhoneChange(false)}
+              >
                 Cancel
               </button>
             </div>

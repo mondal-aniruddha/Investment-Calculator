@@ -119,7 +119,7 @@ export function AuthProvider({ children }) {
       }
       return res
     },
-    [completeAuth],
+    [completeAuth]
   )
 
   /**
@@ -135,7 +135,7 @@ export function AuthProvider({ children }) {
       completeAuth(res)
       return res
     },
-    [completeAuth],
+    [completeAuth]
   )
 
   /**
@@ -151,7 +151,7 @@ export function AuthProvider({ children }) {
       }
       return res
     },
-    [completeAuth],
+    [completeAuth]
   )
 
   /**
@@ -167,7 +167,7 @@ export function AuthProvider({ children }) {
       completeAuth(res)
       return res
     },
-    [completeAuth],
+    [completeAuth]
   )
 
   /**

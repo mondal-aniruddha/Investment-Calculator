@@ -48,7 +48,7 @@ export default function OtpInput({
   const [useBackup, setUseBackup] = useState(false)
   const [backupCode, setBackupCode] = useState('')
   const [resendAt, setResendAt] = useState(() =>
-    resendAvailableAt ? new Date(resendAvailableAt) : null,
+    resendAvailableAt ? new Date(resendAvailableAt) : null
   )
   const [secondsLeft, setSecondsLeft] = useState(0)
   const [activeChannel, setActiveChannel] = useState(channel || 'SMS')
@@ -146,7 +146,7 @@ export default function OtpInput({
         setResending(false)
       }
     },
-    [secondsLeft, resending, activeChannel, onResend],
+    [secondsLeft, resending, activeChannel, onResend]
   )
 
   const switchChannel = useCallback(
@@ -154,7 +154,7 @@ export default function OtpInput({
       setActiveChannel(ch)
       await handleResend(ch)
     },
-    [handleResend],
+    [handleResend]
   )
 
   // ─── Backup code submit ──────────────────────────────────────────────────────
@@ -170,9 +170,7 @@ export default function OtpInput({
   return (
     <div className="otp-input-wrapper" data-testid="otp-input">
       {/* ── Header ── */}
-      <h2 className="otp-title">
-        {useBackup ? t('auth.otpUseBackupCode') : t('auth.otpTitle')}
-      </h2>
+      <h2 className="otp-title">{useBackup ? t('auth.otpUseBackupCode') : t('auth.otpTitle')}</h2>
 
       {!useBackup && (
         <p className="otp-subtitle">
@@ -185,12 +183,7 @@ export default function OtpInput({
 
       {/* ── Error region (aria-live) ── */}
       {error && (
-        <div
-          role="alert"
-          aria-live="assertive"
-          className="otp-error"
-          data-testid="otp-error"
-        >
+        <div role="alert" aria-live="assertive" className="otp-error" data-testid="otp-error">
           {error}
         </div>
       )}
@@ -274,9 +267,7 @@ export default function OtpInput({
               disabled={!canResend || isLoading}
               className="otp-channel-switch-btn"
             >
-              {otherChannel === 'WHATSAPP'
-                ? t('auth.switchToWhatsapp')
-                : t('auth.switchToSms')}
+              {otherChannel === 'WHATSAPP' ? t('auth.switchToWhatsapp') : t('auth.switchToSms')}
             </button>
           </div>
         )}
@@ -302,4 +293,3 @@ export default function OtpInput({
     </div>
   )
 }
-
