@@ -3,6 +3,7 @@ package com.infinance.common.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.infinance.auth.security.JwtAuthenticationFilter;
+import com.infinance.auth.security.OtpRateLimitFilter;
 import com.infinance.common.exception.ErrorResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -27,10 +28,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtFilter) throws Exception {
+    SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            JwtAuthenticationFilter jwtFilter,
+            OtpRateLimitFilter otpRateLimitFilter
+    ) throws Exception {
         http.cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .headers(headers -> headers
                         .contentTypeOptions(options -> {})
                         .contentSecurityPolicy(csp -> csp.policyDirectives("default-src 'self'; frame-ancestors 'none'"))
@@ -42,7 +47,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 ApiConstants.AUTH + "/register",
+                                ApiConstants.AUTH + "/register/verify",
+                                ApiConstants.AUTH + "/otp/resend",
                                 ApiConstants.AUTH + "/login",
+                                ApiConstants.AUTH + "/2fa/verify",
                                 ApiConstants.MARKET + "/**",
                                 ApiConstants.LEARN + "/**",
                                 ApiConstants.GLOSSARY + "/**",
@@ -58,7 +66,8 @@ public class SecurityConfiguration {
                         .requestMatchers(ApiConstants.AUTH + "/**", ApiConstants.SCENARIOS + "/**").hasRole("USER")
                         .anyRequest().permitAll())
                 .httpBasic(basic -> {})
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(otpRateLimitFilter, JwtAuthenticationFilter.class);
         return http.build();
     }
 
