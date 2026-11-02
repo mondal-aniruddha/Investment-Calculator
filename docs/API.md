@@ -57,12 +57,22 @@ The `correlationId` is also mirrored in the HTTP response headers as `X-Correlat
 
 | Method | Endpoint | Access | Description |
 | :--- | :--- | :--- | :--- |
-| `POST` | `/api/v1/auth/register` | Public | Register a new user account |
-| `POST` | `/api/v1/auth/login` | Public | Authenticate credentials and receive a JWT token |
+| `POST` | `/api/v1/auth/register` | Public | Register a new user account (creates PENDING_VERIFICATION, dispatches phone OTP via SMS or WhatsApp) |
+| `POST` | `/api/v1/auth/register/verify` | Public | Verify phone OTP to activate account and issue initial session JWT |
+| `POST` | `/api/v1/auth/otp/resend` | Public | Resend verification code (subject to 60s cooldown and hourly caps) or switch channel (SMS ⇄ WhatsApp) |
+| `POST` | `/api/v1/auth/login` | Public | Authenticate identifier + password; returns 2FA challenge if enabled or full JWT |
+| `POST` | `/api/v1/auth/2fa/verify` | Public | Verify 2FA OTP or single-use backup code to receive full session JWT |
+| `GET` | `/api/v1/auth/2fa/status` | Authenticated | Retrieve 2FA status, verified phone, and remaining backup code count |
+| `POST` | `/api/v1/auth/2fa/enable` | Authenticated | Initiate 2FA enrollment on verified phone (sends confirmation OTP) |
+| `POST` | `/api/v1/auth/2fa/enable/verify` | Authenticated | Complete 2FA enrollment; returns 10 one-time backup codes |
+| `POST` | `/api/v1/auth/2fa/disable` | Authenticated | Disable 2FA (requires current password and fresh OTP) |
+| `POST` | `/api/v1/auth/2fa/backup-codes/regenerate` | Authenticated | Regenerate 10 new backup codes and invalidate old ones (requires password + OTP) |
+| `POST` | `/api/v1/auth/phone/change` | Authenticated | Request phone number change (sends OTP to the new number) |
+| `POST` | `/api/v1/auth/phone/change/verify` | Authenticated | Verify OTP sent to new number and update user's verified phone |
 | `GET` | `/api/v1/auth/me` | Authenticated | Retrieve current user profile and role |
-| `GET` | `/api/v1/auth/saved-scenarios` | Authenticated | List all saved financial calculation scenarios |
-| `POST` | `/api/v1/auth/saved-scenarios` | Authenticated | Save a new financial calculation scenario |
-| `DELETE` | `/api/v1/auth/saved-scenarios/{id}` | Authenticated | Delete a previously saved scenario |
+| `GET` | `/api/v1/auth/profile` | Authenticated | Retrieve current user profile details |
+| `PUT` | `/api/v1/auth/profile` | Authenticated | Update user display name (phone changes must use `/phone/change`) |
+| `DELETE` | `/api/v1/auth/account` | Authenticated | Permanently delete user account and cascade delete all associated data |
 
 ### 4.2 Investing & Wealth Building (`/api/v1/investing`)
 

@@ -1,0 +1,22 @@
+meta {
+  name: Verify Phone Change (Step 2)
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{baseUrl}}/api/v1/auth/phone/change/verify
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "challengeId": "{{challengeId}}",
+    "code": "123456"
+  }
+}

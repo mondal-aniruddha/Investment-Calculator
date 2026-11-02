@@ -5,6 +5,34 @@ All notable changes to the InFinance Calculator project will be documented in th
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] — 2026-11-02
+
+### Two-Factor Authentication (2FA) & SMS/WhatsApp OTP Signup Verification
+
+#### Added
+- **Phone Verification on Signup:** Mandatory E.164 phone number verification (+91 Indian numbers) during user registration with channel selection (SMS or WhatsApp). Accounts remain in PENDING_VERIFICATION status until OTP is confirmed.
+- **Two-Factor Authentication (2FA) for Login:** Optional 2FA step after password authentication. Users receive a 6-digit OTP via their chosen channel (SMS or WhatsApp) or can authenticate using single-use emergency backup codes.
+- **Backup Code Generation:** 10 cryptographically secure, single-use 10-character backup codes generated on 2FA enablement, stored as SHA-256 hashes, with regeneration capabilities.
+- **Phone Number Management:** In-app verified phone updates (`/api/v1/auth/phone/change` and `/verify`) with re-verification OTPs, disallowing unverified direct profile phone mutations.
+- **Provider Abstraction:** `OtpDeliveryProvider` interface supporting `dev` provider (local test logging) and production `twilio` provider using Spring RestClient (SMS and WhatsApp ContentSid templates) without third-party vendor SDK bloat.
+- **Security & Rate Limiting:**
+  - Per-IP bucket limiting via `OtpRateLimitFilter` (5 attempts / 15 minutes).
+  - Hourly destination caps (5 sends/hour) and 60-second cooldown per phone.
+  - Server-side opaque UUID challenge IDs (strictly preventing signed token bypass).
+  - Constant-time HMAC-SHA256 OTP verification resisting timing attacks.
+  - Audit logging of auth security events (`auth_audit_events`).
+- **Database Schema Migration:** Flyway `V9__phone_verification_and_two_factor.sql` adding phone verification status, 2FA flag, and user status to `app_users`, and creating `otp_challenges`, `user_backup_codes`, and `auth_audit_events`.
+- **Scheduled Maintenance:** Automated `@Scheduled` task to purge expired challenges and unverified `PENDING_VERIFICATION` accounts after 24 hours.
+- **Frontend 2FA UI:**
+  - Accessible 6-digit `OtpInput` component with auto-focus, paste support, countdown timer, channel switching (SMS ⇄ WhatsApp), backup code toggle, and `aria-live` error alerts.
+  - Redesigned `AuthPage` supporting 2-step registration and 2FA login transitions.
+  - `AccountPage` Security Card with 2FA toggle, phone verification badge, phone change modal, and backup code viewer/download/regenerate.
+  - Multilingual localization across English, Hindi, and Bengali (`i18n.js`).
+- **API Tooling:** 10 new Bruno API collection `.bru` files for all OTP and 2FA endpoints.
+- **Testing:** Comprehensive test suite with `OtpServiceTest`, `TwilioOtpDeliveryProviderTest`, `ProductionConfigurationValidatorTest`, `AuthControllerTest`, Vitest frontend client tests, and Playwright E2E test suite.
+
+---
+
 ## [2.2.1] — 2026-10-24
 
 ### Meet the Founders & Multi-Contact Consultation Module

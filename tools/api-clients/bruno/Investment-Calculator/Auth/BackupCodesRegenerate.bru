@@ -1,0 +1,23 @@
+meta {
+  name: Regenerate Backup Codes
+  type: http
+  seq: 12
+}
+
+post {
+  url: {{baseUrl}}/api/v1/auth/2fa/backup-codes/regenerate
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "currentPassword": "Password123!",
+    "challengeId": "{{challengeId}}",
+    "code": "123456"
+  }
+}
