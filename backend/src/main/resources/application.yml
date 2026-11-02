@@ -67,3 +67,19 @@ infinance:
   queries:
     notify-enabled: ${INFINANCE_QUERIES_NOTIFY_ENABLED:false}
     recipient-email: ${INFINANCE_QUERIES_RECIPIENT_EMAIL:aniruddha0266@gmail.com}
+  otp:
+    enabled: ${INFINANCE_OTP_ENABLED:true}
+    provider: ${INFINANCE_OTP_PROVIDER:dev}
+    code-length: ${INFINANCE_OTP_CODE_LENGTH:6}
+    ttl-seconds: ${INFINANCE_OTP_TTL_SECONDS:300}
+    max-attempts: ${INFINANCE_OTP_MAX_ATTEMPTS:5}
+    resend-cooldown-seconds: ${INFINANCE_OTP_RESEND_COOLDOWN_SECONDS:60}
+    max-sends-per-phone-per-hour: ${INFINANCE_OTP_MAX_SENDS_PER_PHONE_HOUR:5}
+    max-sends-per-ip-hour: ${INFINANCE_OTP_MAX_SENDS_PER_IP_HOUR:10}
+    secret: ${INFINANCE_OTP_SECRET:development-only-otp-hmac-secret-at-least-32-chars}
+    twilio:
+      account-sid: ${INFINANCE_TWILIO_ACCOUNT_SID:}
+      auth-token: ${INFINANCE_TWILIO_AUTH_TOKEN:}
+      sms-from: ${INFINANCE_TWILIO_SMS_FROM:}
+      whatsapp-from: ${INFINANCE_TWILIO_WHATSAPP_FROM:}
+      whatsapp-content-sid: ${INFINANCE_TWILIO_WHATSAPP_CONTENT_SID:}

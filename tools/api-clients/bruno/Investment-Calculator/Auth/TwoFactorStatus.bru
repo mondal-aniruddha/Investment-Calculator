@@ -1,0 +1,16 @@
+meta {
+  name: Get Two-Factor Status
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/api/v1/auth/2fa/status
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+

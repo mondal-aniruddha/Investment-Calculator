@@ -1,0 +1,23 @@
+meta {
+  name: Enable Two-Factor Verify (Step 2)
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{baseUrl}}/api/v1/auth/2fa/enable/verify
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "challengeId": "{{challengeId}}",
+    "code": "123456"
+  }
+}
+

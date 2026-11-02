@@ -186,6 +186,13 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>@{argLine} -XX:+EnableDynamicAgentLoading -javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/1.18.11/byte-buddy-agent-1.18.11.jar</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.version}</version>

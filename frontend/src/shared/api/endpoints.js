@@ -6,7 +6,17 @@
 export const ENDPOINTS = {
   AUTH: {
     REGISTER: '/api/v1/auth/register',
+    REGISTER_VERIFY: '/api/v1/auth/register/verify',
+    OTP_RESEND: '/api/v1/auth/otp/resend',
     LOGIN: '/api/v1/auth/login',
+    TWO_FACTOR_VERIFY: '/api/v1/auth/2fa/verify',
+    TWO_FACTOR_STATUS: '/api/v1/auth/2fa/status',
+    TWO_FACTOR_ENABLE: '/api/v1/auth/2fa/enable',
+    TWO_FACTOR_ENABLE_VERIFY: '/api/v1/auth/2fa/enable/verify',
+    TWO_FACTOR_DISABLE: '/api/v1/auth/2fa/disable',
+    BACKUP_CODES_REGENERATE: '/api/v1/auth/2fa/backup-codes/regenerate',
+    PHONE_CHANGE: '/api/v1/auth/phone/change',
+    PHONE_CHANGE_VERIFY: '/api/v1/auth/phone/change/verify',
     PROFILE: '/api/v1/auth/profile',
     ME: '/api/v1/auth/me',
     ACCOUNT: '/api/v1/auth/account',

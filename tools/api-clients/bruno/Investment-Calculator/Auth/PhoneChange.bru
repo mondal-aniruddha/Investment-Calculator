@@ -1,0 +1,23 @@
+meta {
+  name: Request Phone Change (Step 1)
+  type: http
+  seq: 13
+}
+
+post {
+  url: {{baseUrl}}/api/v1/auth/phone/change
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "newPhone": "+919876543211",
+    "channel": "SMS"
+  }
+}
+

@@ -24,3 +24,14 @@ management:
   endpoint:
     health:
       show-details: when-authorized
+
+infinance:
+  otp:
+    provider: ${INFINANCE_OTP_PROVIDER:twilio}
+    secret: ${INFINANCE_OTP_SECRET}
+    twilio:
+      account-sid: ${INFINANCE_TWILIO_ACCOUNT_SID}
+      auth-token: ${INFINANCE_TWILIO_AUTH_TOKEN}
+      sms-from: ${INFINANCE_TWILIO_SMS_FROM}
+      whatsapp-from: ${INFINANCE_TWILIO_WHATSAPP_FROM}
+      whatsapp-content-sid: ${INFINANCE_TWILIO_WHATSAPP_CONTENT_SID:}

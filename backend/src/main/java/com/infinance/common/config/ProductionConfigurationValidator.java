@@ -1,6 +1,7 @@
 package com.infinance.common.config;
 
 import com.infinance.auth.config.JwtProperties;
+import com.infinance.auth.config.OtpProperties;
 import com.infinance.common.security.EncryptionProperties;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Profile;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
  * 1. The JWT secret is missing, blank, shorter than 32 characters, or equal to the known development default.
  * 2. The encryption secret is missing, blank, or equal to the known development default.
  * 3. The database connection URL or credentials are missing or set to local defaults.
+ * 4. The OTP provider is set to "dev", Twilio credentials are missing, or OTP HMAC secret is insecure/short.
  */
 @Component
 @Profile("prod")
@@ -25,15 +27,18 @@ public class ProductionConfigurationValidator {
 
     private final JwtProperties jwtProperties;
     private final EncryptionProperties encryptionProperties;
+    private final OtpProperties otpProperties;
     private final Environment environment;
 
     public ProductionConfigurationValidator(
             JwtProperties jwtProperties,
             EncryptionProperties encryptionProperties,
+            OtpProperties otpProperties,
             Environment environment
     ) {
         this.jwtProperties = jwtProperties;
         this.encryptionProperties = encryptionProperties;
+        this.otpProperties = otpProperties;
         this.environment = environment;
     }
 
@@ -42,6 +47,7 @@ public class ProductionConfigurationValidator {
         validateJwtSecret();
         validateEncryptionSecret();
         validateDatabaseCredentials();
+        validateOtpConfiguration();
     }
 
     public void validateJwtSecret() {
@@ -80,6 +86,35 @@ public class ProductionConfigurationValidator {
         }
         if (password == null || password.isBlank()) {
             throw new IllegalStateException("Production startup failed: Database password is required for production");
+        }
+    }
+
+    public void validateOtpConfiguration() {
+        String provider = otpProperties.getProvider();
+        if ("dev".equalsIgnoreCase(provider)) {
+            throw new IllegalStateException("Production startup failed: Insecure development OTP provider ('dev') cannot be used in production profile");
+        }
+
+        String secret = otpProperties.getSecret();
+        if (secret == null || secret.isBlank()) {
+            throw new IllegalStateException("Production startup failed: OTP secret (infinance.otp.secret) must not be empty");
+        }
+        if (OtpProperties.DEV_SECRET_DEFAULT.equalsIgnoreCase(secret.trim())) {
+            throw new IllegalStateException("Production startup failed: Insecure development OTP secret detected in production profile");
+        }
+        if (secret.length() < 32) {
+            throw new IllegalStateException("Production startup failed: OTP secret must be at least 32 characters for HMAC-SHA algorithms");
+        }
+
+        if ("twilio".equalsIgnoreCase(provider)) {
+            OtpProperties.TwilioProperties twilio = otpProperties.getTwilio();
+            if (twilio == null ||
+                    twilio.getAccountSid() == null || twilio.getAccountSid().isBlank() ||
+                    twilio.getAuthToken() == null || twilio.getAuthToken().isBlank() ||
+                    twilio.getSmsFrom() == null || twilio.getSmsFrom().isBlank() ||
+                    twilio.getWhatsappFrom() == null || twilio.getWhatsappFrom().isBlank()) {
+                throw new IllegalStateException("Production startup failed: Twilio credentials and senders (accountSid, authToken, smsFrom, whatsappFrom) must be configured for OTP delivery in production");
+            }
         }
     }
 }
