@@ -206,8 +206,9 @@ test('registration flow triggers OTP step, enters 6 digits, and signs in', async
   await page.getByRole('button', { name: /^create account/i }).click()
 
   // Should transition to OTP step (in-page, not full reload)
-  await expect(page.getByTestId('otp-input')).toBeVisible()
-  await expect(page.getByText(/\+91\*\*\*\*\*\*3210/)).toBeVisible()
+  const otpWidget = page.getByTestId('otp-input')
+  await expect(otpWidget).toBeVisible()
+  await expect(otpWidget.getByText(/\+91\*\*\*\*\*\*3210/)).toBeVisible()
 
   // Fill in 6 digits
   const boxes = page.getByRole('textbox')
@@ -269,8 +270,9 @@ test('2FA login flow presents OTP input after valid password and verifies succes
   await page.getByRole('button', { name: /^sign in/i }).click()
 
   // OTP step appears
-  await expect(page.getByTestId('otp-input')).toBeVisible()
-  await expect(page.getByText(/\+91\*\*\*\*\*\*9999/)).toBeVisible()
+  const otpWidget2fa = page.getByTestId('otp-input')
+  await expect(otpWidget2fa).toBeVisible()
+  await expect(otpWidget2fa.getByText(/\+91\*\*\*\*\*\*9999/)).toBeVisible()
 
   // Enter code
   const boxes = page.getByRole('textbox')
