@@ -52,7 +52,8 @@ export default function LearnHubPage() {
       })
       .catch((err) => {
         setError(
-          err?.message || "We couldn't reach the InFinance server. Please try again in a few minutes."
+          err?.message ||
+            "We couldn't reach the InFinance server. Please try again in a few minutes."
         )
         setLoading(false)
       })

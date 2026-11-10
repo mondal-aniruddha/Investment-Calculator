@@ -1,6 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { useScrollReveal } from '../useScrollReveal'
-import React, { act } from 'react'
 
 describe('useScrollReveal hook', () => {
   let originalDocument
@@ -75,8 +74,8 @@ describe('useScrollReveal hook', () => {
     }
 
     const rootEl = {
-      matches: vi.fn((sel) => false),
-      querySelectorAll: vi.fn((sel) => [child1, child2]),
+      matches: vi.fn(() => false),
+      querySelectorAll: vi.fn(() => [child1, child2]),
       classList: { add: vi.fn() },
     }
 

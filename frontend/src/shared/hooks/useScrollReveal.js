@@ -72,4 +72,3 @@ export function useScrollReveal(options = {}) {
 
   return ref
 }
-

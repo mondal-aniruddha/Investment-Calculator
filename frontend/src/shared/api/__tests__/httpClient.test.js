@@ -112,7 +112,8 @@ describe('httpClient.js', () => {
       ok: true,
       status: 200,
       headers: new Headers({ 'Content-Type': 'text/html; charset=UTF-8' }),
-      text: async () => '<!doctype html><html><head><title>InFinance</title></head><body></body></html>',
+      text: async () =>
+        '<!doctype html><html><head><title>InFinance</title></head><body></body></html>',
     })
 
     const promise = httpClient.get('/api/v1/learn/articles')

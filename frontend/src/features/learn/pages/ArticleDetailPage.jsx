@@ -33,9 +33,7 @@ export default function ArticleDetailPage() {
         if (data?.category) {
           fetchArticles(data.category)
             .then((list) => {
-              const related = (list || [])
-                .filter((item) => item.slug !== data.slug)
-                .slice(0, 3)
+              const related = (list || []).filter((item) => item.slug !== data.slug).slice(0, 3)
               setRelatedArticles(related)
             })
             .catch(() => setRelatedArticles([]))
@@ -43,7 +41,8 @@ export default function ArticleDetailPage() {
       })
       .catch((err) => {
         setError(
-          err?.message || "We couldn't reach the InFinance server. Please try again in a few minutes."
+          err?.message ||
+            "We couldn't reach the InFinance server. Please try again in a few minutes."
         )
         setLoading(false)
       })
