@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom'
 import { SEO } from '../components/shared/SEO'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 
 export default function PrivacyPage() {
+  const revealRef = useScrollReveal()
+
   return (
-    <div className="privacy-page page-container">
+    <div className="privacy-page page-container" ref={revealRef}>
       <SEO
         title="Privacy & Data Transparency"
         description="Learn how InFinance protects your privacy: zero login required, stateless calculations, and no personal financial data stored on our servers."

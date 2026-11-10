@@ -11,7 +11,14 @@ export function App() {
   // Poll backend health on mount
   useEffect(() => {
     fetch(getApiUrl('/actuator/health'))
-      .then((r) => setApiOnline(r.ok))
+      .then(async (r) => {
+        if (!r.ok) return false
+        const contentType = r.headers.get('content-type') || ''
+        if (!contentType.includes('application/json')) return false
+        const data = await r.json()
+        return data?.status === 'UP'
+      })
+      .then((isUp) => setApiOnline(Boolean(isUp)))
       .catch(() => setApiOnline(false))
   }, [])
 

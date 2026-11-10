@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.104.2",
+    "dompurify": "^3.4.17",
     "i18next": "^26.4.2",
     "marked": "^18.1.1",
     "react": "^19.1.1",

@@ -6,11 +6,16 @@ import { ENDPOINTS } from '../../../shared/api/endpoints'
 
 /**
  * @typedef {Object} ArticleSummary
+ * @property {string} id
  * @property {string} slug
  * @property {string} title
+ * @property {string} excerpt
  * @property {string} category
- * @property {string} readTime
- * @property {string} summary
+ * @property {number} readingTimeMinutes
+ * @property {string|null} [relatedCalculatorPath]
+ * @property {string|null} [relatedCalculatorLabel]
+ * @property {string|null} [tags]
+ * @property {string} updatedAt
  */
 
 /**

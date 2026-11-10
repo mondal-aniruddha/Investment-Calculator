@@ -24,7 +24,7 @@ InFinance is a personal-finance planning tool for India (INR). It combines a **S
 
 **Live site:** <https://infinance-home.netlify.app/>
 
-> **Live site limitation:** The Netlify deployment serves only the static frontend SPA. The `VITE_API_BASE_URL` build variable on Netlify's dashboard is **not publicly configured**, so calculator calls that POST to `/api/v1/*` will fail unless the deployer sets that variable to a live backend URL. Use **local dev mode** (Option A below) for full functionality.
+> **Live site limitation:** The Netlify deployment serves only the static frontend SPA. The `VITE_API_BASE_URL` build variable on Netlify's dashboard is **not publicly configured**, so calculator calls that POST to `/api/v1/*` will fail unless the deployer sets that variable to a live backend URL (e.g., `https://api.your-backend-domain.com`). In addition, the deployed Spring Boot backend must configure `APP_CORS_ALLOWED_ORIGINS` to allow `https://infinance-home.netlify.app`. Use **local dev mode** (Option A below) for full functionality.
 
 ```mermaid
 graph LR

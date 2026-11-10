@@ -71,7 +71,10 @@ export function Term({ term, children }) {
         <span className="term-tooltip" role="tooltip">
           <span className="term-tooltip-header">
             <strong>{term}</strong>
-            <Link to="/glossary" className="term-glossary-link">
+            <Link
+              to={`/learn?view=glossary&term=${encodeURIComponent(term)}`}
+              className="term-glossary-link"
+            >
               Glossary ↗
             </Link>
           </span>
