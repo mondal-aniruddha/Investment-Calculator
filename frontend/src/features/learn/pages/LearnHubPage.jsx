@@ -5,34 +5,59 @@ import { SEO } from '../../../components/shared/SEO'
 import { useScrollReveal } from '../../../shared/hooks/useScrollReveal'
 import { DataState } from '../../../components/shared/DataState'
 
-const CATEGORIES = ['ALL', 'Basics', 'Investing', 'Tax', 'Credit', 'Insurance', 'Retirement']
+const CATEGORIES = [
+  'ALL',
+  'Basics',
+  'Investing',
+  'Tax',
+  'Credit',
+  'Insurance',
+  'Retirement',
+  'Fixed Income',
+]
 
 export default function LearnHubPage() {
   const [searchParams, setSearchParams] = useSearchParams()
   const initialCategory = searchParams.get('category') || 'ALL'
   const [selectedCategory, setSelectedCategory] = useState(initialCategory)
-  const [query, setQuery] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [debouncedQuery, setDebouncedQuery] = useState('')
   const [articles, setArticles] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const revealRef = useScrollReveal()
 
+  // Debounce search input by 300ms
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(searchTerm.trim())
+    }, 300)
+    return () => clearTimeout(handler)
+  }, [searchTerm])
+
+  // Sync state if category query param in URL changes (e.g. back button or breadcrumb)
+  useEffect(() => {
+    const cat = searchParams.get('category') || 'ALL'
+    setSelectedCategory(cat)
+  }, [searchParams])
+
   const loadArticles = useCallback(() => {
     setLoading(true)
     setError(null)
 
-    fetchArticles(selectedCategory, query)
+    fetchArticles(selectedCategory, debouncedQuery)
       .then((data) => {
         setArticles(data || [])
         setLoading(false)
       })
       .catch((err) => {
         setError(
-          err?.message || 'Could not load articles from backend. Please verify backend is running.'
+          err?.message ||
+            "We couldn't reach the InFinance server. Please try again in a few minutes."
         )
         setLoading(false)
       })
-  }, [selectedCategory, query])
+  }, [selectedCategory, debouncedQuery])
 
   useEffect(() => {
     loadArticles()
@@ -81,8 +106,8 @@ export default function LearnHubPage() {
             type="search"
             aria-label="Search articles by title, topic or tags"
             placeholder="Search guides (e.g. SIP, 80C, CIBIL, PPF, Emergency fund)…"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="input-field hub-search-input"
           />
         </div>
@@ -152,6 +177,41 @@ export default function LearnHubPage() {
           ))}
         </div>
       </DataState>
+
+      {/* Evergreen Links when server is unreachable */}
+      {error && !loading && (
+        <div
+          className="card evergreen-fallback-card reveal"
+          style={{ marginTop: '24px', padding: '24px' }}
+        >
+          <div className="section-label">ALWAYS AVAILABLE · CLIENT TOOLS</div>
+          <h3 style={{ margin: '8px 0 6px' }}>Explore Calculators &amp; Glossary</h3>
+          <p style={{ color: 'var(--ink-muted)', fontSize: '14px', margin: '0 0 16px' }}>
+            While we reconnect to the server, explore our interactive calculators and financial
+            glossary:
+          </p>
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <Link to="/sip" className="btn btn-secondary btn-sm">
+              SIP Planner ↗
+            </Link>
+            <Link to="/loan" className="btn btn-secondary btn-sm">
+              Loan &amp; Prepayment ↗
+            </Link>
+            <Link to="/fixed" className="btn btn-secondary btn-sm">
+              Fixed Income ↗
+            </Link>
+            <Link to="/mutual" className="btn btn-secondary btn-sm">
+              Mutual Funds ↗
+            </Link>
+            <Link to="/planning" className="btn btn-secondary btn-sm">
+              Smart Planning ↗
+            </Link>
+            <Link to="/glossary" className="btn btn-secondary btn-sm">
+              Financial Glossary ↗
+            </Link>
+          </div>
+        </div>
+      )}
 
       {/* Bottom CTA to Roadmap & Glossary */}
       <div className="card hub-footer-cta reveal" style={{ marginTop: '40px', padding: '28px' }}>

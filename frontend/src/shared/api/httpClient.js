@@ -102,6 +102,22 @@ export async function request(path, options = {}) {
       if (userSignal) userSignal.removeEventListener('abort', onUserAbort)
 
       const correlationId = response.headers.get('X-Correlation-ID')
+      const contentType = response.headers.get('content-type') || ''
+      const isHtmlHeader = contentType.toLowerCase().includes('text/html')
+
+      const text = await response.text()
+      const isHtmlBody = /^\s*<!doctype/i.test(text) || /^\s*<html/i.test(text)
+      const isHtml = isHtmlHeader || isHtmlBody
+
+      // Detect HTML fallback (e.g. Netlify 200 SPA rewrite for missing backend or 503 error page)
+      if (isHtml) {
+        throw new ApiError({
+          status: response.status,
+          code: 'API_UNREACHABLE',
+          message: "We couldn't reach the InFinance server. Please try again in a few minutes.",
+          correlationId,
+        })
+      }
 
       // Global 401 handling — clear session and notify subscribers
       if (response.status === 401) {
@@ -124,7 +140,6 @@ export async function request(path, options = {}) {
         continue
       }
 
-      const text = await response.text()
       let payload = {}
       if (text.trim()) {
         try {
