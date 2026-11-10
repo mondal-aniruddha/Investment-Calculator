@@ -34,9 +34,7 @@ export function GlossaryTermCard({ term: item, highlighted = false, cardRef = nu
 
       <p className="glossary-short-def">{item.shortDefinition}</p>
 
-      {item.detailedExplainer && (
-        <p className="glossary-detailed-exp">{item.detailedExplainer}</p>
-      )}
+      {item.detailedExplainer && <p className="glossary-detailed-exp">{item.detailedExplainer}</p>}
 
       {item.relatedUrl && (
         <div className="glossary-term-action">
@@ -48,4 +46,3 @@ export function GlossaryTermCard({ term: item, highlighted = false, cardRef = nu
     </article>
   )
 }
-

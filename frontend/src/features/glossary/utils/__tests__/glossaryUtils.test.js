@@ -164,4 +164,3 @@ describe('filterTerms', () => {
     expect(SAMPLE).toEqual(original)
   })
 })
-

@@ -164,8 +164,8 @@ test('c: search narrows glossary results and query survives tab switch', async (
   // Type a narrow query
   await searchInput.fill('SIP')
 
-  // Count should now be fewer than 18 (terms that don't match SIP are filtered)
-  await expect(page.locator('.glossary-result-count')).toContainText('of 18')
+  // Wait for debounced search (300ms) to filter results (count should drop from 18)
+  await expect(page.locator('.glossary-result-count')).not.toContainText('18 of 18')
   const countText = await page.locator('.glossary-result-count').textContent()
   const match = countText.match(/Showing (\d+) of 18/)
   expect(match).not.toBeNull()

@@ -77,4 +77,3 @@ export function filterTerms(terms, selectedCategory, query) {
     return matchCat && matchQuery
   })
 }
-

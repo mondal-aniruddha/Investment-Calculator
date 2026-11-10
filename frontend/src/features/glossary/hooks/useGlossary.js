@@ -48,4 +48,3 @@ export function useGlossary() {
 
   return { terms, loading, error: null, isFallback, reload: load, categories }
 }
-

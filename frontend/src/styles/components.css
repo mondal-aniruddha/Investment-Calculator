@@ -2512,7 +2512,6 @@ input[type='range'] {
   margin-top: 4px;
 }
 
-
 /* ==========================================================================
    Learn Hub — Guides / Glossary view tabs
    ========================================================================== */
@@ -2534,7 +2533,10 @@ input[type='range'] {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.01em;
-  transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast);
+  transition:
+    background var(--dur-fast),
+    color var(--dur-fast),
+    border-color var(--dur-fast);
 }
 
 .learn-view-tab[aria-selected='true'],
@@ -2589,7 +2591,9 @@ input[type='range'] {
   font-weight: 600;
   color: var(--ink-muted);
   text-decoration: none;
-  transition: background var(--dur-fast), color var(--dur-fast);
+  transition:
+    background var(--dur-fast),
+    color var(--dur-fast);
 }
 
 .glossary-jump-btn:hover,
@@ -2619,9 +2623,15 @@ input[type='range'] {
 
 /* Deep-link / highlighted term card */
 @keyframes glossary-highlight-pulse {
-  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent); }
-  70%  { box-shadow: 0 0 0 10px transparent; }
-  100% { box-shadow: 0 0 0 0 transparent; }
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
 }
 
 .glossary-term-highlighted {

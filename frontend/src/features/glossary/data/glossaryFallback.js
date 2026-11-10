@@ -189,4 +189,3 @@ export const GLOSSARY_FALLBACK = [
     relatedUrl: '/planning',
   },
 ]
-

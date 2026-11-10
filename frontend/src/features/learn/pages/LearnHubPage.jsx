@@ -46,8 +46,12 @@ export default function LearnHubPage() {
 
   // ── Glossary state (category filter local, terms from hook) ──
   const [selectedGlossaryCategory, setSelectedGlossaryCategory] = useState('ALL')
-  const { terms, loading: glossaryLoading, isFallback, categories: glossaryCategories } =
-    useGlossary()
+  const {
+    terms,
+    loading: glossaryLoading,
+    isFallback,
+    categories: glossaryCategories,
+  } = useGlossary()
 
   // ── Tab refs for roving tabindex / arrow-key navigation ──
   const tabRefs = [useRef(null), useRef(null)]
@@ -129,8 +133,7 @@ export default function LearnHubPage() {
   }
 
   // ── Derived values ──
-  const shownCategories =
-    activeView === 'guides' ? GUIDE_CATEGORIES : glossaryCategories
+  const shownCategories = activeView === 'guides' ? GUIDE_CATEGORIES : glossaryCategories
   const selectedCategory =
     activeView === 'guides' ? selectedGuideCategory : selectedGlossaryCategory
   const handleCategoryChange =
@@ -138,10 +141,7 @@ export default function LearnHubPage() {
 
   const seoTitle =
     activeView === 'glossary'
-      ? t(
-          'glossary.seoTitle',
-          'Financial Glossary — Jargon-Free Definitions for Young Indians'
-        )
+      ? t('glossary.seoTitle', 'Financial Glossary — Jargon-Free Definitions for Young Indians')
       : t('learn.seoTitle', 'Learn Hub — Plain-Language Money Guides for Young Indians')
 
   const seoDesc =
@@ -158,10 +158,7 @@ export default function LearnHubPage() {
   const searchPlaceholder =
     activeView === 'glossary'
       ? t('glossary.searchPlaceholder', 'Search terms (e.g. CAGR, XIRR, 80C, NAV, CIBIL)…')
-      : t(
-          'learn.searchPlaceholder',
-          'Search guides (e.g. SIP, 80C, CIBIL, PPF, Emergency fund)…'
-        )
+      : t('learn.searchPlaceholder', 'Search guides (e.g. SIP, 80C, CIBIL, PPF, Emergency fund)…')
 
   return (
     <div className="learn-hub page-container" ref={revealRef}>
@@ -395,15 +392,10 @@ export default function LearnHubPage() {
       </div>
 
       {/* ── Bottom CTA — Glossary button now switches view in-page ── */}
-      <div
-        className="card hub-footer-cta reveal"
-        style={{ marginTop: '40px', padding: '28px' }}
-      >
+      <div className="card hub-footer-cta reveal" style={{ marginTop: '40px', padding: '28px' }}>
         <div className="hub-footer-cta-inner">
           <div>
-            <h3 style={{ margin: '0 0 6px' }}>
-              {t('learn.ctaTitle', 'New to personal finance?')}
-            </h3>
+            <h3 style={{ margin: '0 0 6px' }}>{t('learn.ctaTitle', 'New to personal finance?')}</h3>
             <p style={{ color: 'var(--ink-muted)', margin: 0 }}>
               {t(
                 'learn.ctaSubtitle',

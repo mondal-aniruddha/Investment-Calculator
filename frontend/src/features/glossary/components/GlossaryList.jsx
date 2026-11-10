@@ -1,7 +1,12 @@
 import { useMemo, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GlossaryTermCard } from './GlossaryTermCard'
-import { sortTerms, groupTermsByLetter, getJumpBarLetters, filterTerms } from '../utils/glossaryUtils'
+import {
+  sortTerms,
+  groupTermsByLetter,
+  getJumpBarLetters,
+  filterTerms,
+} from '../utils/glossaryUtils'
 
 /**
  * GlossaryList — full alphabetical glossary with A–Z jump bar, fallback notice,
@@ -120,8 +125,7 @@ export function GlossaryList({
           <div className="glossary-dictionary-grid">
             {groupTerms.map((item) => {
               const isHighlighted =
-                !!highlightTerm &&
-                item.term.toLowerCase() === highlightTerm.toLowerCase()
+                !!highlightTerm && item.term.toLowerCase() === highlightTerm.toLowerCase()
               return (
                 <GlossaryTermCard
                   key={item.term}
@@ -137,4 +141,3 @@ export function GlossaryList({
     </div>
   )
 }
-
