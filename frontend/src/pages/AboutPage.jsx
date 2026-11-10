@@ -105,44 +105,6 @@ export default function AboutPage() {
           </li>
         </ul>
       </div>
-
-      {/* ── Contact ── */}
-      <div className="card about-section reveal">
-        <h2>🔗 Links</h2>
-        <ul className="about-sources">
-          <li>
-            <a
-              href="https://github.com/mondal-aniruddha/Investment-Calculator"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: 'var(--accent)' }}
-            >
-              GitHub repository
-            </a>
-          </li>
-          <li>
-            API docs:{' '}
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
-              /swagger-ui.html
-            </span>{' '}
-            (when backend is running)
-          </li>
-          <li>
-            Live site:{' '}
-            <a
-              href="https://infinance-home.netlify.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: 'var(--accent)' }}
-            >
-              infinance-home.netlify.app
-            </a>
-          </li>
-        </ul>
-        <p style={{ marginTop: '16px', fontSize: '12px', color: 'var(--ink-faint)' }}>
-          © 2025 InFinance · Built for educational purposes · India · INR
-        </p>
-      </div>
     </div>
   )
 }
