@@ -106,4 +106,53 @@ describe('httpClient.js', () => {
     await expect(httpClient.get('/api/v1/auth/profile')).rejects.toThrow(ApiError)
     expect(sessionStorage.getItem('infinance-token')).toBeNull()
   })
+
+  it('detects HTML response and throws API_UNREACHABLE without retrying', async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      headers: new Headers({ 'Content-Type': 'text/html; charset=UTF-8' }),
+      text: async () => '<!doctype html><html><head><title>InFinance</title></head><body></body></html>',
+    })
+
+    const promise = httpClient.get('/api/v1/learn/articles')
+    await expect(promise).rejects.toThrow(ApiError)
+    await expect(promise).rejects.toMatchObject({
+      code: 'API_UNREACHABLE',
+      message: "We couldn't reach the InFinance server. Please try again in a few minutes.",
+    })
+    // Ensure no retries occurred for HTML
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+  })
+
+  it('detects HTML body even without content-type header and does not retry 503 HTML', async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 503,
+      headers: new Headers(),
+      text: async () => '<html><body>Error</body></html>',
+    })
+
+    const promise = httpClient.get('/api/v1/test')
+    await expect(promise).rejects.toMatchObject({
+      code: 'API_UNREACHABLE',
+      status: 503,
+    })
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+  })
+
+  it('throws INVALID_JSON_RESPONSE for genuinely malformed non-HTML responses', async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      status: 200,
+      headers: new Headers({ 'Content-Type': 'application/json' }),
+      text: async () => 'bad-json-syntax{',
+    })
+
+    const promise = httpClient.get('/api/v1/test')
+    await expect(promise).rejects.toMatchObject({
+      code: 'INVALID_JSON_RESPONSE',
+      message: 'The server returned an unparseable response (200).',
+    })
+  })
 })

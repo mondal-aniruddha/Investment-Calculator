@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { marked } from 'marked'
-import { fetchArticleBySlug } from '../api/learnApi'
+import DOMPurify from 'dompurify'
+import { fetchArticleBySlug, fetchArticles } from '../api/learnApi'
 import { SEO } from '../../../components/shared/SEO'
 import { DisclaimerBanner } from '../../../components/shared/DisclaimerBanner'
 import { DataState } from '../../../components/shared/DataState'
@@ -17,6 +18,7 @@ export default function ArticleDetailPage() {
   const { slug } = useParams()
   const navigate = useNavigate()
   const [article, setArticle] = useState(null)
+  const [relatedArticles, setRelatedArticles] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -28,9 +30,21 @@ export default function ArticleDetailPage() {
       .then((data) => {
         setArticle(data)
         setLoading(false)
+        if (data?.category) {
+          fetchArticles(data.category)
+            .then((list) => {
+              const related = (list || [])
+                .filter((item) => item.slug !== data.slug)
+                .slice(0, 3)
+              setRelatedArticles(related)
+            })
+            .catch(() => setRelatedArticles([]))
+        }
       })
       .catch((err) => {
-        setError(err?.message || 'Article not found or backend unavailable.')
+        setError(
+          err?.message || "We couldn't reach the InFinance server. Please try again in a few minutes."
+        )
         setLoading(false)
       })
   }, [slug])
@@ -63,8 +77,8 @@ export default function ArticleDetailPage() {
     )
   }
 
-  // Parse HTML from Markdown
-  const htmlContent = marked.parse(article.bodyMarkdown || '')
+  // Parse HTML from Markdown and sanitize with DOMPurify
+  const htmlContent = DOMPurify.sanitize(marked.parse(article.bodyMarkdown || ''))
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -165,6 +179,39 @@ export default function ArticleDetailPage() {
           <DisclaimerBanner compact={true} />
         </div>
       </article>
+
+      {/* Related Guides in Same Category */}
+      {relatedArticles.length > 0 && (
+        <section className="related-articles-section" style={{ marginTop: '36px' }}>
+          <h3 style={{ fontSize: '20px', marginBottom: '16px' }}>
+            Related Guides in {article.category}
+          </h3>
+          <div
+            className="articles-grid"
+            style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}
+          >
+            {relatedArticles.map((rel) => (
+              <article key={rel.slug} className="card article-card hover-lift">
+                <div className="article-card-meta">
+                  <span className="category-badge">{rel.category}</span>
+                  <span className="read-time-badge">⏱ {rel.readingTimeMinutes} min read</span>
+                </div>
+                <h4 className="article-card-title" style={{ fontSize: '17px', margin: '8px 0' }}>
+                  <Link to={`/learn/${rel.slug}`}>{rel.title}</Link>
+                </h4>
+                <p className="article-card-excerpt" style={{ fontSize: '13px' }}>
+                  {rel.excerpt}
+                </p>
+                <div className="article-card-footer" style={{ marginTop: 'auto' }}>
+                  <Link to={`/learn/${rel.slug}`} className="read-more-link">
+                    Read Guide <span>→</span>
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Back to Hub Nav */}
       <div
