@@ -1,59 +1,26 @@
-import { useState, useEffect, useMemo, useCallback } from 'react'
-import { Link } from 'react-router-dom'
-import { fetchGlossaryTerms } from '../api/glossaryApi'
+import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { SEO } from '../../../components/shared/SEO'
 import { useScrollReveal } from '../../../shared/hooks/useScrollReveal'
 import { DataState } from '../../../components/shared/DataState'
+import { useGlossary } from '../hooks/useGlossary'
+import { GlossaryList } from '../components/GlossaryList'
 
+/**
+ * GlossaryPage — standalone /glossary route.
+ *
+ * This is a thin wrapper around the shared GlossaryList component.
+ * The same component is also embedded in LearnHubPage under /learn?view=glossary.
+ * Supports ?term=<name> for deep linking to a specific term.
+ */
 export default function GlossaryPage() {
-  const [terms, setTerms] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
   const [query, setQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('ALL')
+  const [searchParams] = useSearchParams()
+  const highlightTerm = searchParams.get('term') || ''
   const revealRef = useScrollReveal()
 
-  const loadTerms = useCallback(() => {
-    setLoading(true)
-    setError(null)
-
-    fetchGlossaryTerms()
-      .then((data) => {
-        setTerms(data || [])
-        setLoading(false)
-      })
-      .catch((err) => {
-        setError(err?.message || 'Could not load glossary terms from backend.')
-        setLoading(false)
-      })
-  }, [])
-
-  useEffect(() => {
-    loadTerms()
-  }, [loadTerms])
-
-  // Categories
-  const categories = useMemo(() => {
-    const set = new Set()
-    terms.forEach((t) => {
-      if (t.category) set.add(t.category)
-    })
-    return ['ALL', ...Array.from(set).sort()]
-  }, [terms])
-
-  // Filtered terms
-  const filteredTerms = useMemo(() => {
-    const q = query.toLowerCase().trim()
-    return terms.filter((item) => {
-      const matchCat = selectedCategory === 'ALL' || item.category === selectedCategory
-      const matchQuery =
-        !q ||
-        item.term.toLowerCase().includes(q) ||
-        (item.shortDefinition && item.shortDefinition.toLowerCase().includes(q)) ||
-        (item.detailedExplainer && item.detailedExplainer.toLowerCase().includes(q))
-      return matchCat && matchQuery
-    })
-  }, [terms, selectedCategory, query])
+  const { terms, loading, isFallback, categories } = useGlossary()
 
   return (
     <div className="glossary-page page-container" ref={revealRef}>
@@ -110,43 +77,20 @@ export default function GlossaryPage() {
         ))}
       </div>
 
-      {/* Terms Grid rendered via DataState */}
-      <DataState
-        loading={loading}
-        error={error}
-        empty={filteredTerms.length === 0}
-        onRetry={loadTerms}
-        skeletonCount={6}
-        skeletonType="card"
-        emptyIcon="📖"
-        emptyMessage="No terms match your search"
-        emptySubtitle="Try searching for another term or clear the filter."
-      >
-        <div className="glossary-dictionary-grid">
-          {filteredTerms.map((item) => (
-            <article key={item.term} className="card glossary-term-card hover-lift">
-              <div className="glossary-card-top">
-                <h2 className="glossary-term-name">{item.term}</h2>
-                {item.category && <span className="category-badge">{item.category}</span>}
-              </div>
-
-              <p className="glossary-short-def">{item.shortDefinition}</p>
-
-              {item.detailedExplainer && (
-                <p className="glossary-detailed-exp">{item.detailedExplainer}</p>
-              )}
-
-              {item.relatedUrl && (
-                <div className="glossary-term-action">
-                  <Link to={item.relatedUrl} className="related-calc-btn">
-                    <span>⚡</span> Open Related Tool ↗
-                  </Link>
-                </div>
-              )}
-            </article>
-          ))}
-        </div>
-      </DataState>
+      {/* Loading skeleton — glossary never shows an error card (fallback always provides data) */}
+      {loading ? (
+        <DataState loading skeletonCount={6} skeletonType="card">
+          {null}
+        </DataState>
+      ) : (
+        <GlossaryList
+          terms={terms}
+          isFallback={isFallback}
+          selectedCategory={selectedCategory}
+          query={query}
+          highlightTerm={highlightTerm}
+        />
+      )}
     </div>
   )
 }

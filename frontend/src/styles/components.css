@@ -2511,3 +2511,126 @@ input[type='range'] {
   font-size: 12px;
   margin-top: 4px;
 }
+
+
+/* ==========================================================================
+   Learn Hub — Guides / Glossary view tabs
+   ========================================================================== */
+
+.learn-view-tablist {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.learn-view-tab {
+  padding: 8px 22px;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast);
+}
+
+.learn-view-tab[aria-selected='true'],
+.learn-view-tab.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.learn-view-tab:hover:not([aria-selected='true']) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.learn-view-tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Glossary — Letter headings, A–Z jump bar, result count, fallback notice,
+   deep-link highlight animation
+   ========================================================================== */
+
+.glossary-list-wrapper {
+  margin-top: var(--space-4);
+}
+
+.glossary-letter-heading {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 32px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--line);
+  color: var(--ink-heading, var(--ink));
+  letter-spacing: -0.3px;
+}
+
+.glossary-jump-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.glossary-jump-btn {
+  display: inline-block;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-muted);
+  text-decoration: none;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+
+.glossary-jump-btn:hover,
+.glossary-jump-btn:focus-visible {
+  background: var(--accent-light, color-mix(in srgb, var(--accent) 12%, transparent));
+  color: var(--accent);
+  outline: none;
+}
+
+.glossary-result-count {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin: 0 0 12px;
+}
+
+/* Non-blocking offline notice */
+.glossary-fallback-notice {
+  background: var(--bg-surface, var(--bg-card));
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm, 6px);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-bottom: 16px;
+}
+
+/* Deep-link / highlighted term card */
+@keyframes glossary-highlight-pulse {
+  0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent); }
+  70%  { box-shadow: 0 0 0 10px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+.glossary-term-highlighted {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .glossary-term-highlighted {
+    animation: glossary-highlight-pulse 1.2s ease-out 1;
+  }
+}
